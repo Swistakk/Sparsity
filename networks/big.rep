@@ -1,0 +1,78 @@
+wcol_1(orders/as20000102.deg.txt) = 13
+wcol_1(orders/as20000102.berlin1.txt) = 17
+wcol_1(orders/as20000102.felix1.txt) = 13
+
+wcol_2(orders/as20000102.berlin2.txt) = 41
+wcol_2(orders/as20000102.felix2.txt) = 40
+
+wcol_3(orders/as20000102.berlin3.txt) = 62
+wcol_3(orders/as20000102.felix3.txt) = 84
+
+wcol_4(orders/as20000102.berlin4.txt) = 87
+wcol_4(orders/as20000102.felix4.txt) = 126
+
+wcol_5(orders/as20000102.berlin5.txt) = 108
+wcol_5(orders/as20000102.felix5.txt) = 193
+
+wcol_1(orders/cond-mat.deg.txt) = 18
+wcol_1(orders/cond-mat.berlin1.txt) = 18
+wcol_1(orders/cond-mat.felix1.txt) = 18
+
+wcol_2(orders/cond-mat.berlin2.txt) = 54
+wcol_2(orders/cond-mat.felix2.txt) = 48
+
+wcol_3(orders/cond-mat.berlin3.txt) = 168
+wcol_3(orders/cond-mat.felix3.txt) = 137
+
+wcol_4(orders/cond-mat.berlin4.txt) = 377
+wcol_4(orders/cond-mat.felix4.txt) = 383
+
+wcol_5(orders/cond-mat.berlin5.txt) = 610
+wcol_5(orders/cond-mat.felix5.txt) = 814
+
+wcol_1(orders/hep-th.deg.txt) = 24
+wcol_1(orders/hep-th.berlin1.txt) = 24
+wcol_1(orders/hep-th.felix1.txt) = 24
+
+wcol_2(orders/hep-th.berlin2.txt) = 44
+wcol_2(orders/hep-th.felix2.txt) = 31
+
+wcol_3(orders/hep-th.berlin3.txt) = 128
+wcol_3(orders/hep-th.felix3.txt) = 89
+
+wcol_4(orders/hep-th.berlin4.txt) = 214
+wcol_4(orders/hep-th.felix4.txt) = 204
+
+wcol_5(orders/hep-th.berlin5.txt) = 297
+wcol_5(orders/hep-th.felix5.txt) = 288
+
+wcol_1(orders/p2p-Gnutella04.deg.txt) = 8
+wcol_1(orders/p2p-Gnutella04.berlin1.txt) = 15
+wcol_1(orders/p2p-Gnutella04.felix1.txt) = 8
+
+wcol_2(orders/p2p-Gnutella04.berlin2.txt) = 84
+wcol_2(orders/p2p-Gnutella04.felix2.txt) = 70
+
+wcol_3(orders/p2p-Gnutella04.berlin3.txt) = 416
+wcol_3(orders/p2p-Gnutella04.felix3.txt) = 510
+
+wcol_4(orders/p2p-Gnutella04.berlin4.txt) = 1510
+
+wcol_5(orders/p2p-Gnutella04.berlin5.txt) = 2622
+
+wcol_1(orders/polblogs.deg.txt) = 37
+wcol_1(orders/polblogs.berlin1.txt) = 60
+wcol_1(orders/polblogs.felix1.txt) = 39
+
+wcol_2(orders/polblogs.berlin2.txt) = 200
+wcol_2(orders/polblogs.felix2.txt) = 267
+
+wcol_3(orders/polblogs.berlin3.txt) = 310
+wcol_3(orders/polblogs.felix3.txt) = 453
+
+wcol_4(orders/polblogs.berlin4.txt) = 391
+wcol_4(orders/polblogs.felix4.txt) = 540
+
+wcol_5(orders/polblogs.berlin5.txt) = 419
+wcol_5(orders/polblogs.felix5.txt) = 515
+

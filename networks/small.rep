@@ -1,0 +1,144 @@
+wcol_1(orders/bergen.deg.txt) = 10
+wcol_1(orders/bergen.berlin1.txt) = 11
+wcol_1(orders/bergen.felix1.txt) = 10
+
+wcol_2(orders/bergen.berlin2.txt) = 17
+wcol_2(orders/bergen.felix2.txt) = 22
+
+wcol_3(orders/bergen.berlin3.txt) = 20
+wcol_3(orders/bergen.felix3.txt) = 27
+
+wcol_4(orders/bergen.berlin4.txt) = 22
+wcol_4(orders/bergen.felix4.txt) = 27
+
+wcol_5(orders/bergen.berlin5.txt) = 23
+wcol_5(orders/bergen.felix5.txt) = 29
+
+wcol_1(orders/dolphins.deg.txt) = 5
+wcol_1(orders/dolphins.berlin1.txt) = 7
+wcol_1(orders/dolphins.felix1.txt) = 5
+
+wcol_2(orders/dolphins.berlin2.txt) = 12
+wcol_2(orders/dolphins.felix2.txt) = 15
+
+wcol_3(orders/dolphins.berlin3.txt) = 22
+wcol_3(orders/dolphins.felix3.txt) = 20
+
+wcol_4(orders/dolphins.berlin4.txt) = 25
+wcol_4(orders/dolphins.felix4.txt) = 32
+
+wcol_5(orders/dolphins.berlin5.txt) = 26
+wcol_5(orders/dolphins.felix5.txt) = 33
+
+wcol_1(orders/football.deg.txt) = 9
+wcol_1(orders/football.berlin1.txt) = 11
+wcol_1(orders/football.felix1.txt) = 9
+
+wcol_2(orders/football.berlin2.txt) = 46
+wcol_2(orders/football.felix2.txt) = 36
+
+wcol_3(orders/football.berlin3.txt) = 90
+wcol_3(orders/football.felix3.txt) = 90
+
+wcol_4(orders/football.berlin4.txt) = 96
+wcol_4(orders/football.felix4.txt) = 106
+
+wcol_5(orders/football.berlin5.txt) = 97
+wcol_5(orders/football.felix5.txt) = 110
+
+wcol_1(orders/hex.deg.txt) = 4
+wcol_1(orders/hex.berlin1.txt) = 4
+wcol_1(orders/hex.felix1.txt) = 4
+
+wcol_2(orders/hex.berlin2.txt) = 10
+wcol_2(orders/hex.felix2.txt) = 11
+
+wcol_3(orders/hex.berlin3.txt) = 19
+wcol_3(orders/hex.felix3.txt) = 22
+
+wcol_4(orders/hex.berlin4.txt) = 31
+wcol_4(orders/hex.felix4.txt) = 38
+
+wcol_5(orders/hex.berlin5.txt) = 46
+wcol_5(orders/hex.felix5.txt) = 57
+
+wcol_1(orders/karate.deg.txt) = 5
+wcol_1(orders/karate.berlin1.txt) = 6
+wcol_1(orders/karate.felix1.txt) = 5
+
+wcol_2(orders/karate.berlin2.txt) = 8
+wcol_2(orders/karate.felix2.txt) = 10
+
+wcol_3(orders/karate.berlin3.txt) = 9
+wcol_3(orders/karate.felix3.txt) = 16
+
+wcol_4(orders/karate.berlin4.txt) = 9
+wcol_4(orders/karate.felix4.txt) = 17
+
+wcol_5(orders/karate.berlin5.txt) = 9
+wcol_5(orders/karate.felix5.txt) = 17
+
+wcol_1(orders/lesmiserables.deg.txt) = 10
+wcol_1(orders/lesmiserables.berlin1.txt) = 10
+wcol_1(orders/lesmiserables.felix1.txt) = 10
+
+wcol_2(orders/lesmiserables.berlin2.txt) = 14
+wcol_2(orders/lesmiserables.felix2.txt) = 17
+
+wcol_3(orders/lesmiserables.berlin3.txt) = 18
+wcol_3(orders/lesmiserables.felix3.txt) = 30
+
+wcol_4(orders/lesmiserables.berlin4.txt) = 18
+wcol_4(orders/lesmiserables.felix4.txt) = 33
+
+wcol_5(orders/lesmiserables.berlin5.txt) = 18
+wcol_5(orders/lesmiserables.felix5.txt) = 34
+
+wcol_1(orders/photoviz_dynamic.deg.txt) = 5
+wcol_1(orders/photoviz_dynamic.berlin1.txt) = 6
+wcol_1(orders/photoviz_dynamic.felix1.txt) = 5
+
+wcol_2(orders/photoviz_dynamic.berlin2.txt) = 13
+wcol_2(orders/photoviz_dynamic.felix2.txt) = 13
+
+wcol_3(orders/photoviz_dynamic.berlin3.txt) = 19
+wcol_3(orders/photoviz_dynamic.felix3.txt) = 26
+
+wcol_4(orders/photoviz_dynamic.berlin4.txt) = 25
+wcol_4(orders/photoviz_dynamic.felix4.txt) = 33
+
+wcol_5(orders/photoviz_dynamic.berlin5.txt) = 30
+wcol_5(orders/photoviz_dynamic.felix5.txt) = 43
+
+wcol_1(orders/polbooks.deg.txt) = 7
+wcol_1(orders/polbooks.berlin1.txt) = 10
+wcol_1(orders/polbooks.felix1.txt) = 7
+
+wcol_2(orders/polbooks.berlin2.txt) = 22
+wcol_2(orders/polbooks.felix2.txt) = 21
+
+wcol_3(orders/polbooks.berlin3.txt) = 29
+wcol_3(orders/polbooks.felix3.txt) = 32
+
+wcol_4(orders/polbooks.berlin4.txt) = 33
+wcol_4(orders/polbooks.felix4.txt) = 43
+
+wcol_5(orders/polbooks.berlin5.txt) = 36
+wcol_5(orders/polbooks.felix5.txt) = 49
+
+wcol_1(orders/word_adjacencies.deg.txt) = 7
+wcol_1(orders/word_adjacencies.berlin1.txt) = 9
+wcol_1(orders/word_adjacencies.felix1.txt) = 7
+
+wcol_2(orders/word_adjacencies.berlin2.txt) = 24
+wcol_2(orders/word_adjacencies.felix2.txt) = 25
+
+wcol_3(orders/word_adjacencies.berlin3.txt) = 36
+wcol_3(orders/word_adjacencies.felix3.txt) = 40
+
+wcol_4(orders/word_adjacencies.berlin4.txt) = 45
+wcol_4(orders/word_adjacencies.felix4.txt) = 52
+
+wcol_5(orders/word_adjacencies.berlin5.txt) = 51
+wcol_5(orders/word_adjacencies.felix5.txt) = 59
+
