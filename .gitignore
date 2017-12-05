@@ -1,0 +1,12 @@
+*.depends
+*.o
+/augmental
+/networks_all_formats
+/playground
+/dom/syf
+/dom/celegans1.txt
+/dom/order1.txt
+dom/simple.deg.txt
+dom/test.txtg
+dom/test1.txt
+/dom/power10.2.txt
