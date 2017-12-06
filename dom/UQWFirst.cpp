@@ -46,15 +46,17 @@ int main(int argc, char** argv) {
   }
   
   vector<vector<int>> wreach = ComputeWReach(graph, where_in_order, R, {});
-  int wcol = ComputeWcolFromWReach(wreach);
+  //int wcol = ComputeWcolFromWReach(wreach);
   
   int kl = 1, kp = init_A.size();
   vector<int> best_forb, best_scat;
   while (kl <= kp) {
     int m = (kl + kp) / 2;
+    debug(m, kl, kp);
     vector<int> old_A = init_A;
     vector<int> is_forb(n + 1), forb, scat;
     while (!old_A.empty()) {
+      //debug(old_A.size());
       sort(old_A.begin(), old_A.end(), [&](int a, int b) { return where_in_order[a] < where_in_order[b]; });
       int fir = old_A[0];
       set<int> Aset(old_A.begin(), old_A.end());
@@ -85,7 +87,7 @@ int main(int argc, char** argv) {
         vector<vector<int>> clusters = ComputeClustersFromWReach(wreach);
         int best_alive = -1, who_to_forb = -1;
         for (int v = 1; v <= n; v++) {
-          if (is_forb[v] || Aset.count(v)) { continue; }
+          if (is_forb[v] /*|| Aset.count(v)*/) { continue; }
           int count_alive = 0;
           for (auto u : clusters[v]) {
             if (u != v && Aset.count(u)) {
@@ -109,11 +111,13 @@ int main(int argc, char** argv) {
         wreach = ComputeWReach(graph, where_in_order, R, is_forb);
       }
     }
-    if (scat.size() >= m) {
+    if ((int)scat.size() >= m) {
+      debug("gut");
       kl = scat.size() + 1;
       best_scat = scat;
       best_forb = forb;
     } else {
+      debug("bad");
       kp = m - 1;
     }
   }

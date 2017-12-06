@@ -1,5 +1,4 @@
-//jakies nie wiadomo co aktualnie
-// ma robic greedy domseta, ale jest niekompletne
+// not completed greedy domest
 
 #include <bits/stdc++.h>
 

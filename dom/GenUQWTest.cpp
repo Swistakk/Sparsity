@@ -21,7 +21,7 @@ int main(int argc, char** argv) {
   ofstream gout;
   InitOfstream(gout, argv[1]);
   set<int> ends;
-  while (es.size() < 2 * m) {
+  while ((int)es.size() < 2 * m) {
     int u = rand() % n + 1;
     int v = rand() % n + 1;
     if (es.count({u, v}) || u == v) { continue; }

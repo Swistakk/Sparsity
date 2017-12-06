@@ -35,7 +35,7 @@ vector<vector<int>> ComputeWReach(vector<vector<int>>& graph,
     }
   }
   return res;
-};
+}
 
 
 vector<vector<int>> ComputeClustersFromWReach(vector<vector<int>>& wreach) {
@@ -47,7 +47,7 @@ vector<vector<int>> ComputeClustersFromWReach(vector<vector<int>>& wreach) {
     }
   }
   return clusters;
-};
+}
 
 int ComputeWcolFromWReach(vector<vector<int>>& wreach) {
   int wcol = 1;

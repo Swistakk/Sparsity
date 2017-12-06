@@ -35,10 +35,19 @@ int main(int argc, char** argv) {
   
   vector<vector<int>> wreach = ComputeWReach(graph, where_in_order, R, {});
   int wcol = ComputeWcolFromWReach(wreach);
-//   for (int root = 1; root <= n; root++) {
-//     //cout<<root<<" has col "<<my_col[root]<<endl;
-//     wcol = max(wcol, (int)wreach[root].size());
-//   }
+  vector<int> wreach_szs;
+  for (int v = 1; v <= n; v++) {
+    wreach_szs.PB((int)wreach[v].size());
+    //cout<<root<<" has col "<<my_col[root]<<endl;
+    //wcol = max(wcol, (int)wreach[root].size());
+  }
+  sort(wreach_szs.begin(), wreach_szs.end(), greater<int>());
+  cerr<<"Biggest wreaches:\n";
+  for (int i = 0; i < min((int)wreach_szs.size(), 20); i++) {
+    cerr<<wreach_szs[i]<<", ";
+  }
+  cerr<<endl;
+  
   cout<<"wcol_"<<R<<"("<<order_file<<") = "<<wcol<<endl;
   return 0;
 } 

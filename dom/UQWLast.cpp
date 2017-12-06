@@ -48,12 +48,9 @@ int main(int argc, char** argv) {
   }
   
   vector<vector<int>> wreach = ComputeWReach(graph, where_in_order, R, {});
-  int wcol = ComputeWcolFromWReach(wreach);
+  //int wcol = ComputeWcolFromWReach(wreach);
   
-  //int m = 20;
-  
-  
-  // zadziala i bez filtracji poczatkowej, prawda?
+  // works even without initial filtration, right?
   vector<int> is_forb(n + 1), forb, scat;
   while (!old_A.empty()) {
     sort(old_A.begin(), old_A.end(), [&](int a, int b) { return where_in_order[a] < where_in_order[b]; });

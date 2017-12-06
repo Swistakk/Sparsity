@@ -29,8 +29,8 @@ int main(int argc, char** argv) {
     nonempty_buckets.insert(graph[v].size());
     degree[v] = graph[v].size();
   }
-  int fir_nonempty = 1;
-  int removed_cnt = 0;
+  //int fir_nonempty = 1;
+  //int removed_cnt = 0;
   vector<int> removed_order;
   while (!nonempty_buckets.empty()) {
     int wh_bucket = *(nonempty_buckets.begin());
