@@ -1,5 +1,7 @@
 TODO:
 Wyżyłować Berlin
+Porobic wykresiki
+Wyprobowac 12 wersji Berlina
 Uporządkować folder dom na podfoldery (trzeba jakieś mądre Makefile zrobić :()
 Napisać bruta liczącego wcol w celu weryfikacji
 Zapuścić na huge
@@ -7,3 +9,5 @@ Napisać trudne wielomianowe UQW na nowhere dense
 Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
 Zamienić binsearcha w UQWFirst na ternary searcha
 Zostawic target w UQWLast aby forb nie wybuchał?
+Zrobic szybsze przeliczanie w local searchu (da się chyba tylko przeliczyć klastry ziomków odległych o <=r od ruszanego)
+Zrobic sensowniejsze ruchy w LS (np wywalać w prawo ludzi z dużymi klastrami)

@@ -1,4 +1,4 @@
-EXECS=VerifierWcol greedy BerlinWcol Degeneracy UQWFirst UQWLast VerifierUQW VerifierUQWBrut GenUQWTest SortDeg
+EXECS=VerifierWcol greedy BerlinWcol Degeneracy UQWFirst UQWLast VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcol
 
 OPTFLAGS=-O2 -std=c++11
 OPTLOCALFLAGS= -DLOCAL -std=c++11 -O2
@@ -41,10 +41,13 @@ UQWLast: UQWLast.o ReadTxt.o FilesOps.o ComputeWReach.o
 
 SortDeg: SortDeg.o ReadTxt.o FilesOps.o
 	$(CXX) $(LDFLAGS) $^ -o $@
-	
+
+LSWcol: LSWcol.o ReadTxt.o FilesOps.o ComputeWReach.o
+	$(CXX) $(LDFLAGS) $^ -o $@
+
 	
 .%.depends: %.cpp
-	$(CXX) $(DBGFLAGS) -MM $< -o $@
+	$(CXX) $(CXXFLAGS) -MM $< -o $@
 
 .PHONY: clean
 clean:

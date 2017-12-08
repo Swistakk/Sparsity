@@ -47,7 +47,7 @@ int main(int argc, char** argv) {
     old_A.PB(rand_order[i]);
   }
   
-  vector<vector<int>> wreach = ComputeWReach(graph, where_in_order, R, {});
+  vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
   //int wcol = ComputeWcolFromWReach(wreach);
   
   // works even without initial filtration, right?

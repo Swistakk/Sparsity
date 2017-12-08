@@ -2,7 +2,13 @@
 
 #include "Headers.hpp"
 
-vector<vector<int>> ComputeWReach(vector<vector<int>>& graph,
+// vector<int> ComputeSingleWReach(vector<vector<int>>& graph,
+//                                 vector<int>& where_in_order,
+//                                 int v,  
+//                                 int R,
+//                                 vector<int> is_forb);
+
+vector<vector<int>> ComputeAllWReach(vector<vector<int>>& graph,
                                   vector<int>& where_in_order,
                                   int radius,
                                   vector<int> is_forb);
