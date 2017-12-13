@@ -9,9 +9,9 @@ int main(int argc, char** argv) {
     return 1;
   }
   string graph_file = string(argv[1]); 
-  string format = ".txtg";
-  assert(graph_file.find(format) == graph_file.size() - format.size());
-  string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
+//   string format = ".txtg";
+//   assert(graph_file.find(format) == graph_file.size() - format.size());
+//   string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
   string order_file = string(argv[2]);
   string rad_str = string(argv[3]);
   int R = stoi(rad_str);
@@ -21,20 +21,8 @@ int main(int argc, char** argv) {
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
   //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
-  vector<int> order;
-  ifstream oin;
-  InitIfstream(oin, order_file);
-  vector<int> where_in_order(n + 1);
-  for (int i = 1; i <= n; i++) {
-    int v;
-    oin >> v;
-    //debug(i, v);
-    int mapped = reader.GetMappedFromOriginal(v);
-    assert(mapped != -1 && where_in_order[mapped] == 0);
-    order.PB(mapped);
-    where_in_order[mapped] = i;
-  }
-  oin.close();
+  vector<int> order, where_in_order;
+  tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
   int a_sz = n; // n / 10

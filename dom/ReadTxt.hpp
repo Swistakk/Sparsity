@@ -3,9 +3,11 @@
 #include "Headers.hpp"
 
 struct GraphReader {
-  map<int, int> shrink_indices;
-  map<int, int> inv_shrinking;
+  map<string, int> shrink_indices;
+  map<int, string> inv_shrinking;
   vector<vector<int>> ReadGraph(string filename);
-  int GetOriginalFromMapped(int v);
-  int GetMappedFromOriginal(int v);
+  string GetOriginalFromMapped(int v);
+  int GetMappedFromOriginal(string v);
 };
+
+pair<vector<int>, vector<int>> GetOrderAndWhInOrder(string filename, GraphReader& reader);

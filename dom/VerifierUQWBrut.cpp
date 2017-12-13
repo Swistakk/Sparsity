@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
   int forb_sz, scattered_sz;
   ain >> forb_sz;
   for (int i = 1; i <= forb_sz; i++) {
-    int v;
+    string v;
     ain >> v;
     int mapped = reader.GetMappedFromOriginal(v);
     assert(mapped != -1);
@@ -30,7 +30,7 @@ int main(int argc, char** argv) {
   }
   ain >> scattered_sz;
   for (int i = 1; i <= scattered_sz; i++) {
-    int v;
+    string v;
     ain >> v;
     int mapped = reader.GetMappedFromOriginal(v);
     assert(mapped != -1);

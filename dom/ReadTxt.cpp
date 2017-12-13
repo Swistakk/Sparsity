@@ -5,11 +5,11 @@ vector<vector<int>> GraphReader::ReadGraph(string filename) {
   ifstream in;
   InitIfstream(in, filename);
   string line;
-  vector<pair<int, int>> edges;
+  vector<pair<string, string>> edges;
   while (getline(in, line)) {
     if (line[0] == '#') { continue; }
     stringstream stream(line);
-    int a, b;
+    string a, b;
     stream >> a >> b;
     shrink_indices[a] = shrink_indices[b] = 1;
     edges.push_back({a, b});
@@ -29,12 +29,31 @@ vector<vector<int>> GraphReader::ReadGraph(string filename) {
   return graph;
 }
 
-int GraphReader::GetOriginalFromMapped(int ind) {
+string GraphReader::GetOriginalFromMapped(int ind) {
   if (inv_shrinking.count(ind) == 0) { assert(false); }
   return inv_shrinking[ind];
 }
 
-int GraphReader::GetMappedFromOriginal(int ind) {
+int GraphReader::GetMappedFromOriginal(string ind) {
   if (shrink_indices.count(ind) == 0) { assert(false); }
   return shrink_indices[ind];
+}
+
+pair<vector<int>, vector<int>> GetOrderAndWhInOrder(string filename, GraphReader& reader) {
+  int n = reader.shrink_indices.size();
+  vector<int> order;
+  ifstream oin;
+  InitIfstream(oin, filename);
+  vector<int> where_in_order(n + 1);
+  for (int i = 1; i <= n; i++) {
+    string v;
+    oin >> v;
+    //debug(i, v);
+    int mapped = reader.GetMappedFromOriginal(v);
+    assert(mapped != -1 && where_in_order[mapped] == 0);
+    order.PB(mapped);
+    where_in_order[mapped] = i;
+  }
+  oin.close();
+  return {order, where_in_order};
 }
