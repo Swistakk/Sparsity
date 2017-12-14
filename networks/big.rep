@@ -1,78 +1,198 @@
-wcol_1(orders/as20000102.deg.txt) = 13
-wcol_1(orders/as20000102.berlin1.txt) = 17
-wcol_1(orders/as20000102.felix1.txt) = 13
+wcol_1(orders/as20000102.deg.txt) stats: 13
+wcol_1(orders/as20000102.sortdeg.txt) stats: 17
+wcol_1(orders/as20000102.berlin.bn.txt) stats: 15
+wcol_1(orders/as20000102.berlin.by.txt) stats: 21
+wcol_1(orders/as20000102.berlin.dn.txt) stats: 15
+wcol_1(orders/as20000102.berlin.dy.txt) stats: 21
+wcol_1(orders/as20000102.felix1.txt) stats: 13
 
-wcol_2(orders/as20000102.berlin2.txt) = 41
-wcol_2(orders/as20000102.felix2.txt) = 40
+wcol_2(orders/as20000102.deg.txt) stats: 54
+wcol_2(orders/as20000102.sortdeg.txt) stats: 41
+wcol_2(orders/as20000102.berlin.bn.txt) stats: 45
+wcol_2(orders/as20000102.berlin.by.txt) stats: 58
+wcol_2(orders/as20000102.berlin.dn.txt) stats: 44
+wcol_2(orders/as20000102.berlin.dy.txt) stats: 57
+wcol_2(orders/as20000102.felix2.txt) stats: 40
 
-wcol_3(orders/as20000102.berlin3.txt) = 62
-wcol_3(orders/as20000102.felix3.txt) = 84
+wcol_3(orders/as20000102.deg.txt) stats: 82
+wcol_3(orders/as20000102.sortdeg.txt) stats: 62
+wcol_3(orders/as20000102.berlin.bn.txt) stats: 76
+wcol_3(orders/as20000102.berlin.by.txt) stats: 90
+wcol_3(orders/as20000102.berlin.dn.txt) stats: 75
+wcol_3(orders/as20000102.berlin.dy.txt) stats: 90
+wcol_3(orders/as20000102.felix3.txt) stats: 84
 
-wcol_4(orders/as20000102.berlin4.txt) = 87
-wcol_4(orders/as20000102.felix4.txt) = 126
+wcol_4(orders/as20000102.deg.txt) stats: 112
+wcol_4(orders/as20000102.sortdeg.txt) stats: 89
+wcol_4(orders/as20000102.berlin.bn.txt) stats: 109
+wcol_4(orders/as20000102.berlin.by.txt) stats: 120
+wcol_4(orders/as20000102.berlin.dn.txt) stats: 106
+wcol_4(orders/as20000102.berlin.dy.txt) stats: 121
+wcol_4(orders/as20000102.felix4.txt) stats: 126
 
-wcol_5(orders/as20000102.berlin5.txt) = 108
-wcol_5(orders/as20000102.felix5.txt) = 193
+wcol_5(orders/as20000102.deg.txt) stats: 141
+wcol_5(orders/as20000102.sortdeg.txt) stats: 111
+wcol_5(orders/as20000102.berlin.bn.txt) stats: 141
+wcol_5(orders/as20000102.berlin.by.txt) stats: 160
+wcol_5(orders/as20000102.berlin.dn.txt) stats: 143
+wcol_5(orders/as20000102.berlin.dy.txt) stats: 162
+wcol_5(orders/as20000102.felix5.txt) stats: 193
 
-wcol_1(orders/cond-mat.deg.txt) = 18
-wcol_1(orders/cond-mat.berlin1.txt) = 18
-wcol_1(orders/cond-mat.felix1.txt) = 18
+wcol_1(orders/cond-mat.deg.txt) stats: 18
+wcol_1(orders/cond-mat.sortdeg.txt) stats: 18
+wcol_1(orders/cond-mat.berlin.bn.txt) stats: 25
+wcol_1(orders/cond-mat.berlin.by.txt) stats: 24
+wcol_1(orders/cond-mat.berlin.dn.txt) stats: 25
+wcol_1(orders/cond-mat.berlin.dy.txt) stats: 24
+wcol_1(orders/cond-mat.felix1.txt) stats: 18
 
-wcol_2(orders/cond-mat.berlin2.txt) = 54
-wcol_2(orders/cond-mat.felix2.txt) = 48
+wcol_2(orders/cond-mat.deg.txt) stats: 90
+wcol_2(orders/cond-mat.sortdeg.txt) stats: 54
+wcol_2(orders/cond-mat.berlin.bn.txt) stats: 73
+wcol_2(orders/cond-mat.berlin.by.txt) stats: 73
+wcol_2(orders/cond-mat.berlin.dn.txt) stats: 73
+wcol_2(orders/cond-mat.berlin.dy.txt) stats: 73
+wcol_2(orders/cond-mat.felix2.txt) stats: 48
 
-wcol_3(orders/cond-mat.berlin3.txt) = 168
-wcol_3(orders/cond-mat.felix3.txt) = 137
+wcol_3(orders/cond-mat.deg.txt) stats: 371
+wcol_3(orders/cond-mat.sortdeg.txt) stats: 168
+wcol_3(orders/cond-mat.berlin.bn.txt) stats: 214
+wcol_3(orders/cond-mat.berlin.by.txt) stats: 205
+wcol_3(orders/cond-mat.berlin.dn.txt) stats: 209
+wcol_3(orders/cond-mat.berlin.dy.txt) stats: 208
+wcol_3(orders/cond-mat.felix3.txt) stats: 137
 
-wcol_4(orders/cond-mat.berlin4.txt) = 377
-wcol_4(orders/cond-mat.felix4.txt) = 383
+wcol_4(orders/cond-mat.deg.txt) stats: 934
+wcol_4(orders/cond-mat.sortdeg.txt) stats: 387
+wcol_4(orders/cond-mat.berlin.bn.txt) stats: 493
+wcol_4(orders/cond-mat.berlin.by.txt) stats: 509
+wcol_4(orders/cond-mat.berlin.dn.txt) stats: 484
+wcol_4(orders/cond-mat.berlin.dy.txt) stats: 521
+wcol_4(orders/cond-mat.felix4.txt) stats: 383
 
-wcol_5(orders/cond-mat.berlin5.txt) = 610
-wcol_5(orders/cond-mat.felix5.txt) = 814
+wcol_5(orders/cond-mat.deg.txt) stats: 1640
+wcol_5(orders/cond-mat.sortdeg.txt) stats: 628
+wcol_5(orders/cond-mat.berlin.bn.txt) stats: 848
+wcol_5(orders/cond-mat.berlin.by.txt) stats: 868
+wcol_5(orders/cond-mat.berlin.dn.txt) stats: 835
+wcol_5(orders/cond-mat.berlin.dy.txt) stats: 901
+wcol_5(orders/cond-mat.felix5.txt) stats: 814
 
-wcol_1(orders/hep-th.deg.txt) = 24
-wcol_1(orders/hep-th.berlin1.txt) = 24
-wcol_1(orders/hep-th.felix1.txt) = 24
+wcol_1(orders/hep-th.deg.txt) stats: 24
+wcol_1(orders/hep-th.sortdeg.txt) stats: 24
+wcol_1(orders/hep-th.berlin.bn.txt) stats: 24
+wcol_1(orders/hep-th.berlin.by.txt) stats: 24
+wcol_1(orders/hep-th.berlin.dn.txt) stats: 24
+wcol_1(orders/hep-th.berlin.dy.txt) stats: 24
+wcol_1(orders/hep-th.felix1.txt) stats: 24
 
-wcol_2(orders/hep-th.berlin2.txt) = 44
-wcol_2(orders/hep-th.felix2.txt) = 31
+wcol_2(orders/hep-th.deg.txt) stats: 45
+wcol_2(orders/hep-th.sortdeg.txt) stats: 45
+wcol_2(orders/hep-th.berlin.bn.txt) stats: 54
+wcol_2(orders/hep-th.berlin.by.txt) stats: 60
+wcol_2(orders/hep-th.berlin.dn.txt) stats: 54
+wcol_2(orders/hep-th.berlin.dy.txt) stats: 60
+wcol_2(orders/hep-th.felix2.txt) stats: 31
 
-wcol_3(orders/hep-th.berlin3.txt) = 128
-wcol_3(orders/hep-th.felix3.txt) = 89
+wcol_3(orders/hep-th.deg.txt) stats: 138
+wcol_3(orders/hep-th.sortdeg.txt) stats: 127
+wcol_3(orders/hep-th.berlin.bn.txt) stats: 145
+wcol_3(orders/hep-th.berlin.by.txt) stats: 140
+wcol_3(orders/hep-th.berlin.dn.txt) stats: 147
+wcol_3(orders/hep-th.berlin.dy.txt) stats: 141
+wcol_3(orders/hep-th.felix3.txt) stats: 89
 
-wcol_4(orders/hep-th.berlin4.txt) = 214
-wcol_4(orders/hep-th.felix4.txt) = 204
+wcol_4(orders/hep-th.deg.txt) stats: 300
+wcol_4(orders/hep-th.sortdeg.txt) stats: 211
+wcol_4(orders/hep-th.berlin.bn.txt) stats: 262
+wcol_4(orders/hep-th.berlin.by.txt) stats: 258
+wcol_4(orders/hep-th.berlin.dn.txt) stats: 257
+wcol_4(orders/hep-th.berlin.dy.txt) stats: 268
+wcol_4(orders/hep-th.felix4.txt) stats: 204
 
-wcol_5(orders/hep-th.berlin5.txt) = 297
-wcol_5(orders/hep-th.felix5.txt) = 288
+wcol_5(orders/hep-th.deg.txt) stats: 520
+wcol_5(orders/hep-th.sortdeg.txt) stats: 296
+wcol_5(orders/hep-th.berlin.bn.txt) stats: 406
+wcol_5(orders/hep-th.berlin.by.txt) stats: 373
+wcol_5(orders/hep-th.berlin.dn.txt) stats: 403
+wcol_5(orders/hep-th.berlin.dy.txt) stats: 408
+wcol_5(orders/hep-th.felix5.txt) stats: 288
 
-wcol_1(orders/p2p-Gnutella04.deg.txt) = 8
-wcol_1(orders/p2p-Gnutella04.berlin1.txt) = 15
-wcol_1(orders/p2p-Gnutella04.felix1.txt) = 8
+wcol_1(orders/p2p-Gnutella04.deg.txt) stats: 8
+wcol_1(orders/p2p-Gnutella04.sortdeg.txt) stats: 15
+wcol_1(orders/p2p-Gnutella04.berlin.bn.txt) stats: 26
+wcol_1(orders/p2p-Gnutella04.berlin.by.txt) stats: 33
+wcol_1(orders/p2p-Gnutella04.berlin.dn.txt) stats: 26
+wcol_1(orders/p2p-Gnutella04.berlin.dy.txt) stats: 33
+wcol_1(orders/p2p-Gnutella04.felix1.txt) stats: 8
 
-wcol_2(orders/p2p-Gnutella04.berlin2.txt) = 84
-wcol_2(orders/p2p-Gnutella04.felix2.txt) = 70
+wcol_2(orders/p2p-Gnutella04.deg.txt) stats: 84
+wcol_2(orders/p2p-Gnutella04.sortdeg.txt) stats: 83
+wcol_2(orders/p2p-Gnutella04.berlin.bn.txt) stats: 128
+wcol_2(orders/p2p-Gnutella04.berlin.by.txt) stats: 149
+wcol_2(orders/p2p-Gnutella04.berlin.dn.txt) stats: 126
+wcol_2(orders/p2p-Gnutella04.berlin.dy.txt) stats: 147
+wcol_2(orders/p2p-Gnutella04.felix2.txt) stats: 70
 
-wcol_3(orders/p2p-Gnutella04.berlin3.txt) = 416
-wcol_3(orders/p2p-Gnutella04.felix3.txt) = 510
+wcol_3(orders/p2p-Gnutella04.deg.txt) stats: 658
+wcol_3(orders/p2p-Gnutella04.sortdeg.txt) stats: 424
+wcol_3(orders/p2p-Gnutella04.berlin.bn.txt) stats: 792
+wcol_3(orders/p2p-Gnutella04.berlin.by.txt) stats: 867
+wcol_3(orders/p2p-Gnutella04.berlin.dn.txt) stats: 793
+wcol_3(orders/p2p-Gnutella04.berlin.dy.txt) stats: 871
+wcol_3(orders/p2p-Gnutella04.felix3.txt) stats: 510
 
-wcol_4(orders/p2p-Gnutella04.berlin4.txt) = 1510
+wcol_4(orders/p2p-Gnutella04.deg.txt) stats: 2314
+wcol_4(orders/p2p-Gnutella04.sortdeg.txt) stats: 1516
+wcol_4(orders/p2p-Gnutella04.berlin.bn.txt) stats: 2529
+wcol_4(orders/p2p-Gnutella04.berlin.by.txt) stats: 2528
+wcol_4(orders/p2p-Gnutella04.berlin.dn.txt) stats: 2525
+wcol_4(orders/p2p-Gnutella04.berlin.dy.txt) stats: 2535
+wcol_4(orders/p2p-Gnutella04.felix4.txt) stats: 
+wcol_5(orders/p2p-Gnutella04.deg.txt) stats: 3400
+wcol_5(orders/p2p-Gnutella04.sortdeg.txt) stats: 2511
+wcol_5(orders/p2p-Gnutella04.berlin.bn.txt) stats: 3774
+wcol_5(orders/p2p-Gnutella04.berlin.by.txt) stats: 3720
+wcol_5(orders/p2p-Gnutella04.berlin.dn.txt) stats: 3775
+wcol_5(orders/p2p-Gnutella04.berlin.dy.txt) stats: 3766
+wcol_5(orders/p2p-Gnutella04.felix5.txt) stats: 
+wcol_1(orders/polblogs.deg.txt) stats: 37
+wcol_1(orders/polblogs.sortdeg.txt) stats: 60
+wcol_1(orders/polblogs.berlin.bn.txt) stats: 73
+wcol_1(orders/polblogs.berlin.by.txt) stats: 79
+wcol_1(orders/polblogs.berlin.dn.txt) stats: 73
+wcol_1(orders/polblogs.berlin.dy.txt) stats: 79
+wcol_1(orders/polblogs.felix1.txt) stats: 39
 
-wcol_5(orders/p2p-Gnutella04.berlin5.txt) = 2622
+wcol_2(orders/polblogs.deg.txt) stats: 246
+wcol_2(orders/polblogs.sortdeg.txt) stats: 200
+wcol_2(orders/polblogs.berlin.bn.txt) stats: 283
+wcol_2(orders/polblogs.berlin.by.txt) stats: 327
+wcol_2(orders/polblogs.berlin.dn.txt) stats: 279
+wcol_2(orders/polblogs.berlin.dy.txt) stats: 331
+wcol_2(orders/polblogs.felix2.txt) stats: 267
 
-wcol_1(orders/polblogs.deg.txt) = 37
-wcol_1(orders/polblogs.berlin1.txt) = 60
-wcol_1(orders/polblogs.felix1.txt) = 39
+wcol_3(orders/polblogs.deg.txt) stats: 395
+wcol_3(orders/polblogs.sortdeg.txt) stats: 312
+wcol_3(orders/polblogs.berlin.bn.txt) stats: 426
+wcol_3(orders/polblogs.berlin.by.txt) stats: 466
+wcol_3(orders/polblogs.berlin.dn.txt) stats: 428
+wcol_3(orders/polblogs.berlin.dy.txt) stats: 468
+wcol_3(orders/polblogs.felix3.txt) stats: 453
 
-wcol_2(orders/polblogs.berlin2.txt) = 200
-wcol_2(orders/polblogs.felix2.txt) = 267
+wcol_4(orders/polblogs.deg.txt) stats: 445
+wcol_4(orders/polblogs.sortdeg.txt) stats: 386
+wcol_4(orders/polblogs.berlin.bn.txt) stats: 484
+wcol_4(orders/polblogs.berlin.by.txt) stats: 541
+wcol_4(orders/polblogs.berlin.dn.txt) stats: 486
+wcol_4(orders/polblogs.berlin.dy.txt) stats: 541
+wcol_4(orders/polblogs.felix4.txt) stats: 540
 
-wcol_3(orders/polblogs.berlin3.txt) = 310
-wcol_3(orders/polblogs.felix3.txt) = 453
-
-wcol_4(orders/polblogs.berlin4.txt) = 391
-wcol_4(orders/polblogs.felix4.txt) = 540
-
-wcol_5(orders/polblogs.berlin5.txt) = 419
-wcol_5(orders/polblogs.felix5.txt) = 515
+wcol_5(orders/polblogs.deg.txt) stats: 469
+wcol_5(orders/polblogs.sortdeg.txt) stats: 418
+wcol_5(orders/polblogs.berlin.bn.txt) stats: 512
+wcol_5(orders/polblogs.berlin.by.txt) stats: 562
+wcol_5(orders/polblogs.berlin.dn.txt) stats: 513
+wcol_5(orders/polblogs.berlin.dy.txt) stats: 566
+wcol_5(orders/polblogs.felix5.txt) stats: 515
 

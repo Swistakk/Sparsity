@@ -10,7 +10,11 @@ for input in *.txtg; do
     #fi
     ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.sortdeg.txt $rad --mode=wcol --v;
     #~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.berlin.txt $rad;
-    ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.berlinfixed.txt $rad --mode=wcol --v;
+    for order in b d; do
+      for revv in n y; do
+        ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.berlin.$order$revv.txt $rad --mode=wcol --v;
+      done;
+    done;
     ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.felix$rad.txt $rad --mode=wcol --v;
     printf '\n'
   done;

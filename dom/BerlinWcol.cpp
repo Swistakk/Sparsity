@@ -95,7 +95,7 @@ int main(int argc, char** argv) {
       }
     }
     vector<int> que{root};
-    debug(reader.GetOriginalFromMapped(root));
+//     debug(reader.GetOriginalFromMapped(root));
     last_vis_v[root] = phase_ind;
     last_important[root] = phase_ind;
     parent[root] = -1;
@@ -145,11 +145,11 @@ int main(int argc, char** argv) {
       Dfs(root);
     }
     //debug(blob);
-    cerr<<"blob: ";
-    for (auto v : blob) {
-      cerr<<reader.GetOriginalFromMapped(v)<<", ";
-    }
-    cerr<<endl;;
+//     cerr<<"blob: ";
+//     for (auto v : blob) {
+//       cerr<<reader.GetOriginalFromMapped(v)<<", ";
+//     }
+//     cerr<<endl;;
     if (rev) {
       reverse(blob.begin(), blob.end());
     }
