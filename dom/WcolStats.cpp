@@ -10,7 +10,7 @@ void Err() {
 }
 
 int main(int argc, char** argv) {
-  if (string(argv[1]) == "--h") {
+  if (argc == 2 && string(argv[1]) == "--h") {
     cerr<<"Usage: graph.txtg order.txt radius --mode=wcol/sizes/full [--v]"<<endl;
     cerr<<"mode=\n";
     cerr<<"  wcol - prints just wcol\n";
@@ -71,7 +71,7 @@ int main(int argc, char** argv) {
 //     }
 //   }
 //   cerr<<"]\n";
-  sort(wreach_szs.begin(), wreach_szs.end(), greater<int>());
+  //sort(wreach_szs.begin(), wreach_szs.end(), greater<int>());
 //   cerr<<"Biggest wreaches:\n";
 //   for (int i = 0; i < min((int)wreach_szs.size(), 20); i++) {
 //     cerr<<wreach_szs[i]<<", ";

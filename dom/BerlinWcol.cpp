@@ -2,18 +2,75 @@
 #include "ReadTxt.hpp"
 #include "FilesOps.hpp"
 
+void Err() {
+  cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes [--o=output.txt]"<<endl;
+  cerr<<"--h for help\n";
+  exit(1);
+}
+
 int main(int argc, char** argv) {
-  if (argc != 2) {
-    cerr<<"Usage: ./BerlinWcol graph.txtg"<<endl;
+  if (argc == 2 && string(argv[1]) == "--h") {
+    cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes [--o=output.txt]"<<endl;
+    cerr<<"order=\n";
+    cerr<<"  bfs - considers ordering vertices from new blob in bfs order\n";
+    cerr<<"  dfs - or in dfs order\n";
+    cerr<<"rev=\n";
+    cerr<<"  no - puts vertices in order in specified order\n";
+    cerr<<"  yes - reverses this order\n";
+    cerr<<"o - if you want to print order in not default output file\n"; 
+    return 0;
+  }
+  if (argc != 4 && argc != 5) {
+    Err();
     return 1;
   }
   string graph_file = string(argv[1]);
-//   string rad_str = string(argv[2]);
   string format = ".txtg";
   assert(graph_file.find(format) == graph_file.size() - format.size());
-  string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
-  string output_file = "orders/" + graph_name + ".berlinfixed.txt";
-//   int R = stoi(rad_str);
+  int last_slash = -1;
+  for (int i = 0; i < graph_file.size(); i++) {
+    if (graph_file[i] == '/') {
+      last_slash = i;
+    }
+  }
+  string graph_dir = graph_file.substr(0, last_slash + 1);
+  string graph_name = graph_file.substr(last_slash + 1, (int)graph_file.size() - format.size() - last_slash - 1);
+  string order_arg = string(argv[2]);
+  string order_pref = "--order=";
+  bool bfs_order = false, dfs_order = false;
+  if (order_arg.substr(0, order_pref.size()) != order_pref) {
+    Err();
+  }
+  string order_flag = order_arg.substr(order_pref.size());
+  if (order_flag == "bfs") {
+    bfs_order = true;
+  } else if (order_flag == "dfs") {
+    dfs_order = true;
+  } else {
+    Err();
+  }
+  string rev_arg = string(argv[3]);
+  string rev_pref = "--rev=";
+  bool rev = false;
+  if (rev_arg.substr(0, rev_pref.size()) != rev_pref) {
+    Err();
+  }
+  string rev_flag = rev_arg.substr(rev_pref.size());
+  if (rev_flag == "yes") {
+    rev = true;
+  } else if (rev_flag != "no") {
+    Err();
+  }
+  string output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bd"[dfs_order] + "ny"[rev] + ".txt";
+  debug(output_file);
+  if (argc == 5) {
+    string o_arg = string(argv[4]);
+    string o_pref = "--o";
+    if (o_arg.substr(0, o_pref.size()) != o_pref) {
+      Err();
+    }
+    output_file = o_arg.substr(o_pref.size());
+  }
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
@@ -38,6 +95,7 @@ int main(int argc, char** argv) {
       }
     }
     vector<int> que{root};
+    debug(reader.GetOriginalFromMapped(root));
     last_vis_v[root] = phase_ind;
     last_important[root] = phase_ind;
     parent[root] = -1;
@@ -56,18 +114,46 @@ int main(int argc, char** argv) {
         }
       }
     }
-    int cp_weak_order_sz = weak_order.size();
+    
+    vector<int> blob;
     for (int ii = (int)que.size() - 1; ii >= 0; ii--) {
       int cur_v = que[ii];
       if (last_important[cur_v] == phase_ind) {
-        weak_order.PB(cur_v);
         wh_cc[cur_v] = phase_ind;
         if (parent[cur_v] != -1) {
           last_important[parent[cur_v]] = phase_ind;
         }
       }
     }
-    reverse(weak_order.begin() + cp_weak_order_sz, weak_order.end());
+    if (bfs_order) {
+      for (int ii = 0; ii < (int)que.size(); ii++) {
+        int cur_v = que[ii];
+        if (last_important[cur_v] == phase_ind) {
+          blob.PB(cur_v);
+        }
+      }
+    } else {
+      assert(dfs_order);
+      function<void(int)> Dfs = [&](int v) {
+        blob.PB(v);
+        last_important[v] = -1;
+        for (auto nei : graph[v]) {
+          if (last_important[nei] != phase_ind) { continue; }
+          Dfs(nei);
+        }
+      };
+      Dfs(root);
+    }
+    //debug(blob);
+    cerr<<"blob: ";
+    for (auto v : blob) {
+      cerr<<reader.GetOriginalFromMapped(v)<<", ";
+    }
+    cerr<<endl;;
+    if (rev) {
+      reverse(blob.begin(), blob.end());
+    }
+    weak_order.insert(weak_order.end(), blob.begin(), blob.end());
     //added_cnts.PB(weak_order.size() - cp_weak_order_sz);
   }
   
