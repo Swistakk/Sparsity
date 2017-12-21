@@ -16,6 +16,7 @@ for input in *.txtg; do
       done;
     done;
     ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.felix$rad.txt $rad --mode=wcol --v;
+    ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.random.txt $rad --mode=wcol --v;  
     printf '\n'
   done;
 done
