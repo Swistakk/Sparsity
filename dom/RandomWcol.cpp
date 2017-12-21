@@ -22,7 +22,7 @@ int main(int argc, char** argv) {
   string format = ".txtg";
   assert(graph_file.find(format) == graph_file.size() - format.size());
   int last_slash = -1;
-  for (int i = 0; i < graph_file.size(); i++) {
+  for (int i = 0; i < (int)graph_file.size(); i++) {
     if (graph_file[i] == '/') {
       last_slash = i;
     }

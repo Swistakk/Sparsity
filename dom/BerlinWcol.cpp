@@ -3,24 +3,28 @@
 #include "FilesOps.hpp"
 
 void Err() {
-  cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes [--o=output.txt]"<<endl;
+  cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
 
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes [--o=output.txt]"<<endl;
+    cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
     cerr<<"order=\n";
     cerr<<"  bfs - considers ordering vertices from new blob in bfs order\n";
     cerr<<"  dfs - or in dfs order\n";
     cerr<<"rev=\n";
     cerr<<"  no - puts vertices in order in specified order\n";
     cerr<<"  yes - reverses this order\n";
+    cerr<<"rule=\n";
+    cerr<<"  all - as next root takes vertex of maximum degree among remaining vertices\n";
+    cerr<<"  neis_of_past - maximum degree among remaining vertices that are neis of past\n";
+    cerr<<"  neis_in_past - maximum (neis \\cap past)\n"; 
     cerr<<"o - if you want to print order in not default output file\n"; 
     return 0;
   }
-  if (argc != 4 && argc != 5) {
+  if (argc != 5 && argc != 6) {
     Err();
     return 1;
   }
@@ -28,7 +32,7 @@ int main(int argc, char** argv) {
   string format = ".txtg";
   assert(graph_file.find(format) == graph_file.size() - format.size());
   int last_slash = -1;
-  for (int i = 0; i < graph_file.size(); i++) {
+  for (int i = 0; i < (int)graph_file.size(); i++) {
     if (graph_file[i] == '/') {
       last_slash = i;
     }
@@ -61,11 +65,27 @@ int main(int argc, char** argv) {
   } else if (rev_flag != "no") {
     Err();
   }
-  string output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bd"[dfs_order] + "ny"[rev] + ".txt";
+  string rule_arg = string(argv[4]);
+  string rule_pref = "--rule=";
+  bool all_rule = false, neis_of_past_rule = false, neis_in_past_rule = false;
+  if (rule_arg.substr(0, rule_pref.size()) != rule_pref) {
+    Err();
+  }
+  string rule_flag = rule_arg.substr(rule_pref.size());
+  if (rule_flag == "all") {
+    all_rule = true;
+  } else if (rule_flag == "neis_of_past") {
+    neis_of_past_rule = true;
+  } else {
+    assert(rule_flag == "neis_in_past");
+    neis_in_past_rule = true;
+  }
+  string output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bd"[dfs_order]
+      + "ny"[rev] + "aoi"[neis_of_past_rule ? 1 : (all_rule ? 0 : 2)] + ".txt";
   debug(output_file);
-  if (argc == 5) {
-    string o_arg = string(argv[4]);
-    string o_pref = "--o";
+  if (argc == 6) {
+    string o_arg = string(argv[5]);
+    string o_pref = "--o=";
     if (o_arg.substr(0, o_pref.size()) != o_pref) {
       Err();
     }
@@ -82,18 +102,62 @@ int main(int argc, char** argv) {
   vector<int> last_vis_cc(n + 1);
   vector<int> last_important(n + 1);
   vector<int> parent(n + 1);
-  int got = 0;
   int phase_ind = 0;
   vector<int> weak_order;
   vector<int> added_cnts;
+  function<int(int)> CntNeisInPast = [&](int v) { // can be made faster
+    int res = 0;
+    for (auto nei : graph[v]) {
+      if (wh_cc[nei] != -1) {
+        res++;
+      }
+    }
+    return res;
+  };
+  function<bool(int)> IsValidRoot = [&](int v) {
+    if (wh_cc[v] != -1) {
+      return false;
+    }
+    if (all_rule || neis_in_past_rule) {
+      return true;
+    }
+    for (auto nei : graph[v]) { // can be made faster
+      if (wh_cc[nei] != -1) {
+        return true;
+      }
+    }
+    return false;
+  };
+  function<bool(int, int)> BetterRootThan = [&](int v, int cur_root) {
+    if (all_rule || neis_of_past_rule) {
+      return graph[v].size() > graph[cur_root].size();
+    }
+    int cnt_v = CntNeisInPast(v),
+        cnt_root = CntNeisInPast(cur_root);
+    if (cnt_v != cnt_root) { return cnt_v > cnt_root; }
+    return graph[v].size() > graph[cur_root].size();
+  };
   while ((int)weak_order.size() < n) {
     phase_ind++;
     int root = -1;
     for (int v = 1; v <= n; v++) {
-      if (wh_cc[v] == -1 && (root == -1 || graph[v].size() > graph[root].size())) {
+      if (IsValidRoot(v) && (root == -1 || BetterRootThan(v, root))) {
         root = v;
       }
     }
+    if (root == -1) {
+      assert(neis_of_past_rule);
+      all_rule = true;
+      neis_of_past_rule = false;
+      for (int v = 1; v <= n; v++) {
+        if (IsValidRoot(v) && (root == -1 || BetterRootThan(v, root))) {
+          root = v;
+        }
+      }
+      all_rule = false;
+      neis_of_past_rule = true;
+    }
+      
     vector<int> que{root};
 //     debug(reader.GetOriginalFromMapped(root));
     last_vis_v[root] = phase_ind;
