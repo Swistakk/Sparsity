@@ -7,9 +7,14 @@ for revv in n y; do
   done
 done
 progs="random deg sortdeg felix1 felix2 felix3 felix4 felix5 $berlins";
+last_prog="berlin.dyi"
 printf test,rad,;
 for prog in $progs; do
-  printf $prog,
+  printf $prog
+  if [ $prog != $last_prog ]
+  then
+    printf ,
+  fi
 done
 printf "\n"
 for rad in {1..5}; do
@@ -18,7 +23,10 @@ for rad in {1..5}; do
     printf $name,$rad,
     (for prog in $progs; do
       ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.$prog.txt $rad --mode=wcol;
-      printf ,
+      if [ $prog != $last_prog ]
+      then
+        printf ,
+      fi
     done) | tr -d '\n'
     printf "\n"
   done
