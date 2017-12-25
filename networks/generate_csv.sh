@@ -22,7 +22,7 @@ for rad in {1..5}; do
     name=${input:0:-5};
     printf $name,$rad,
     (for prog in $progs; do
-      ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.$prog.txt $rad --mode=wcol;
+      ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol;
       if [ $prog != $last_prog ]
       then
         printf ,

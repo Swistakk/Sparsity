@@ -1,4 +1,4 @@
 for input in *.txtg; do
-  ~/Dokumenty/Mgr/dom/Degeneracy $input;
+  ~/Dokumenty/Mgr/dom/Degeneracy --in=$input;
 done
     

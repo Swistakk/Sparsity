@@ -95,18 +95,14 @@ int main(int argc, char** argv) {
   vector<int> last_vis_cc(n + 1);
   vector<int> last_important(n + 1);
   vector<int> parent(n + 1);
+  vector<int> degrees_to_past(n + 1);
   int phase_ind = 0;
   vector<int> weak_order;
   vector<int> added_cnts;
   function<int(int)> CntNeisInPast = [&](int v) { // can be made faster
-    int res = 0;
-    for (auto nei : graph[v]) {
-      if (wh_cc[nei] != -1) {
-        res++;
-      }
-    }
-    return res;
+    return degrees_to_past[v];
   };
+  
   function<bool(int)> IsValidRoot = [&](int v) {
     if (wh_cc[v] != -1) {
       return false;
@@ -114,12 +110,7 @@ int main(int argc, char** argv) {
     if (all_rule || neis_in_past_rule) {
       return true;
     }
-    for (auto nei : graph[v]) { // can be made faster
-      if (wh_cc[nei] != -1) {
-        return true;
-      }
-    }
-    return false;
+    return degrees_to_past[v] > 0;
   };
   function<bool(int, int)> BetterRootThan = [&](int v, int cur_root) {
     if (all_rule || neis_of_past_rule) {
@@ -207,6 +198,11 @@ int main(int argc, char** argv) {
 //       cerr<<reader.GetOriginalFromMapped(v)<<", ";
 //     }
 //     cerr<<endl;;
+    for (auto v : blob) {
+      for (auto nei : graph[v]) {
+        degrees_to_past[nei]++;
+      }
+    }
     if (rev) {
       reverse(blob.begin(), blob.end());
     }
