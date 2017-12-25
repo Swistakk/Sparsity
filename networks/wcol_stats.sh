@@ -4,19 +4,15 @@ for input in *.txtg; do
   #name=${input:0:$name_length};
   name=${input:0:-5};
   for rad in {1..5}; do
-    #if [ $rad -eq 1 ]
-    #then 
-    ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.deg.txt $rad --mode=wcol --v;
-    #fi
-    ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.sortdeg.txt $rad --mode=wcol --v;
-    #~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.berlin.txt $rad;
+    ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.deg.txt --rad=$rad --mode=wcol --v;
+    ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.sortdeg.txt --rad=$rad --mode=wcol --v;
     for order in b d; do
       for revv in n y; do
-        ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.berlin.$order$revv.txt $rad --mode=wcol --v;
+        ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.berlin.$order$revv.txt --rad=$rad --mode=wcol --v;
       done;
     done;
-    ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.felix$rad.txt $rad --mode=wcol --v;
-    ~/Dokumenty/Mgr/dom/WcolStats $input orders/$name.random.txt $rad --mode=wcol --v;  
+    ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.felix$rad.txt --rad=$rad --mode=wcol --v;
+    ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.random.txt --rad=$rad --mode=wcol --v;  
     printf '\n'
   done;
 done

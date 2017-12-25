@@ -17,11 +17,13 @@ void FlagParser::ParseFlags(int argc, char** argv) {
     }
     size_t fir_equal = flag.find('=');
     if (fir_equal == string::npos) {
-      throw "No = sign in flag";
+      flags[flag.substr(fir_non_dash)] = "";
+      //throw "No = sign in flag";
+    } else {
+      string name = flag.substr(fir_non_dash, fir_equal - fir_non_dash);
+      string val = flag.substr(fir_equal + 1);
+      flags[name] = val;
     }
-    string name = flag.substr(fir_non_dash, fir_equal - fir_non_dash);
-    string val = flag.substr(fir_equal + 1);
-    flags[name] = val;
   }
 }
 
@@ -35,6 +37,10 @@ string FlagParser::GetFlag(string s, bool required) {
   } else {
     return "";
   }
+}
+
+bool FlagParser::Exist(string s) {
+  return flags.count(s);
 }
 
 void FlagParser::Close() {

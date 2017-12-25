@@ -7,5 +7,6 @@ struct FlagParser {
   set<string> asked; 
   void ParseFlags(int argc, char** argv);
   string GetFlag(string s, bool required);
+  bool Exist(string s);
   void Close();
 };

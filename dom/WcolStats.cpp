@@ -2,16 +2,17 @@
 #include "ReadTxt.hpp"
 #include "FilesOps.hpp"
 #include "ComputeWReach.hpp"
+#include "FlagParser.hpp"
 
 void Err() {
-  cerr<<"Usage: graph.txtg order.txt radius --mode=wcol/sizes/full [--v]"<<endl;
+  cerr<<"Usage: --in_g=graph.txtg --in_o=order.txt --rad=radius --mode=wcol/sizes/full [--v]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
 
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: graph.txtg order.txt radius --mode=wcol/sizes/full [--v]"<<endl;
+    cerr<<"Usage: --in_g=graph.txtg --in_o=order.txt --rad=radius --mode=wcol/sizes/full [--v]"<<endl;
     cerr<<"mode=\n";
     cerr<<"  wcol - prints just wcol\n";
     cerr<<"  sizes - prints sizes of wreaches\n";
@@ -19,32 +20,38 @@ int main(int argc, char** argv) {
     cerr<<"--v (verbose) - print \"wcol_R(order.txt) stats:\"\n";
     return 0;
   }
-  if (argc != 5 && argc != 6) {
-    Err();
-  }
-  string graph_file = string(argv[1]);
-  string order_file = string(argv[2]);
-  string rad_str = string(argv[3]);
-  int R = stoi(rad_str);
-  string mode_arg = string(argv[4]);
-  string mode_pref = "--mode=";
+  string graph_file, order_file;
   bool wcol_mode = false, sizes_mode = false, full_mode = false;
-  if (mode_arg.substr(0, mode_pref.size()) != mode_pref) {
+  int R = -1;
+  try {
+    FlagParser flag_parser;
+    flag_parser.ParseFlags(argc, argv);
+    graph_file = flag_parser.GetFlag("in_g", true);
+    order_file = flag_parser.GetFlag("in_o", true);
+    string rad_str = flag_parser.GetFlag("rad", true);
+    try {
+      R = stoi(rad_str);
+    } catch (...) {
+      cerr<<"Error: Radius must be a positive integer\n";
+    }
+    
+    string mode_flag = flag_parser.GetFlag("mode", true);
+    if (mode_flag == "wcol") {
+      wcol_mode = true;
+    } else if (mode_flag == "sizes") {
+      sizes_mode = true;
+    } else if (mode_flag == "full") {
+      full_mode = true;
+    } else {
+      Err();
+    }
+    
+    if (flag_parser.Exist("v")) {
+      cout<<"wcol_"<<R<<"("<<order_file<<") stats: ";
+    }
+  } catch (string err) {
+    cerr<<"Error: "<<err<<endl;
     Err();
-  }
-  string mode_flag = mode_arg.substr(mode_pref.size());
-  if (mode_flag == "wcol") {
-    wcol_mode = true;
-  } else if (mode_flag == "sizes") {
-    sizes_mode = true;
-  } else if (mode_flag == "full") {
-    full_mode = true;
-  } else {
-    Err();
-  }
-  if (argc == 6) {
-    assert(string(argv[5]) == "--v");
-    cout<<"wcol_"<<R<<"("<<order_file<<") stats: ";
   }
   
   //cout<<"read params"<<endl;
