@@ -45,7 +45,7 @@ pair<vector<int>, vector<int>> GetOrderAndWhInOrder(string filename, GraphReader
   ifstream oin;
   InitIfstream(oin, filename);
   vector<int> where_in_order(n + 1);
-  for (int i = 1; i <= n; i++) {
+  for (int i = 0; i < n; i++) {
     string v;
     oin >> v;
     //debug(i, v);

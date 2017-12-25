@@ -12,7 +12,7 @@ OBJECTS=$(patsubst %.cpp,%.o,$(SOURCES))
 
 all: $(EXECS)
 
-WcolStats: WcolStats.o ReadTxt.o FilesOps.o ComputeWReach.o
+WcolStats: WcolStats.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 VerifierUQW: VerifierUQW.o ReadTxt.o FilesOps.o
@@ -27,10 +27,10 @@ GenUQWTest: GenUQWTest.o ReadTxt.o FilesOps.o
 greedy: greedy.o ReadTxt.o FilesOps.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o
+BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o
+Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 UQWFirst: UQWFirst.o ReadTxt.o FilesOps.o ComputeWReach.o
@@ -39,13 +39,13 @@ UQWFirst: UQWFirst.o ReadTxt.o FilesOps.o ComputeWReach.o
 UQWLast: UQWLast.o ReadTxt.o FilesOps.o ComputeWReach.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-SortDeg: SortDeg.o ReadTxt.o FilesOps.o
+SortDeg: SortDeg.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-LSWcol: LSWcol.o ReadTxt.o FilesOps.o ComputeWReach.o
+LSWcol: LSWcol.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-RandomWcol: RandomWcol.o ReadTxt.o FilesOps.o
+RandomWcol: RandomWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 	

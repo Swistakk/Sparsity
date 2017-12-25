@@ -1,16 +1,17 @@
 #include "Headers.hpp"
 #include "ReadTxt.hpp"
 #include "FilesOps.hpp"
+#include "FlagParser.hpp"
 
 void Err() {
-  cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
+  cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
 
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: ./BerlinWcol graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
+    cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
     cerr<<"order=\n";
     cerr<<"  bfs - considers ordering vertices from new blob in bfs order\n";
     cerr<<"  dfs - or in dfs order\n";
@@ -24,72 +25,64 @@ int main(int argc, char** argv) {
     cerr<<"o - if you want to print order in not default output file\n"; 
     return 0;
   }
-  if (argc != 5 && argc != 6) {
-    Err();
-    return 1;
-  }
-  string graph_file = string(argv[1]);
-  string format = ".txtg";
-  assert(graph_file.find(format) == graph_file.size() - format.size());
-  int last_slash = -1;
-  for (int i = 0; i < (int)graph_file.size(); i++) {
-    if (graph_file[i] == '/') {
-      last_slash = i;
-    }
-  }
-  string graph_dir = graph_file.substr(0, last_slash + 1);
-  string graph_name = graph_file.substr(last_slash + 1, (int)graph_file.size() - format.size() - last_slash - 1);
-  string order_arg = string(argv[2]);
-  string order_pref = "--order=";
-  bool bfs_order = false, dfs_order = false;
-  if (order_arg.substr(0, order_pref.size()) != order_pref) {
-    Err();
-  }
-  string order_flag = order_arg.substr(order_pref.size());
-  if (order_flag == "bfs") {
-    bfs_order = true;
-  } else if (order_flag == "dfs") {
-    dfs_order = true;
-  } else {
-    Err();
-  }
-  string rev_arg = string(argv[3]);
-  string rev_pref = "--rev=";
-  bool rev = false;
-  if (rev_arg.substr(0, rev_pref.size()) != rev_pref) {
-    Err();
-  }
-  string rev_flag = rev_arg.substr(rev_pref.size());
-  if (rev_flag == "yes") {
-    rev = true;
-  } else if (rev_flag != "no") {
-    Err();
-  }
-  string rule_arg = string(argv[4]);
-  string rule_pref = "--rule=";
+  string graph_file, output_file;
+  bool bfs_order = false, dfs_order = false, rev = false;
   bool all_rule = false, neis_of_past_rule = false, neis_in_past_rule = false;
-  if (rule_arg.substr(0, rule_pref.size()) != rule_pref) {
-    Err();
-  }
-  string rule_flag = rule_arg.substr(rule_pref.size());
-  if (rule_flag == "all") {
-    all_rule = true;
-  } else if (rule_flag == "neis_of_past") {
-    neis_of_past_rule = true;
-  } else {
-    assert(rule_flag == "neis_in_past");
-    neis_in_past_rule = true;
-  }
-  string output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bd"[dfs_order]
-      + "ny"[rev] + "aoi"[neis_of_past_rule ? 1 : (all_rule ? 0 : 2)] + ".txt";
-  debug(output_file);
-  if (argc == 6) {
-    string o_arg = string(argv[5]);
-    string o_pref = "--o=";
-    if (o_arg.substr(0, o_pref.size()) != o_pref) {
+  try {
+    FlagParser flag_parser;
+    flag_parser.ParseFlags(argc, argv);
+    graph_file = flag_parser.GetFlag("in", true);
+    debug(graph_file);
+    string format = ".txtg";
+    assert(graph_file.find(format) == graph_file.size() - format.size());
+    int last_slash = -1;
+    for (int i = 0; i < (int)graph_file.size(); i++) {
+      if (graph_file[i] == '/') {
+        last_slash = i;
+      }
+    }
+    string graph_dir = graph_file.substr(0, last_slash + 1);
+    string graph_name = graph_file.substr(last_slash + 1, (int)graph_file.size() - format.size() - last_slash - 1);
+
+    string order_flag = flag_parser.GetFlag("order", true);
+    if (order_flag == "bfs") {
+      bfs_order = true;
+    } else if (order_flag == "dfs") {
+      dfs_order = true;
+    } else {
       Err();
     }
-    output_file = o_arg.substr(o_pref.size());
+    
+    string rev_flag = flag_parser.GetFlag("rev", true);
+    if (rev_flag == "yes") {
+      rev = true;
+    } else if (rev_flag != "no") {
+      Err();
+    }
+    
+    string rule_flag = flag_parser.GetFlag("rule", true);
+    if (rule_flag == "all") {
+      all_rule = true;
+    } else if (rule_flag == "neis_of_past") {
+      neis_of_past_rule = true;
+    } else {
+      assert(rule_flag == "neis_in_past");
+      neis_in_past_rule = true;
+    }
+    
+    output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bd"[dfs_order]
+        + "ny"[rev] + "aoi"[neis_of_past_rule ? 1 : (all_rule ? 0 : 2)] + ".txt";
+    debug(output_file);
+    string cand_output_file = flag_parser.GetFlag("o", false);
+    if (!cand_output_file.empty()) {
+      output_file = cand_output_file;
+      debug(output_file);
+    }
+    
+    flag_parser.Close();
+  } catch (string err) {
+    cerr<<"Error: "<<err<<endl;
+    Err();
   }
   
   GraphReader reader;
