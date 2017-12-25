@@ -1,10 +1,18 @@
-TODO:
-Uporządkować folder dom na podfoldery (trzeba jakieś mądre Makefile zrobić :()
-Napisać bruta liczącego wcol w celu weryfikacji
-Zapuścić na huge
-Napisać trudne wielomianowe UQW na nowhere dense
-Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
+High priority:
+Napisać trudne wielomianowe UQW na nowhere dense (trudne)
 Zamienić binsearcha w UQWFirst na ternary searcha
-Zostawic target w UQWLast aby forb nie wybuchał?
 Zrobic szybsze przeliczanie w local searchu (da się chyba tylko przeliczyć klastry ziomków odległych o <=r od ruszanego)
 Zrobic sensowniejsze ruchy w LS (np wywalać w prawo ludzi z dużymi klastrami)
+Zapytać się Felixa czemu ma lepsze wyniki dla mniejszego promienia
+Dopisac apx_ratio dla Felixa
+Dopisac liczenie czasu do skryptu ze statami
+
+Medium priority:
+Napisać bruta liczącego wcol w celu weryfikacji
+Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
+Zostawic target w UQWLast aby forb nie wybuchał?
+Dorzucic testy
+
+Low priority:
+Zapuścić na huge
+Uporządkować folder dom na podfoldery (trzeba jakieś mądre Makefile zrobić :()

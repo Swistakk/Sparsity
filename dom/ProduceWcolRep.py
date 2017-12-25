@@ -1,5 +1,7 @@
 #!/usr/bin/env python
 
+#./ProduceWcolRep.py ../networks/medium_rep.csv > ../networks/medium_stats.csv
+
 import pandas as pd
 import sys
 import math
@@ -72,5 +74,35 @@ for rad in range(max_rad + 1):
     if berlin_id != len(berlins) - 1:
       sys.stdout.write(',')
   print ("")
+  
+felixs = cols[-17:-12]
+apx_ratio = [[0 for _ in range(len(berlins))] for _ in range(max_rad + 1)]
+for row_id in idx:
+  rad = df['rad'][row_id]
+  best = 100**8
+  for felix_id in range(len(felixs)):
+    felix = felixs[felix_id]
+    best = min(best, df[felix][row_id])
+  for felix_id in range(len(felixs)):
+    felix = felixs[felix_id]
+    apx_ratio[0][felix_id] += 1. * df[felix][row_id] / best
+    apx_ratio[rad][felix_id] += 1. * df[felix][row_id] / best
+print("")
+sys.stdout.write('felixs_apx_ratio,')
+for felix_id in range(len(felixs)):
+  sys.stdout.write(felixs[felix_id])
+  if felix_id != len(felixs) - 1:
+    sys.stdout.write(',')
+print("")
+for rad in range(max_rad + 1):
+  if rad == 0:
+    sys.stdout.write("all,")
+  else:
+    sys.stdout.write(str(rad) + ",")
+  for felix_id in range(len(felixs)):
+    sys.stdout.write(str("%.3f"%(1. * apx_ratio[rad][felix_id] / cnt_data[rad][felix_id])))
+    if felix_id != len(felixs) - 1:
+      sys.stdout.write(',')
+  print("")
 
  
