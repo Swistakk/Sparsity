@@ -1,7 +1,6 @@
 High priority:
   Wcol:
-    Zrobic szybsze przeliczanie w local searchu (da się chyba tylko przeliczyć klastry ziomków odległych o <=r od ruszanego)
-    Zrobic sensowniejsze ruchy w LS (np wywalać w prawo ludzi z dużymi klastrami)
+    Poopcić local searche
     Dopisac liczenie czasu do skryptu ze statami
   UQW:
     Napisać trudne wielomianowe UQW na nowhere dense (trudne)
@@ -10,7 +9,6 @@ High priority:
 
 Medium priority:
   Wcol:
-    Dorzucic blair
     Dorzucic leda
     Napisać bruta liczącego wcol w celu weryfikacji
   UQW:
