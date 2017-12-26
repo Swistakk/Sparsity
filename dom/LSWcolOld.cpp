@@ -7,14 +7,14 @@
 #include "FlagParser.hpp"
 
 void Err() {
-  cerr<<"Usage: ./LSWcol --in_g=graph.txtg --in_o=order.txt --rad=radius [--o=output.txt]"<<endl;
+  cerr<<"Usage: ./LSWcolOld --in_g=graph.txtg --in_o=order.txt --rad=radius [--o=output.txt]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
 
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: ./LSWcol --in_g=graph.txtg --in_o=order.txt --rad=radius [--o=output.txt]"<<endl;
+    cerr<<"Usage: ./LSWcolOld --in_g=graph.txtg --in_o=order.txt --rad=radius [--o=output.txt]"<<endl;
     cerr<<"in_o - file with order to initialize local search with\n";
     cerr<<"o - if you want to print order in not default output file\n"; 
     return 0;

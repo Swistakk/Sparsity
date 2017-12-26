@@ -1,17 +1,22 @@
 High priority:
-Napisać trudne wielomianowe UQW na nowhere dense (trudne)
-Zamienić binsearcha w UQWFirst na ternary searcha
-Zrobic szybsze przeliczanie w local searchu (da się chyba tylko przeliczyć klastry ziomków odległych o <=r od ruszanego)
-Zrobic sensowniejsze ruchy w LS (np wywalać w prawo ludzi z dużymi klastrami)
-Dopisac liczenie czasu do skryptu ze statami
+  Wcol:
+    Zrobic szybsze przeliczanie w local searchu (da się chyba tylko przeliczyć klastry ziomków odległych o <=r od ruszanego)
+    Zrobic sensowniejsze ruchy w LS (np wywalać w prawo ludzi z dużymi klastrami)
+    Dopisac liczenie czasu do skryptu ze statami
+  UQW:
+    Napisać trudne wielomianowe UQW na nowhere dense (trudne)
+    Zamienić binsearcha w UQWFirst na ternary searcha
+
 
 Medium priority:
-Napisać bruta liczącego wcol w celu weryfikacji
-Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
-Zostawic target w UQWLast aby forb nie wybuchał?
-Dorzucic blair
-Dorzucic leda
-Przyspieszyc Berliny
+  Wcol:
+    Dorzucic blair
+    Dorzucic leda
+    Napisać bruta liczącego wcol w celu weryfikacji
+  UQW:
+    Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
+    Zostawic target w UQWLast aby forb nie wybuchał?
+
 
 Low priority:
 Zapuścić na huge
