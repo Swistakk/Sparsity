@@ -100,7 +100,7 @@ int main(int argc, char** argv) {
   
   ofstream out;
   InitOfstream(out, output_file);
-  for (auto v : order) {
+  for (auto v : best_order) {
     out << reader.GetOriginalFromMapped(v) << " ";
   }
   out << endl;

@@ -70,8 +70,8 @@ vector<int> ComputeSingleCluster(vector<vector<int>>& graph,
     res.PB(cur_v);
     if (dis[cur_v] == R) { continue; }
     for (auto nei : graph[cur_v]) {
-      if (last_vis[nei] != root && where_in_order[nei] > where_in_order[root] && (is_forb.empty() || !is_forb[nei])) {
-        last_vis[nei] = root;
+      if (last_vis[nei] != phase_id && where_in_order[nei] > where_in_order[root] && (is_forb.empty() || !is_forb[nei])) {
+        last_vis[nei] = phase_id;
         que.PB(nei);
         dis[nei] = dis[cur_v] + 1;
       }

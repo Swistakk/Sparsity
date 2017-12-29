@@ -80,6 +80,7 @@ int main(int argc, char** argv) {
     que.insert({cur_wreach_set[i].size(), i});
   }
   vector<int> best_order = order;
+  vector<int> best_where_in_order = where_in_order;
   cerr<<"start wcol: "<<best_wcol<<endl;
   
   int tries = 30000;
@@ -126,14 +127,21 @@ int main(int argc, char** argv) {
     if (cur_wcol < best_wcol) {
       best_wcol = cur_wcol;
       best_order = order;
+      best_where_in_order = where_in_order;
+      debug(phase);
     }
   }
   
   cerr<<"new wcol: "<<best_wcol<<endl;
   
+  vector<vector<int>> final_wreach = ComputeAllWReach(graph, best_where_in_order, R, {});
+  int final_wcol = ComputeWcolFromWReach(final_wreach);
+  debug(final_wcol);
+  //assert(best_wcol == final_wcol);
+  
   ofstream out;
   InitOfstream(out, output_file);
-  for (auto v : order) {
+  for (auto v : best_order) {
     out << reader.GetOriginalFromMapped(v) << " ";
   }
   out << endl;

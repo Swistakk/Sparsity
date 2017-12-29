@@ -9,7 +9,6 @@ High priority:
 
 Medium priority:
   Wcol:
-    Dorzucic leda
     Napisać bruta liczącego wcol w celu weryfikacji
   UQW:
     Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
