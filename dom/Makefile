@@ -39,7 +39,7 @@ UQWFirst: UQWFirst.o ReadTxt.o FilesOps.o ComputeWReach.o
 UQWLast: UQWLast.o ReadTxt.o FilesOps.o ComputeWReach.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-SortDeg: SortDeg.o ReadTxt.o FilesOps.o FlagParser.o
+SortDeg: SortDeg.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 LSWcolOld: LSWcolOld.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o

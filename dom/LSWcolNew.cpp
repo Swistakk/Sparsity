@@ -71,13 +71,11 @@ int main(int argc, char** argv) {
   vector<vector<int>> cur_wreach_vec = ComputeAllWReach(graph, where_in_order, R, {});
   vector<vector<int>> cur_clusters = ComputeClustersFromWReach(cur_wreach_vec);
   int best_wcol = ComputeWcolFromWReach(cur_wreach_vec);
-  vector<unordered_set<int>> cur_wreach_set(n + 1);
+  vector<int> cur_wreach_sz(n + 1);
   set<pair<int, int>> que;
   for (int i = 1; i <= n; i++) {
-    for (auto v : cur_wreach_vec[i]) {
-      cur_wreach_set[i].insert(v);
-    }
-    que.insert({cur_wreach_set[i].size(), i});
+    cur_wreach_sz[i] = cur_wreach_vec[i].size();
+    que.insert({cur_wreach_sz[i], i});
   }
   vector<int> best_order = order;
   vector<int> best_where_in_order = where_in_order;
@@ -94,41 +92,44 @@ int main(int argc, char** argv) {
       it = prev(it);
     }
     int who_worst = it->second;
-    int where_worst = where_in_order[who_worst];
-    assert(order[where_worst] == who_worst);
-    int earlier_pos = where_worst - 1;
-    int earlier_who = order[earlier_pos];
-    for (auto source : vector<int>{who_worst, earlier_who}) {
-      for (auto to_upd : cur_clusters[source]) {
-        que.erase({cur_wreach_set[to_upd].size(), to_upd});
-        cur_wreach_set[to_upd].erase(source);
-        que.insert({cur_wreach_set[to_upd].size(), to_upd});
+    int target = max(1, it->first - 1 - rand() % 3);
+    while (cur_wreach_sz[who_worst] > target) {
+      int where_worst = where_in_order[who_worst];
+      assert(order[where_worst] == who_worst);
+      int earlier_pos = where_worst - 1;
+      int earlier_who = order[earlier_pos];
+      for (auto source : vector<int>{who_worst, earlier_who}) {
+        for (auto to_upd : cur_clusters[source]) {
+          que.erase({cur_wreach_sz[to_upd], to_upd});
+          cur_wreach_sz[to_upd]--;
+          que.insert({cur_wreach_sz[to_upd], to_upd});
+        }
       }
-    }
-    swap(order[earlier_pos], order[where_worst]);
-    swap(where_in_order[earlier_who], where_in_order[who_worst]);
-    for (auto source : vector<int>{who_worst, earlier_who}) {
-      cur_clusters[source] = ComputeSingleCluster(graph,
-                                                  where_in_order,
-                                                  R,
-                                                  is_forb,
-                                                  last_vis,
-                                                  dis,
-                                                  source,
-                                                  ++cnt_calls);
-      for (auto to_upd : cur_clusters[source]) {
-        que.erase({cur_wreach_set[to_upd].size(), to_upd});
-        cur_wreach_set[to_upd].insert(source);
-        que.insert({cur_wreach_set[to_upd].size(), to_upd});
+      swap(order[earlier_pos], order[where_worst]);
+      swap(where_in_order[earlier_who], where_in_order[who_worst]);
+      for (auto source : vector<int>{who_worst, earlier_who}) {
+        cur_clusters[source] = ComputeSingleCluster(graph,
+                                                    where_in_order,
+                                                    R,
+                                                    is_forb,
+                                                    last_vis,
+                                                    dis,
+                                                    source,
+                                                    ++cnt_calls);
+        for (auto to_upd : cur_clusters[source]) {
+          que.erase({cur_wreach_sz[to_upd], to_upd});
+          cur_wreach_sz[to_upd]++;
+          que.insert({cur_wreach_sz[to_upd], to_upd});
+        }
       }
-    }
-    it = prev(que.end());
-    int cur_wcol = it->first;
-    if (cur_wcol < best_wcol) {
-      best_wcol = cur_wcol;
-      best_order = order;
-      best_where_in_order = where_in_order;
-      debug(phase);
+      it = prev(que.end());
+      int cur_wcol = it->first;
+      if (cur_wcol < best_wcol) {
+        best_wcol = cur_wcol;
+        best_order = order;
+        best_where_in_order = where_in_order;
+        debug(phase);
+      }
     }
   }
   

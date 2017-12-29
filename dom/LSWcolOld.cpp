@@ -74,7 +74,7 @@ int main(int argc, char** argv) {
   cerr<<"start wcol: "<<best_wcol<<endl;
   
   srand(22);
-  int tries = 100;
+  int tries = 500;
   for (int phase = 0; phase < tries; phase++) {
     int who_worst = 1;
     for (int v = 1; v <= n; v++) {
@@ -91,6 +91,7 @@ int main(int argc, char** argv) {
     cur_wreach = ComputeAllWReach(graph, where_in_order, R, {});
     int cur_wcol = ComputeWcolFromWReach(cur_wreach);
     if (cur_wcol < best_wcol) {
+      debug(phase, cur_wcol);
       best_wcol = cur_wcol;
       best_order = order;
     }
