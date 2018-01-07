@@ -10,6 +10,8 @@ High priority:
 Medium priority:
   Wcol:
     Napisać bruta liczącego wcol w celu weryfikacji
+    Dodać apx ratio dla sortdega, oraz dla wszystkiego naraz
+    Zapuścić na nowych testach
   UQW:
     Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
     Zostawic target w UQWLast aby forb nie wybuchał?
