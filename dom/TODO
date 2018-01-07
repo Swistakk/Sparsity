@@ -9,8 +9,8 @@ High priority:
 
 Medium priority:
   Wcol:
-    Napisać bruta liczącego wcol w celu weryfikacji
     Dodać apx ratio dla sortdega, oraz dla wszystkiego naraz
+    Dodac degR
     Zapuścić na nowych testach
   UQW:
     Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)

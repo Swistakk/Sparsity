@@ -1,4 +1,6 @@
 for input in *.txtg; do
-  ~/Dokumenty/Mgr/dom/Degeneracy --in=$input;
+  for rad in {1..5}; do
+    ~/Dokumenty/Mgr/dom/Degeneracy --in=$input --rad=$rad;
+  done
 done
     

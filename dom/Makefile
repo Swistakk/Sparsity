@@ -30,7 +30,7 @@ greedy: greedy.o ReadTxt.o FilesOps.o
 BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o
+Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 UQWFirst: UQWFirst.o ReadTxt.o FilesOps.o ComputeWReach.o
@@ -53,7 +53,7 @@ RandomWcol: RandomWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	
 ComputeWcolBrut: ComputeWcolBrut.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
-
+	
 	
 .%.depends: %.cpp
 	$(CXX) $(OPTFLAGS) -MM $< -o $@

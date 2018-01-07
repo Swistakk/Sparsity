@@ -6,7 +6,7 @@ for revv in n y; do
     done
   done
 done
-progs="random deg sortdeg felix1 felix2 felix3 felix4 felix5 $berlins";
+progs="random deg1 deg2 deg3 deg4 deg5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 felix1 felix2 felix3 felix4 felix5 $berlins";
 last_prog="berlin.dyi"
 printf test,rad,;
 for prog in $progs; do
