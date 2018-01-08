@@ -9,13 +9,10 @@ High priority:
 
 Medium priority:
   Wcol:
-    Dodać apx ratio dla sortdega, oraz dla wszystkiego naraz
-    Dodac degR
-    Zapuścić na nowych testach
+    Dodać apx ratio dla wszystkiego naraz
   UQW:
     Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
     Zostawic target w UQWLast aby forb nie wybuchał?
-
 
 Low priority:
 Zapuścić na huge
