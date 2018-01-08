@@ -3,6 +3,16 @@
 #include "FilesOps.hpp"
 #include "ComputeWReach.hpp"
 
+struct Solution {
+  vector<int> forb, scat;
+  bool operator<(const Solution& oth) const { // lol
+    return 1. * scat.size() / (3 + forb.size()) < 1. * oth.scat.size() / (3 + oth.forb.size()) - 1e-9; // hack to ensure halt
+  }
+  bool operator==(const Solution& oth) const {
+    return scat.size() * (3 + oth.forb.size()) == oth.scat.size() * (3 + forb.size());
+  }
+};
+
 int main(int argc, char** argv) {
   if (argc != 4) {
     cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius"<<endl;
@@ -35,17 +45,13 @@ int main(int argc, char** argv) {
   
    //int wcol = ComputeWcolFromWReach(wreach);
   
-  int kl = 1, kp = init_A.size();
-  vector<int> best_forb, best_scat;
-  while (kl <= kp) {
+  
+  function<Solution(long double)> UQWFirst = [&](long double threshold) {
     vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
-    int m = (kl + kp) / 2;
-    debug(m, kl, kp);
     vector<int> old_A = init_A;
     vector<int> is_forb(n + 1), forb, scat;
     int last_forb_sz = 0;
     while (!old_A.empty()) {
-      //debug(old_A.size());
       sort(old_A.begin(), old_A.end(), [&](int a, int b) { return where_in_order[a] < where_in_order[b]; });
       int fir = old_A[0];
       set<int> Aset(old_A.begin(), old_A.end());
@@ -63,9 +69,9 @@ int main(int argc, char** argv) {
           }
         }
       }
-      debug(conflicting.size(), old_A.size());
-      if (conflicting.size() <= 1 + old_A.size() / m) { // change it
-        cerr<<fir<<" into scat\n";
+      //debug(conflicting.size(), old_A.size());
+      if (conflicting.size() <= 1 + old_A.size() * threshold) { // change it
+        //cerr<<fir<<" into scat\n";
         scat.PB(fir);
         vector<int> new_A;
         for (auto a : old_A) {
@@ -94,7 +100,7 @@ int main(int argc, char** argv) {
         if (best_alive == 0) {
           break;
         }
-        cerr<<who_to_forb<<" into forb, alive = "<<best_alive<<endl;
+        //cerr<<who_to_forb<<" into forb, alive = "<<best_alive<<endl;
         is_forb[who_to_forb] = 1;
         forb.PB(who_to_forb);
         vector<int> new_A;
@@ -110,16 +116,42 @@ int main(int argc, char** argv) {
     while (forb.size() != last_forb_sz) {
       forb.pop_back();
     }
-    if ((int)scat.size() >= m) {
-      debug("gut");
-      kl = scat.size() + 1;
-      best_scat = scat;
-      best_forb = forb;
+    return Solution{forb, scat};
+  };
+  
+  Solution best;
+  long double kl = 0, kp = 1;
+  int cnt = 0;
+  while (1) {
+    cnt++;
+    long double L = (2 * kl + kp) / 3;
+    long double R = (kl + 2 * kp) / 3;
+    Solution sL = UQWFirst(L);
+    Solution sR = UQWFirst(R);
+    debug(sL.forb.size(), sL.scat.size(), sR.forb.size(), sR.scat.size());
+    if (sL < sR) {
+      kl = L;
+      if (best < sR) {
+        best = sR;
+      }
     } else {
-      debug("bad");
-      kp = m - 1;
+      kp = R;
+      if (best < sL) {
+        best = sL;
+      }
+      if (sL == sR) {
+        if (cnt < 5) {
+          kp = R;
+        } else {
+          debug(L);
+          break;
+        }
+      }
     }
   }
+    
+  vector<int> best_forb = best.forb;
+  vector<int> best_scat = best.scat;
   debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {
