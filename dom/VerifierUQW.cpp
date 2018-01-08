@@ -41,7 +41,7 @@ int main(int argc, char** argv) {
   
   const int kInf = 1e9;
   if (scattered_sz <= 1) {
-    cout<<kInf<<endl;
+    cout<<forb_sz<<","<<scattered_sz<<endl;
     return 0;
   }
   //debug(scattered);
@@ -82,7 +82,12 @@ int main(int argc, char** argv) {
   //debug(scattered.size(), (int)que.size());
   //debug(que);
   //debug(closest_pair_dis, D);
-  cout << closest_pair_dis << endl;
-  assert(closest_pair_dis > D);
+  if (closest_pair_dis > D) {
+    cout<<forb_sz<<","<<scattered_sz<<endl;
+  } else {
+    cout<<"###,###"<<endl;
+  }
+  //cout << closest_pair_dis << endl;
+  //assert(closest_pair_dis > D);
   return 0;
 } 
