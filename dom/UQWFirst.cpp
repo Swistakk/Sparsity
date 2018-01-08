@@ -33,16 +33,17 @@ int main(int argc, char** argv) {
     init_A.PB(rand_order[i]);
   }
   
-  vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
-  //int wcol = ComputeWcolFromWReach(wreach);
+   //int wcol = ComputeWcolFromWReach(wreach);
   
   int kl = 1, kp = init_A.size();
   vector<int> best_forb, best_scat;
   while (kl <= kp) {
+    vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
     int m = (kl + kp) / 2;
     debug(m, kl, kp);
     vector<int> old_A = init_A;
     vector<int> is_forb(n + 1), forb, scat;
+    int last_forb_sz = 0;
     while (!old_A.empty()) {
       //debug(old_A.size());
       sort(old_A.begin(), old_A.end(), [&](int a, int b) { return where_in_order[a] < where_in_order[b]; });
@@ -62,7 +63,9 @@ int main(int argc, char** argv) {
           }
         }
       }
-      if (conflicting.size() < old_A.size() / m) { // change it
+      debug(conflicting.size(), old_A.size());
+      if (conflicting.size() <= 1 + old_A.size() / m) { // change it
+        cerr<<fir<<" into scat\n";
         scat.PB(fir);
         vector<int> new_A;
         for (auto a : old_A) {
@@ -71,6 +74,7 @@ int main(int argc, char** argv) {
           }
         }
         old_A = new_A;
+        last_forb_sz = forb.size();
       } else {
         vector<vector<int>> clusters = ComputeClustersFromWReach(wreach);
         int best_alive = -1, who_to_forb = -1;
@@ -87,6 +91,10 @@ int main(int argc, char** argv) {
             best_alive = count_alive;
           }
         }
+        if (best_alive == 0) {
+          break;
+        }
+        cerr<<who_to_forb<<" into forb, alive = "<<best_alive<<endl;
         is_forb[who_to_forb] = 1;
         forb.PB(who_to_forb);
         vector<int> new_A;
@@ -98,6 +106,9 @@ int main(int argc, char** argv) {
         old_A = new_A;
         wreach = ComputeAllWReach(graph, where_in_order, R, is_forb);
       }
+    }
+    while (forb.size() != last_forb_sz) {
+      forb.pop_back();
     }
     if ((int)scat.size() >= m) {
       debug("gut");

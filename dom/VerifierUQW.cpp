@@ -61,7 +61,9 @@ int main(int argc, char** argv) {
       if (my_root[nei] != my_root[cur_v] && my_root[nei] != 0) {
         int cand_dis = dis[nei] + dis[cur_v] + 1;
         if (cand_dis < closest_pair_dis) {
-          debug(my_root[nei], my_root[cur_v], cand_dis);
+          string orig_root_nei = reader.GetOriginalFromMapped(my_root[nei]);
+          string orig_cur_v_nei = reader.GetOriginalFromMapped(my_root[cur_v]);
+          debug(my_root[nei], my_root[cur_v], cand_dis, orig_root_nei, orig_cur_v_nei);
         }
         closest_pair_dis = min(closest_pair_dis, dis[nei] + dis[cur_v] + 1);
         if (max_chk == kInf) {
