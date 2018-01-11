@@ -21,6 +21,8 @@ cnt_data = [[0 for _ in range(len(progs))] for _ in range(max_rad + 1)]
 
 for row_id in idx:
   rad = df['rad'][row_id]
+  if rad == 1:
+    continue
   for prog_id in range(len(progs)):
     prog = progs[prog_id]
     sum_log[0][prog_id] += math.log(df[prog][row_id])
@@ -35,6 +37,8 @@ for prog_id in range(len(progs)):
     sys.stdout.write(',')
 print("")
 for rad in range(max_rad + 1):
+  if rad == 1:
+    continue
   if rad == 0:
     sys.stdout.write("all,")
   else:
@@ -55,7 +59,8 @@ for row_id in idx:
     best = min(best, df[berlin][row_id])
   for berlin_id in range(len(berlins)):
     berlin = berlins[berlin_id]
-    apx_ratio[0][berlin_id] += 1. * df[berlin][row_id] / best
+    if rad != 1:
+      apx_ratio[0][berlin_id] += 1. * df[berlin][row_id] / best
     apx_ratio[rad][berlin_id] += 1. * df[berlin][row_id] / best
 print ("")
 sys.stdout.write('berlins_apx_ratio,')
@@ -65,6 +70,8 @@ for berlin_id in range(len(berlins)):
     sys.stdout.write(',')
 print("")
 for rad in range(max_rad + 1):
+  if rad == 1:
+    continue
   if rad == 0:
     sys.stdout.write("all,")
   else:
@@ -85,7 +92,8 @@ for row_id in idx:
     best = min(best, df[felix][row_id])
   for felix_id in range(len(felixs)):
     felix = felixs[felix_id]
-    apx_ratio[0][felix_id] += 1. * df[felix][row_id] / best
+    if rad != 1:
+      apx_ratio[0][felix_id] += 1. * df[felix][row_id] / best
     apx_ratio[rad][felix_id] += 1. * df[felix][row_id] / best
 print("")
 sys.stdout.write('felixs_apx_ratio,')
@@ -95,6 +103,8 @@ for felix_id in range(len(felixs)):
     sys.stdout.write(',')
 print("")
 for rad in range(max_rad + 1):
+  if rad == 1:
+    continue
   if rad == 0:
     sys.stdout.write("all,")
   else:
@@ -114,7 +124,8 @@ for row_id in idx:
     best = min(best, df[prog][row_id])
   for prog_id in range(len(progs)):
     prog = progs[prog_id]
-    apx_ratio[0][prog_id] += 1. * df[prog][row_id] / best
+    if rad != 1:
+      apx_ratio[0][prog_id] += 1. * df[prog][row_id] / best
     apx_ratio[rad][prog_id] += 1. * df[prog][row_id] / best
 print ("")
 sys.stdout.write('progs_apx_ratio,')
@@ -124,6 +135,8 @@ for prog_id in range(len(progs)):
     sys.stdout.write(',')
 print("")
 for rad in range(max_rad + 1):
+  if rad == 1:
+    continue
   if rad == 0:
     sys.stdout.write("all,")
   else:
