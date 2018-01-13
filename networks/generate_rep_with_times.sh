@@ -1,6 +1,6 @@
 # ./generate_rep_with_times.sh medium
 cd $1
-single_timeout=60
+single_timeout=300
 timetmp=`mktemp`
 
 echo "test,rad,sortdeg1_wcol,sortdeg1_time,berlin.dna_wcol,berlin.dna_time,felixR_wcol,felixR_time" > ../$1_rep_with_times.csv
