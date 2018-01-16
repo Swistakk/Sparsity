@@ -1,4 +1,4 @@
-EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut
+EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth
 
 OPTFLAGS=-O2 -std=c++11
 OPTLOCALFLAGS= -DLOCAL -std=c++11 -O2
@@ -49,6 +49,9 @@ LSWcolOld: LSWcolOld.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 LSWcolNew: LSWcolNew.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
+	$(CXX) $(LDFLAGS) $^ -o $@
+
+LSWcolBoth: LSWcolBoth.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
 RandomWcol: RandomWcol.o ReadTxt.o FilesOps.o FlagParser.o

@@ -87,12 +87,12 @@ int main(int argc, char** argv) {
   if (wcol_mode) {
     cout<<wcol<<endl;
   } else if (sizes_mode) {
-    cout<<"\n";
+    //cout<<"\n";
     for (int i = 0; i < n; i++) {
       cout<<reader.GetOriginalFromMapped(order[i])<<" "<<wreach_szs[order[i]]<<"\n";
     }
   } else if (full_mode) {
-    cout<<"\n";
+    //cout<<"\n";
     for (int i = 0; i < n; i++) {
       cout<<reader.GetOriginalFromMapped(order[i])<<" "<<wreach_szs[order[i]]<<" [";
       for (int j = 0; j < (int)wreach[order[i]].size(); j++) {
