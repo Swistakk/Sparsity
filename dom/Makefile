@@ -30,7 +30,7 @@ greedy: greedy.o ReadTxt.o FilesOps.o
 BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o
+Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 UQW-TGV: UQW-TGV.o ReadTxt.o FilesOps.o ComputeWReach.o

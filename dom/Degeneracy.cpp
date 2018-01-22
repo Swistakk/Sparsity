@@ -3,6 +3,7 @@
 #include "FilesOps.hpp"
 #include "FlagParser.hpp"
 #include "ComputeWReach.hpp"
+#include "ComputeDegeneracy.hpp"
 
 void Err() {
   cerr<<"Usage: ./Degeneracy --in=graph.txtg --rad=radius [--o=output.txt]"<<endl;
@@ -60,70 +61,18 @@ int main(int argc, char** argv) {
   
   GraphReader reader;
   vector<vector<int>> orig_graph = reader.ReadGraph(graph_file);
-  int n = orig_graph.size() - 1;
-  debug(n);
-  
-  vector<vector<int>> pow_graph(n + 1);
-  vector<int> last_vis(n + 1);
-  vector<int> dis(n + 1);
-  vector<int> where_in_order(n + 1);
-  vector<int> is_forb;
-  for (int root = 1; root <= n; root++) {
-    where_in_order[root] = -1; // hack, to make it think root is before everybody  in order
-    pow_graph[root] = ComputeSingleCluster(orig_graph, where_in_order, R, is_forb, last_vis, dis, root, root);
-    where_in_order[root] = 0;
-  }
-  
-  int degeneracy = 0;
-  vector<int> degree(n + 1);
-  vector<set<int>> buckets(n + 1);
-  vector<bool> already_removed(n + 1);
-  set<int> nonempty_buckets;
-  for (int v = 1; v <= n; v++) {
-    buckets[pow_graph[v].size()].insert(v);
-    nonempty_buckets.insert(pow_graph[v].size());
-    degree[v] = pow_graph[v].size();
-  }
-  //int fir_nonempty = 1;
-  //int removed_cnt = 0;
-  vector<int> removed_order;
-  while (!nonempty_buckets.empty()) {
-    int wh_bucket = *(nonempty_buckets.begin());
-    degeneracy = max(degeneracy, wh_bucket);
-    int v_to_remove = *(buckets[wh_bucket].begin());
-    //debug(v_to_remove);
-    removed_order.PB(v_to_remove);
-    already_removed[v_to_remove] = true;
-    buckets[wh_bucket].erase(v_to_remove);
-    if (buckets[wh_bucket].empty()) {
-      nonempty_buckets.erase(wh_bucket);
-    }
-    for (auto nei : pow_graph[v_to_remove]) {
-      if (already_removed[nei]) { continue; }
-      buckets[degree[nei]].erase(nei);
-      if (buckets[degree[nei]].empty()) {
-        nonempty_buckets.erase(degree[nei]);
-      }
-      degree[nei]--;
-//       if (degree[nei] < 0) {
-//         debug(nei);
-//         graph[nei].size();
-//       }
-      assert(degree[nei] >= 0);
-      if (buckets[degree[nei]].empty()) {
-        nonempty_buckets.insert(degree[nei]);
-      }
-      buckets[degree[nei]].insert(nei);
-    }
-  }
-  
+  int n = (int)orig_graph.size() - 1;
+  pair<int, vector<int>> res = Degeneracy(orig_graph, R);
+  int degeneracy = res.st;
+  vector<int> degeneracy_order = res.nd;
+
   debug(degeneracy);
   //cerr<<"wcol_1("<<graph_file<<")="<<degeneracy + 1<<endl;
-  assert((int)removed_order.size() == n);
+  assert((int)degeneracy_order.size() == n);
   ofstream out;
   InitOfstream(out, output_file);
-  for (int ii = n - 1; ii >= 0; ii--) {
-    out << reader.GetOriginalFromMapped(removed_order[ii]) << " ";
+  for (int v : degeneracy_order) {
+    out << reader.GetOriginalFromMapped(v) << " ";
   }
   out << endl;
   out.close();
