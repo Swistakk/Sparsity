@@ -5,6 +5,7 @@
 #include "FilesOps.hpp"
 #include "FlagParser.hpp"
 #include "ComputeWReach.hpp"
+#include "CommonGraph.hpp"
 #include "ComputeDegeneracy.hpp"
 
 vector<int> Independent1Coloring(vector<vector<int>>& graph);

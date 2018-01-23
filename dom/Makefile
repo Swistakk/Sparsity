@@ -1,4 +1,4 @@
-EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth UQWPatcher CheckIndependent
+EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth UQWPatcher CheckIndependent UQWMix
 
 OPTFLAGS=-O2 -std=c++11
 OPTLOCALFLAGS= -DLOCAL -std=c++11 -O2
@@ -66,6 +66,9 @@ UQWPatcher: UQWPatcher.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o
 CheckIndependent: CheckIndependent.o ReadTxt.o FilesOps.o FlagParser.o Independent.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
+UQWMix: UQWMix.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o CommonGraph.o Independent.o ComputeDegeneracy.o
+	$(CXX) $(LDFLAGS) $^ -o $@
+	
 .%.depends: %.cpp
 	$(CXX) $(OPTFLAGS) -MM $< -o $@
 
