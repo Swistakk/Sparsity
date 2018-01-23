@@ -73,3 +73,29 @@ vector<int> Independent1LeastDegree(vector<vector<int>>& graph) {
   return independent;
 }
 
+// it is not explicitly used in code, but intention is to call that
+// only with A being an independent set
+vector<int> Independent2Tree(vector<vector<int>>& graph, vector<int> A, unordered_set<int>& forb) {
+  if (A.empty()) { return {{}, {}}; }
+  int a = A[0];
+  vector<int> nei2_vec = RNei(graph, a, 2, forb);
+  unordered_set<int> nei2_set(nei2_vec.begin(), nei2_vec.end());
+  vector<int> not_conflicting, conflicting;
+  for (int ii = 1; ii < (int)A.size(); ii++) {
+    int v = A[ii];
+    if (nei2_set.count(v)) {
+      conflicting.PB(v);
+    } else {
+      not_conflicting.PB(v);
+    }
+  }
+  vector<int> sol_with_a = Independent2Tree(graph, not_conflicting, forb);
+  sol_with_a.PB(a);
+  vector<int> sol_without_a = Independent2Tree(graph, conflicting, forb);
+  if (sol_with_a.size() > sol_without_a.size()) {
+    return sol_with_a;
+  } else {
+    return sol_without_a;
+  }
+}
+
