@@ -1,6 +1,6 @@
 #(./execute.sh ./generate_csv_uqw.sh small) > small_uqw_rep.csv
-progs="TGV TGV2 MFCS";
-last_prog="MFCS"
+progs="TGV TGV2 MFCS ND";
+last_prog="ND"
 printf test,rad,;
 for prog in $progs; do
   printf $prog.forb,$prog.scat

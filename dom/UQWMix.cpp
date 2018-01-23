@@ -95,11 +95,12 @@ int main(int argc, char** argv) {
           branch_set_root[v] = a;
         }
       }
-      for (int i = 1; i <= n; i++) {
-        if (branch_set_root[i] == 0) {
-          branch_set_root[i] = i;
+      for (int v = 1; v <= n; v++) {
+        if (S.count(v)) { continue; }
+        if (branch_set_root[v] == 0) {
+          branch_set_root[v] = v;
         }
-        forw_mapping[branch_set_root[i]] = 1;
+        forw_mapping[branch_set_root[v]] = 1;
       }
       vector<int> backw_mapping(n + 1);
       int cnt = 0;
@@ -110,8 +111,11 @@ int main(int argc, char** argv) {
         backw_mapping[forw_mapping[ii]] = ii;
       }
       vector<vector<int>> bipartite_graph(cnt + 1);
+      vector<bool> is_in_B(cnt + 1);
       for (int v = 1; v <= n; v++) {
         if (is_in_ball[v]) { continue; }
+        if (S.count(v)) { continue; }
+        is_in_B[forw_mapping[v]] = true;
         unordered_set<int> my_A_neis;
         for (auto nei : graph[v]) {
           if (is_in_ball[nei] && my_A_neis.count(branch_set_root[nei]) == 0) {
@@ -125,18 +129,63 @@ int main(int argc, char** argv) {
       for (auto a : oldA) {
         forwA.PB(forw_mapping[a]);
       }
-      //debug(forwA);
-      vector<int> independent = Independent2Tree(bipartite_graph, forwA, S);
-      //debug(independent);
+      vector<int> forwA_init = forwA;
+      vector<vector<int>> candsA;
+      vector<int> candsAszs;
+      vector<unordered_set<int>> candsS;
+      unordered_set<int> curS;
+      while (forwA.size() > curS.size()) {
+        vector<int> independent = Independent2Tree(bipartite_graph, forwA_init, curS);
+        candsA.PB(independent);
+        candsAszs.PB(independent.size());
+        candsS.PB(curS);
+        int who_biggest = -1;
+        int biggest_forwA_deg = 0;
+        unordered_set<int> forwA_set(forwA.begin(), forwA.end());
+        for (int v = 1; v <= cnt; v++) {
+          if (!is_in_B[v]) { continue; }
+          if (curS.count(v)) { continue; }
+          int forwA_deg = 0;
+          for (auto nei : bipartite_graph[v]) {
+            forwA_deg += forwA_set.count(nei);
+          }
+          if (forwA_deg > biggest_forwA_deg) {
+            biggest_forwA_deg = forwA_deg;
+            who_biggest = v;
+          }
+        }
+        if (who_biggest == -1) { break; }
+        curS.insert(who_biggest);
+        forwA.clear();
+        for (auto nei : bipartite_graph[who_biggest]) {
+          if (forwA_set.count(nei)) {
+            forwA.PB(nei);
+          }
+        }
+      }
+      debug(curR, candsAszs);
+      int who_biggest = 0;
+      for (int ii = 1; ii < (int)candsA.size(); ii++) {
+        debug(candsA[ii].size() * pow(0.9, ii));
+        if (candsA[ii].size() * pow(0.9, ii) > candsA[who_biggest].size() * pow(0.9, who_biggest)) {
+          who_biggest = ii;
+        }
+      }
       oldA.clear();
-      for (auto a : independent) {
+      for (auto a : candsA[who_biggest]) {
         oldA.PB(backw_mapping[a]);
+      }
+      for (auto s : candsS[who_biggest]) {
+        S.insert(backw_mapping[s]);
       }
     }
     //cerr<<"after step "<<curR+1<<" SZ(A)="<<oldA.size()<<" "<<oldA<<endl;
   }
-    
+  
   vector<int> best_forb;
+  for (auto s : S) {
+    best_forb.PB(s);
+  }
   vector<int> best_scat = oldA;
   debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
