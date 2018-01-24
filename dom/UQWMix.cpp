@@ -18,24 +18,38 @@ struct Solution {
 
 int main(int argc, char** argv) {
   if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius"<<endl;
+    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/ld"<<endl;
+    cerr<<"tree/ld_iter - method of finding 2-independent set\n";
+    cerr<<"  tree - this iterative tree approach\n";
+    cerr<<"  ld_it - iterative greedy least degree on G^2\n";
+    cerr<<"  ld_pow - greedy least degree on G^r\n";
     return 1;
   }
   string graph_file = string(argv[1]); 
 //   string format = ".txtg";
 //   assert(graph_file.find(format) == graph_file.size() - format.size());
 //   string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
-  string order_file = string(argv[2]);
-  string rad_str = string(argv[3]);
+  //string order_file = string(argv[2]);
+  string rad_str = string(argv[2]);
   int R = stoi(rad_str);
+  string mode = string(argv[3]);
+  bool tree_mode = false, ld_it_mode = false, ld_pow_mode = false;
+  if (mode == "tree") {
+    tree_mode = true;
+  } else if (mode == "ld_it") {
+    ld_it_mode = true;
+  } else {
+    assert(mode == "ld_pow");
+    ld_pow_mode = true;
+  }
   
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
   //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
-  vector<int> order, where_in_order;
-  tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
+//   vector<int> order, where_in_order;
+//   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
   int a_sz = n; // n / 10
@@ -48,138 +62,180 @@ int main(int argc, char** argv) {
   
   vector<int> oldA = init_A;
   unordered_set<int> S;
-  for (int curR = 0; curR < R; curR++) {
-    int contractR = curR / 2;
-    if (curR % 2 == 0) { 
-      unordered_map<int, int> forw_mapping;
-      vector<int> backw_mapping((int)oldA.size() + 1);
-      int cnt = 0;
-      vector<vector<int>> balls((int)oldA.size());
-      for (int ii = 0; ii < (int)oldA.size(); ii++) {
-        int a = oldA[ii];
-        balls[ii] = RNei(graph, a, contractR, S);
-        for (auto v : balls[ii]) {
-          assert(forw_mapping[v] == 0);
-          forw_mapping[v] = ii + 1;
+  if (ld_pow_mode) {
+    vector<vector<int>> candsA;
+    vector<int> candsAszs;
+    vector<unordered_set<int>> candsS;
+    for (int phase = 0; phase < min(10, n); phase++) {
+      vector<int> independent = IndependentRLeastDegreePow(graph, oldA, R, S);
+      candsA.PB(independent);
+      candsAszs.PB(independent.size());
+      candsS.PB(S);
+      int to_delete = 0;
+      for (int v = 1; v <= n; v++) {
+        if (S.count(v)) { continue; }
+        if (to_delete == 0 || graph[to_delete].size() < graph[v].size()) {
+          to_delete = v;
         }
-        backw_mapping[ii + 1] = a; // backw_mapping will be basically oldA... but yeah   
       }
-      vector<vector<int>> graph_on_balls((int)oldA.size() + 1);
-      for (int ii = 0; ii < (int)oldA.size(); ii++) {
-        unordered_set<int> my_neis;
-        for (auto v : balls[ii]) {
-          for (auto nei : graph[v]) {
-            if (forw_mapping.count(nei) && forw_mapping[nei] != ii + 1 && my_neis.count(forw_mapping[nei]) == 0) {
-              my_neis.insert(forw_mapping[nei]);
-              graph_on_balls[ii + 1].PB(forw_mapping[nei]);
+      S.insert(to_delete);
+      for (auto& v : oldA) {
+        if (v == to_delete) {
+          swap(v, oldA.back());
+          break;
+        }
+      }
+      oldA.pop_back();
+    }
+    debug(candsAszs);
+    int who_biggest = 0;
+    for (int ii = 1; ii < (int)candsA.size(); ii++) {
+      debug(candsA[ii].size() * pow(0.9, ii));
+      if (candsA[ii].size() * pow(0.9, ii) > candsA[who_biggest].size() * pow(0.9, who_biggest)) {
+        who_biggest = ii;
+      }
+    }
+    oldA = candsA[who_biggest];
+    S = candsS[who_biggest];
+  } else {
+    for (int curR = 0; curR < R; curR++) {
+      int contractR = curR / 2;
+      if (curR % 2 == 0) { 
+        unordered_map<int, int> forw_mapping;
+        vector<int> backw_mapping((int)oldA.size() + 1);
+        int cnt = 0;
+        vector<vector<int>> balls((int)oldA.size());
+        for (int ii = 0; ii < (int)oldA.size(); ii++) {
+          int a = oldA[ii];
+          balls[ii] = RNei(graph, a, contractR, S);
+          for (auto v : balls[ii]) {
+            assert(forw_mapping[v] == 0);
+            forw_mapping[v] = ii + 1;
+          }
+          backw_mapping[ii + 1] = a; // backw_mapping will be basically oldA... but yeah   
+        }
+        vector<vector<int>> graph_on_balls((int)oldA.size() + 1);
+        for (int ii = 0; ii < (int)oldA.size(); ii++) {
+          unordered_set<int> my_neis;
+          for (auto v : balls[ii]) {
+            for (auto nei : graph[v]) {
+              if (forw_mapping.count(nei) && forw_mapping[nei] != ii + 1 && my_neis.count(forw_mapping[nei]) == 0) {
+                my_neis.insert(forw_mapping[nei]);
+                graph_on_balls[ii + 1].PB(forw_mapping[nei]);
+              }
             }
           }
         }
-      }
-      vector<int> independent = Independent1LeastDegree(graph_on_balls);
-      oldA.clear();
-      for (auto v : independent) {
-        oldA.PB(backw_mapping[v]);
-      }
-    } else {
-      vector<vector<int>> balls((int)oldA.size());
-      vector<int> forw_mapping(n + 1);
-      vector<int> branch_set_root(n + 1);
-      vector<bool> is_in_ball(n + 1);
-      for (int ii = 0; ii < (int)oldA.size(); ii++) {
-        int a = oldA[ii];
-        balls[ii] = RNei(graph, a, contractR, S);
-        for (auto v : balls[ii]) {
-          is_in_ball[v] = true;
-          assert(forw_mapping[v] == 0);
-          branch_set_root[v] = a;
+        vector<int> independent = Independent1LeastDegree(graph_on_balls);
+        oldA.clear();
+        for (auto v : independent) {
+          oldA.PB(backw_mapping[v]);
         }
-      }
-      for (int v = 1; v <= n; v++) {
-        if (S.count(v)) { continue; }
-        if (branch_set_root[v] == 0) {
-          branch_set_root[v] = v;
-        }
-        forw_mapping[branch_set_root[v]] = 1;
-      }
-      vector<int> backw_mapping(n + 1);
-      int cnt = 0;
-      for (int ii = 1; ii <= n; ii++) {
-        if (forw_mapping[ii] == 0) { continue; }
-        cnt++;
-        forw_mapping[ii] = cnt;
-        backw_mapping[forw_mapping[ii]] = ii;
-      }
-      vector<vector<int>> bipartite_graph(cnt + 1);
-      vector<bool> is_in_B(cnt + 1);
-      for (int v = 1; v <= n; v++) {
-        if (is_in_ball[v]) { continue; }
-        if (S.count(v)) { continue; }
-        is_in_B[forw_mapping[v]] = true;
-        unordered_set<int> my_A_neis;
-        for (auto nei : graph[v]) {
-          if (is_in_ball[nei] && my_A_neis.count(branch_set_root[nei]) == 0) {
-            my_A_neis.insert(branch_set_root[nei]);
-            bipartite_graph[forw_mapping[v]].PB(forw_mapping[branch_set_root[nei]]);
-            bipartite_graph[forw_mapping[branch_set_root[nei]]].PB(forw_mapping[v]);
+      } else {
+        vector<vector<int>> balls((int)oldA.size());
+        vector<int> forw_mapping(n + 1);
+        vector<int> branch_set_root(n + 1);
+        vector<bool> is_in_ball(n + 1);
+        for (int ii = 0; ii < (int)oldA.size(); ii++) {
+          int a = oldA[ii];
+          balls[ii] = RNei(graph, a, contractR, S);
+          for (auto v : balls[ii]) {
+            is_in_ball[v] = true;
+            assert(forw_mapping[v] == 0);
+            branch_set_root[v] = a;
           }
         }
-      }
-      vector<int> forwA;
-      for (auto a : oldA) {
-        forwA.PB(forw_mapping[a]);
-      }
-      vector<int> forwA_init = forwA;
-      vector<vector<int>> candsA;
-      vector<int> candsAszs;
-      vector<unordered_set<int>> candsS;
-      unordered_set<int> curS;
-      while (forwA.size() > curS.size()) {
-        vector<int> independent = Independent2Tree(bipartite_graph, forwA_init, curS);
-        candsA.PB(independent);
-        candsAszs.PB(independent.size());
-        candsS.PB(curS);
-        int who_biggest = -1;
-        int biggest_forwA_deg = 0;
-        unordered_set<int> forwA_set(forwA.begin(), forwA.end());
-        for (int v = 1; v <= cnt; v++) {
-          if (!is_in_B[v]) { continue; }
-          if (curS.count(v)) { continue; }
-          int forwA_deg = 0;
-          for (auto nei : bipartite_graph[v]) {
-            forwA_deg += forwA_set.count(nei);
+        for (int v = 1; v <= n; v++) {
+          if (S.count(v)) { continue; }
+          if (branch_set_root[v] == 0) {
+            branch_set_root[v] = v;
           }
-          if (forwA_deg > biggest_forwA_deg) {
-            biggest_forwA_deg = forwA_deg;
-            who_biggest = v;
-          }
+          forw_mapping[branch_set_root[v]] = 1;
         }
-        if (who_biggest == -1) { break; }
-        curS.insert(who_biggest);
-        forwA.clear();
-        for (auto nei : bipartite_graph[who_biggest]) {
-          if (forwA_set.count(nei)) {
-            forwA.PB(nei);
+        vector<int> backw_mapping(n + 1);
+        int cnt = 0;
+        for (int ii = 1; ii <= n; ii++) {
+          if (forw_mapping[ii] == 0) { continue; }
+          cnt++;
+          forw_mapping[ii] = cnt;
+          backw_mapping[forw_mapping[ii]] = ii;
+        }
+        vector<vector<int>> bipartite_graph(cnt + 1);
+        vector<bool> is_in_B(cnt + 1);
+        for (int v = 1; v <= n; v++) {
+          if (is_in_ball[v]) { continue; }
+          if (S.count(v)) { continue; }
+          is_in_B[forw_mapping[v]] = true;
+          unordered_set<int> my_A_neis;
+          for (auto nei : graph[v]) {
+            if (is_in_ball[nei] && my_A_neis.count(branch_set_root[nei]) == 0) {
+              my_A_neis.insert(branch_set_root[nei]);
+              bipartite_graph[forw_mapping[v]].PB(forw_mapping[branch_set_root[nei]]);
+              bipartite_graph[forw_mapping[branch_set_root[nei]]].PB(forw_mapping[v]);
+            }
           }
         }
-      }
-      debug(curR, candsAszs);
-      int who_biggest = 0;
-      for (int ii = 1; ii < (int)candsA.size(); ii++) {
-        debug(candsA[ii].size() * pow(0.9, ii));
-        if (candsA[ii].size() * pow(0.9, ii) > candsA[who_biggest].size() * pow(0.9, who_biggest)) {
-          who_biggest = ii;
+        vector<int> forwA;
+        for (auto a : oldA) {
+          forwA.PB(forw_mapping[a]);
+        }
+        vector<int> forwA_init = forwA;
+        vector<vector<int>> candsA;
+        vector<int> candsAszs;
+        vector<unordered_set<int>> candsS;
+        unordered_set<int> curS;
+        while (forwA.size() > curS.size()) {
+          vector<int> independent;
+          if (tree_mode) {
+            independent = Independent2Tree(bipartite_graph, forwA_init, curS);
+          } else {
+            independent = IndependentRLeastDegreePow(bipartite_graph, forwA_init, 2, curS);
+          }
+          candsA.PB(independent);
+          candsAszs.PB(independent.size());
+          candsS.PB(curS);
+          int who_biggest = -1;
+          int biggest_forwA_deg = 0;
+          unordered_set<int> forwA_set(forwA.begin(), forwA.end());
+          for (int v = 1; v <= cnt; v++) {
+            if (!is_in_B[v]) { continue; }
+            if (curS.count(v)) { continue; }
+            int forwA_deg = 0;
+            for (auto nei : bipartite_graph[v]) {
+              forwA_deg += forwA_set.count(nei);
+            }
+            if (forwA_deg > biggest_forwA_deg) {
+              biggest_forwA_deg = forwA_deg;
+              who_biggest = v;
+            }
+          }
+          if (who_biggest == -1) { break; }
+          curS.insert(who_biggest);
+          forwA.clear();
+          for (auto nei : bipartite_graph[who_biggest]) {
+            if (forwA_set.count(nei)) {
+              forwA.PB(nei);
+            }
+          }
+        }
+        debug(curR, candsAszs);
+        int who_biggest = 0;
+        for (int ii = 1; ii < (int)candsA.size(); ii++) {
+          debug(candsA[ii].size() * pow(0.9, ii));
+          if (candsA[ii].size() * pow(0.9, ii) > candsA[who_biggest].size() * pow(0.9, who_biggest)) {
+            who_biggest = ii;
+          }
+        }
+        oldA.clear();
+        for (auto a : candsA[who_biggest]) {
+          oldA.PB(backw_mapping[a]);
+        }
+        for (auto s : candsS[who_biggest]) {
+          S.insert(backw_mapping[s]);
         }
       }
-      oldA.clear();
-      for (auto a : candsA[who_biggest]) {
-        oldA.PB(backw_mapping[a]);
-      }
-      for (auto s : candsS[who_biggest]) {
-        S.insert(backw_mapping[s]);
-      }
+      //cerr<<"after step "<<curR+1<<" SZ(A)="<<oldA.size()<<" "<<oldA<<endl;
     }
-    //cerr<<"after step "<<curR+1<<" SZ(A)="<<oldA.size()<<" "<<oldA<<endl;
   }
   
   vector<int> best_forb;

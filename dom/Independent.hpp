@@ -13,3 +13,5 @@ vector<int> Independent1Coloring(vector<vector<int>>& graph);
 vector<int> Independent1LeastDegree(vector<vector<int>>& graph);
 
 vector<int> Independent2Tree(vector<vector<int>>& graph, vector<int> A, unordered_set<int>& forb);
+
+vector<int> IndependentRLeastDegreePow(vector<vector<int>>& orig_graph, vector<int> A, int R, unordered_set<int>& forb);

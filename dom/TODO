@@ -1,19 +1,13 @@
 High priority:
   Wcol:
-    Poopcić local searche
-    Dopisac liczenie czasu do skryptu ze statami
   UQW:
-    Napisać trudne wielomianowe UQW na nowhere dense (trudne)
 
 
 Medium priority:
   Wcol:
-    Wywalić r=1 z apx_ratio
   UQW:
-    Zmienic liczenie konfliktow na BFS w UQW (lub w ogole jeden zbior polaczonych liczyc bfsami a drugi zostawic wreach)
     Zostawic target w UQWLast aby forb nie wybuchał?
     Czy da sie zrobic aby UQWLast nie było tak konserwatywne?
-    Zinwestygować wariowanie w UQW (spojrzec na ostatni test z medium yeast gdzie z (forb, scat) (duzo, 1) przeskoczylo na (0, duzo) zmiana progu)
     Wybrac najmniej konfliktujacy w TGV
     
 

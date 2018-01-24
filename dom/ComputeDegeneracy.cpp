@@ -4,7 +4,8 @@ pair<int, vector<int>> Degeneracy(vector<vector<int>>& graph, int R) {
   int n = graph.size() - 1;
   debug(n);
   
-  vector<vector<int>> pow_graph = PowerGraph(graph, R);
+  unordered_set<int> dummy_forb;
+  vector<vector<int>> pow_graph = PowerGraph(graph, R, dummy_forb);
   
   int degeneracy = 0;
   vector<int> degree(n + 1);
