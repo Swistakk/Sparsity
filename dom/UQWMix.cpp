@@ -18,8 +18,8 @@ struct Solution {
 
 int main(int argc, char** argv) {
   if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/ld"<<endl;
-    cerr<<"tree/ld_iter - method of finding 2-independent set\n";
+    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/ld_it/ld_pow"<<endl;
+    cerr<<"tree/ld_it/ld_pow - method of finding 2-independent set\n";
     cerr<<"  tree - this iterative tree approach\n";
     cerr<<"  ld_it - iterative greedy least degree on G^2\n";
     cerr<<"  ld_pow - greedy least degree on G^r\n";
@@ -89,11 +89,10 @@ int main(int argc, char** argv) {
       }
       oldA.pop_back();
     }
-    debug(candsAszs);
-    int who_biggest = 0;
-    int biggest_score = UQWScore(graph, R, candsA[0], candsS_vec[0]);
-    for (int ii = 1; ii < (int)candsA.size(); ii++) {
-      int cand_score = UQWScore(graph, R, candsA[ii], candsS_vec[ii]);
+    int who_biggest = -1;
+    int biggest_score = -1;
+    for (int ii = 0; ii < (int)candsA.size(); ii++) {
+      int cand_score = UQWScore(graph, R, candsS_vec[ii], candsA[ii]);
       if (cand_score > biggest_score) {
         who_biggest = ii;
         biggest_score = cand_score;
@@ -230,14 +229,14 @@ int main(int argc, char** argv) {
         for (auto& candA : candsA) {
           vector<int> backw_candA;
           for (auto v : candA) {
-            backw_candA.PB(v);
+            backw_candA.PB(backw_mapping[v]);
           }
           backw_candsA.PB(backw_candA);
         }
         for (auto& candS : candsS) {
           vector<int> backw_candS = vector<int>(S.begin(), S.end()); // we may try to initialize it as empty vector as well
           for (auto v : candS) {
-            backw_candS.PB(v);
+            backw_candS.PB(backw_mapping[v]);
           }
           backw_candsS.PB(backw_candS);
         }
@@ -263,7 +262,7 @@ int main(int argc, char** argv) {
     best_forb.PB(s);
   }
   vector<int> best_scat = oldA;
-  debug(best_forb, best_scat);
+  //debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {
     cout<<reader.GetOriginalFromMapped(x)<<" ";
