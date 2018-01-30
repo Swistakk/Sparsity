@@ -3,7 +3,7 @@ progs="TGV TGV2 MFCS mix_tree mix_ldit mix_ldpow";
 last_prog="mix_ldpow"
 printf test,rad,;
 for prog in $progs; do
-  printf $prog.forb,$prog.scat
+  printf $prog.forb,$prog.scat,$prog.score
   if [ $prog != $last_prog ]
   then
     printf ,

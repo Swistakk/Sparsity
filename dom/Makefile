@@ -15,7 +15,7 @@ all: $(EXECS)
 WcolStats: WcolStats.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-VerifierUQW: VerifierUQW.o ReadTxt.o FilesOps.o
+VerifierUQW: VerifierUQW.o ReadTxt.o FilesOps.o CommonGraph.o ComputeWReach.o
 	$(CXX) $(LDFLAGS) $^ -o $@	
 
 VerifierUQWBrut: VerifierUQWBrut.o ReadTxt.o FilesOps.o

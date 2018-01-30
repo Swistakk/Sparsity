@@ -43,4 +43,52 @@ vector<vector<int>> PowerGraph(vector<vector<int>>& graph, int R, unordered_set<
   }
   return pow_graph;
 }
-  
+
+
+vector<vector<int>> RDistanceProfile(vector<vector<int>>& graph, int R, vector<int>& forb, vector<int>& scat) {
+  int n = (int)graph.size() - 1;
+  //vector<int> scat_ind(n + 1, -1);
+  vector<vector<int>> profiles((int)scat.size());
+  vector<int> last_vis(n + 1);
+  vector<int> dis(n + 1);
+  for (auto root : forb) {
+    vector<int> que{root};
+    last_vis[root] = root;
+    dis[root] = 0;
+    for (int ii = 0; ii < (int)que.size(); ii++) {
+      int cur_v = que[ii];
+      if (dis[cur_v] == R) { break; }
+      for (auto nei : graph[cur_v]) {
+        if (last_vis[nei] != root) {
+          last_vis[nei] = root;
+          dis[nei] = dis[cur_v] + 1;
+          que.PB(nei);
+        }
+      }
+    }
+    for (int ii = 0; ii < (int)scat.size(); ii++) {
+      int v = scat[ii];
+      if (last_vis[v] != root) {
+        profiles[ii].PB(R + 1);
+      } else {
+        profiles[ii].PB(dis[v]);
+      }
+    }
+  }
+  return profiles;
+}
+    
+int UQWScore(vector<vector<int>>& graph, int R, vector<int>& forb, vector<int>& scat) {
+  map<vector<int>, int> cnt_profiles;
+  vector<vector<int>> profiles = RDistanceProfile(graph, R, forb, scat);
+  for (auto& profile : profiles) {
+    cnt_profiles[profile]++;
+  }
+  int biggest_class = 0;
+  for (auto& p : cnt_profiles) {
+    if (p.nd > biggest_class) {
+      biggest_class = p.nd;
+    }
+  }
+  return biggest_class;
+}

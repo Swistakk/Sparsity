@@ -1,6 +1,8 @@
 #include "Headers.hpp"
 #include "ReadTxt.hpp"
 #include "FilesOps.hpp"
+#include "CommonGraph.hpp"
+#include "ComputeWReach.hpp"
 
 int main(int argc, char** argv) {
   if (argc != 4) {
@@ -18,7 +20,7 @@ int main(int argc, char** argv) {
   vector<int> order;
   ifstream ain;
   InitIfstream(ain, ans_file);
-  vector<int> is_forb(n + 1), scattered;
+  vector<int> is_forb(n + 1), forb_vec, scattered;
   int forb_sz, scattered_sz;
   ain >> forb_sz;
   for (int i = 1; i <= forb_sz; i++) {
@@ -27,6 +29,7 @@ int main(int argc, char** argv) {
     int mapped = reader.GetMappedFromOriginal(v);
     assert(mapped != -1);
     is_forb[mapped] = 1;
+    forb_vec.PB(mapped);
   }
   ain >> scattered_sz;
   for (int i = 1; i <= scattered_sz; i++) {
@@ -41,7 +44,7 @@ int main(int argc, char** argv) {
   
   const int kInf = 1e9;
   if (scattered_sz <= 1) {
-    cout<<forb_sz<<","<<scattered_sz<<endl;
+    cout<<forb_sz<<","<<scattered_sz<<","<<scattered_sz<<endl;
     return 0;
   }
   //debug(scattered);
@@ -83,9 +86,9 @@ int main(int argc, char** argv) {
   //debug(que);
   //debug(closest_pair_dis, D);
   if (closest_pair_dis > D) {
-    cout<<forb_sz<<","<<scattered_sz<<endl;
+    cout<<forb_sz<<","<<scattered_sz<<","<<UQWScore(graph, D, forb_vec, scattered)<<endl;
   } else {
-    cout<<"###,###"<<endl;
+    cout<<"###,###,###"<<endl;
   }
   //cout << closest_pair_dis << endl;
   //assert(closest_pair_dis > D);
