@@ -2,6 +2,7 @@
 #include "ReadTxt.hpp"
 #include "FilesOps.hpp"
 #include "ComputeWReach.hpp"
+#include "UQWReviver.hpp"
 
 struct Solution {
   vector<int> forb, scat;
@@ -160,6 +161,7 @@ int main(int argc, char** argv) {
     
   vector<int> best_forb = best.forb;
   vector<int> best_scat = best.scat;
+  best_forb = ReviveRedundantForb(graph, R, best_forb, best_scat);
   debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {

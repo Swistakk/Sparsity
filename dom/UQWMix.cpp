@@ -5,6 +5,7 @@
 #include "Independent.hpp"
 #include "CommonGraph.hpp"
 #include "ComputeDegeneracy.hpp"
+#include "UQWReviver.hpp"
 
 struct Solution {
   vector<int> forb, scat;
@@ -262,6 +263,7 @@ int main(int argc, char** argv) {
     best_forb.PB(s);
   }
   vector<int> best_scat = oldA;
+  best_forb = ReviveRedundantForb(graph, R, best_forb, best_scat);
   //debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {

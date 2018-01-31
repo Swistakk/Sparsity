@@ -4,6 +4,7 @@
 #include "ComputeWReach.hpp"
 
 vector<int> ReviveRedundantForb(vector<vector<int>>& graph, int R, vector<int> forb, vector<int>& scat) {
+  int n = (int)graph.size() - 1;
   vector<int> forb_mask(n + 1), scat_mask(n + 1);
   for (auto v : forb) {
     forb_mask[v] = 1;
