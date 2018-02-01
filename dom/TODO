@@ -1,17 +1,14 @@
 High priority:
   Wcol:
+    Zapuscic TD, Christopha i fill_in
+    Pogenerować tabelki
   UQW:
     Dodac jeszcze jeden approach na UQW z most ratio popular in wreach
 
 
 Medium priority:
   Wcol:
-    Wyczyscic ProduceWcolRep.py
-    Poprawic DFSorder w Berlinie
-    Posortowac po stopniu w Berlinie :) (być może bez roota)
   UQW:
-    Zostawic target w UQWLast aby forb nie wybuchał?
-    Czy da sie zrobic aby UQWLast nie było tak konserwatywne?
     Wybrac najmniej konfliktujacy w TGV
     
 
