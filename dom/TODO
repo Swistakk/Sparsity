@@ -8,6 +8,7 @@ Medium priority:
   Wcol:
     Wyczyscic ProduceWcolRep.py
     Poprawic DFSorder w Berlinie
+    Posortowac po stopniu w Berlinie :) (być może bez roota)
   UQW:
     Zostawic target w UQWLast aby forb nie wybuchał?
     Czy da sie zrobic aby UQWLast nie było tak konserwatywne?
