@@ -30,7 +30,7 @@ namespace po = boost::program_options;
 
 
 
-const char* usage="\nUSAGE:\n\n\t./appr_tw -i <filename>  [-p] [-f <vertex_id>] [-o] [-e] [-h]\n\n\twhere\n\t-i <filename>:\t\tfile <filename> should be in the *.tsv format\n\t\t\t\t(every line contains two numbers describing an edge),\n\t-o:\t\t\tprint the order found (default: no),\n\t-e: \t\t\tshow progrEss (default: no),\n\t-t:\t\t\tprint times used for computations (default: no),\n\t-c: \t\t\tperform a test (default: no),\n\t-d <level>: \t\tprint details of level (1-5) (default: 0, no details),\n\t-w: \t\t\tprint computed width (default: yes)\n\t-r: \t\t\tchoose the next vertex randomly \n\t-h: \t\t\tprint this help\n\n";
+const char* usage="\nUSAGE:\n\n\t./appr_tw -i <filename>  [-p] [-f <vertex_id>] [-o] [-e] [-h]\n\n\twhere\n\t-i <filename>:\t\tfile <filename> should be in the *.tsv format\n\t\t\t\t(every line contains two numbers describing an edge),\n\t-o:\t\t\tprint the order found (default: no),\n\t-e: \t\t\tshow progrEss (default: no),\n\t-t:\t\t\tprint times used for computations (default: no),\n\t-c: \t\t\tperform a test,\n\t-d <level>: \t\tprint details of level (1-5) (default: 0),\n\t-w: \t\t\tprint computed width\n\t-r: \t\t\tchoose the next vertex randomly \n\t-h: \t\t\tprint this help\n\n";
 
 class ApprTW_Simple_PO_Reader{
 public:
@@ -62,7 +62,7 @@ public:
 	      ("c,check-order", po::bool_switch(&test)->default_value(false),
 	       "check computed width of the order (default: no)")
 	      ("w,width-print", po::bool_switch(&print_width)->default_value(false),
-	       "print computed width of the order (default: no)")
+	       "print computed width of the order (default: yes)")
 	      ("r,randomly-choose", po::bool_switch(&choose_randomly)->default_value(false),
 		 "choose the next vertex randomly among vertices of least current back degree (default: no)")
 
@@ -140,7 +140,7 @@ int main(int argc, char *argv[]){
     if (time)
       std::cout << "Time for reading the graph: " << double(clock() - begin) / CLOCKS_PER_SEC << " seconds." << std::endl;
 
-    if (print_details){
+    if (print_details > 1){
       std::cout << "Number of vertices: " << g.num_vertices() << ".\n";
       std::cout << "Number of edges: " << g.num_edges_undir() << ".\n";
     }
@@ -228,7 +228,7 @@ int main(int argc, char *argv[]){
     };
 
     
-    auto resize_bucket = [&](int print_details=0){
+    auto resize_bucket = [&](bool print_details=false){
         unsigned full_bucket = bucket.resize(print_details);
         // recompute the buckets of the non-ordered vertices
 
@@ -316,10 +316,15 @@ int main(int argc, char *argv[]){
         // alternative implementation with buckets
         // Here more intelligent heuristics than taking any element
         // may be more appropriate.
-        if (bucket.need_resize(print_details)){
+
+        while (bucket.need_resize(print_details)){
             resize_bucket(print_details);
-	    
+	    if (print_details>3){
+		bucket.print(g);
+		std::cout << "\n=================\n";
+	    }
 	}
+
 
 	Vertex v;
 	if (choose_randomly)
@@ -532,12 +537,12 @@ int main(int argc, char *argv[]){
     // }
 
     if (print_order){
-	if (print_details)
+	if (print_details>1)
 	    std::cout<< "\n\nThe order: \n";
 	for (size_t i=0; i<order.size(); ++i){
 	    std::cout << g.vertex_to_id(order[i]) <<" "; 
 	}
-	if (print_details)
+	if (print_details>1)
 	    std::cout << "\n";
     }
 
@@ -545,11 +550,13 @@ int main(int argc, char *argv[]){
 // print the width of the order
     if (print_width){
 	// width + 1 because now the vertex itself counts to his back_degree
-	if (print_details)
+	if (print_details>1)
 	    std::cout << "The width of the order is ";
 	std::cout << width+1;
-	if (print_details)
+	if (print_details>1)
 	    std::cout << "." << std::endl;
+	else
+	    std::cout << std::endl;
     }
     
     // debugging
