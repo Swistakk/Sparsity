@@ -43,3 +43,17 @@ networks/proba.sh
 networks/timereport-berlin.csv
 networks/tmp
 networks/verify_wcol_with_brut.sh
+*tmp.dimacs
+mmmmm
+dom/FixIsolatedInOrder
+dom/UQWMix
+dom/licz_stringi.cpp
+dom/licz_stringi
+networks
+dom/CheckConnectivity
+dom/CheckConnectivity.cpp
+dom/min-fill-in/bin/
+networks/connectivity.sh
+td/nic
+td/td-heuristic/td-bs
+td/tmp.order

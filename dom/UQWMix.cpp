@@ -5,6 +5,7 @@
 #include "Independent.hpp"
 #include "CommonGraph.hpp"
 #include "ComputeDegeneracy.hpp"
+#include "UQWReviver.hpp"
 
 struct Solution {
   vector<int> forb, scat;
@@ -18,8 +19,8 @@ struct Solution {
 
 int main(int argc, char** argv) {
   if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/ld"<<endl;
-    cerr<<"tree/ld_iter - method of finding 2-independent set\n";
+    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/ld_it/ld_pow"<<endl;
+    cerr<<"tree/ld_it/ld_pow - method of finding 2-independent set\n";
     cerr<<"  tree - this iterative tree approach\n";
     cerr<<"  ld_it - iterative greedy least degree on G^2\n";
     cerr<<"  ld_pow - greedy least degree on G^r\n";
@@ -66,11 +67,13 @@ int main(int argc, char** argv) {
     vector<vector<int>> candsA;
     vector<int> candsAszs;
     vector<unordered_set<int>> candsS;
+    vector<vector<int>> candsS_vec;
     for (int phase = 0; phase < min(10, n); phase++) {
       vector<int> independent = IndependentRLeastDegreePow(graph, oldA, R, S);
       candsA.PB(independent);
       candsAszs.PB(independent.size());
       candsS.PB(S);
+      candsS_vec.PB(vector<int>(S.begin(), S.end()));
       int to_delete = 0;
       for (int v = 1; v <= n; v++) {
         if (S.count(v)) { continue; }
@@ -87,12 +90,13 @@ int main(int argc, char** argv) {
       }
       oldA.pop_back();
     }
-    debug(candsAszs);
-    int who_biggest = 0;
-    for (int ii = 1; ii < (int)candsA.size(); ii++) {
-      debug(candsA[ii].size() * pow(0.9, ii));
-      if (candsA[ii].size() * pow(0.9, ii) > candsA[who_biggest].size() * pow(0.9, who_biggest)) {
+    int who_biggest = -1;
+    int biggest_score = -1;
+    for (int ii = 0; ii < (int)candsA.size(); ii++) {
+      int cand_score = UQWScore(graph, R, candsS_vec[ii], candsA[ii]);
+      if (cand_score > biggest_score) {
         who_biggest = ii;
+        biggest_score = cand_score;
       }
     }
     oldA = candsA[who_biggest];
@@ -114,9 +118,11 @@ int main(int argc, char** argv) {
           }
           backw_mapping[ii + 1] = a; // backw_mapping will be basically oldA... but yeah   
         }
+        // I hate these "+1"s around here
         vector<vector<int>> graph_on_balls((int)oldA.size() + 1);
         for (int ii = 0; ii < (int)oldA.size(); ii++) {
           unordered_set<int> my_neis;
+          // forw_mapping[v] == ii + 1
           for (auto v : balls[ii]) {
             for (auto nei : graph[v]) {
               if (forw_mapping.count(nei) && forw_mapping[nei] != ii + 1 && my_neis.count(forw_mapping[nei]) == 0) {
@@ -141,7 +147,7 @@ int main(int argc, char** argv) {
           balls[ii] = RNei(graph, a, contractR, S);
           for (auto v : balls[ii]) {
             is_in_ball[v] = true;
-            assert(forw_mapping[v] == 0);
+            assert(branch_set_root[v] == 0);
             branch_set_root[v] = a;
           }
         }
@@ -218,21 +224,35 @@ int main(int argc, char** argv) {
             }
           }
         }
-        debug(curR, candsAszs);
-        int who_biggest = 0;
-        for (int ii = 1; ii < (int)candsA.size(); ii++) {
-          debug(candsA[ii].size() * pow(0.9, ii));
-          if (candsA[ii].size() * pow(0.9, ii) > candsA[who_biggest].size() * pow(0.9, who_biggest)) {
+        
+        vector<vector<int>> backw_candsA;
+        vector<vector<int>> backw_candsS;
+        for (auto& candA : candsA) {
+          vector<int> backw_candA;
+          for (auto v : candA) {
+            backw_candA.PB(backw_mapping[v]);
+          }
+          backw_candsA.PB(backw_candA);
+        }
+        for (auto& candS : candsS) {
+          vector<int> backw_candS = vector<int>(S.begin(), S.end()); // we may try to initialize it as empty vector as well
+          for (auto v : candS) {
+            backw_candS.PB(backw_mapping[v]);
+          }
+          backw_candsS.PB(backw_candS);
+        }
+        
+        int who_biggest = -1;
+        int biggest_score = -1;
+        for (int ii = 0; ii < (int)backw_candsA.size(); ii++) {
+          int score = UQWScore(graph, R, backw_candsS[ii], backw_candsA[ii]); // R here could be curR + 1 as well
+          if (biggest_score < score) {
+            biggest_score = score;
             who_biggest = ii;
           }
         }
-        oldA.clear();
-        for (auto a : candsA[who_biggest]) {
-          oldA.PB(backw_mapping[a]);
-        }
-        for (auto s : candsS[who_biggest]) {
-          S.insert(backw_mapping[s]);
-        }
+        oldA = backw_candsA[who_biggest];
+        S = unordered_set<int>(backw_candsS[who_biggest].begin(), backw_candsS[who_biggest].end());
       }
       //cerr<<"after step "<<curR+1<<" SZ(A)="<<oldA.size()<<" "<<oldA<<endl;
     }
@@ -243,7 +263,8 @@ int main(int argc, char** argv) {
     best_forb.PB(s);
   }
   vector<int> best_scat = oldA;
-  debug(best_forb, best_scat);
+  best_forb = ReviveRedundantForb(graph, R, best_forb, best_scat);
+  //debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {
     cout<<reader.GetOriginalFromMapped(x)<<" ";

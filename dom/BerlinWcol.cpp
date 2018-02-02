@@ -4,17 +4,18 @@
 #include "FlagParser.hpp"
 
 void Err() {
-  cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
+  cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs/sortdeg --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
 
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
+    cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs/sortdeg --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
     cerr<<"order=\n";
     cerr<<"  bfs - considers ordering vertices from new blob in bfs order\n";
-    cerr<<"  dfs - or in dfs order\n";
+    cerr<<"  dfs - or in dfs order on subgraph induced by this blob\n";
+    cerr<<"  sortdeg - sorts vertices within blob by descending degree\n";
     cerr<<"rev=\n";
     cerr<<"  no - puts vertices in order in specified order\n";
     cerr<<"  yes - reverses this order\n";
@@ -26,7 +27,7 @@ int main(int argc, char** argv) {
     return 0;
   }
   string graph_file, output_file;
-  bool bfs_order = false, dfs_order = false, rev = false;
+  bool bfs_order = false, dfs_order = false, sortdeg_order = false, rev = false;
   bool all_rule = false, neis_of_past_rule = false, neis_in_past_rule = false;
   try {
     FlagParser flag_parser;
@@ -49,6 +50,8 @@ int main(int argc, char** argv) {
       bfs_order = true;
     } else if (order_flag == "dfs") {
       dfs_order = true;
+    } else if (order_flag == "sortdeg") {
+      sortdeg_order = true;
     } else {
       Err();
     }
@@ -70,7 +73,7 @@ int main(int argc, char** argv) {
       neis_in_past_rule = true;
     }
     
-    output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bd"[dfs_order]
+    output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bds"[dfs_order + 2 * (int)sortdeg_order]
         + "ny"[rev] + "aoi"[neis_of_past_rule ? 1 : (all_rule ? 0 : 2)] + ".txt";
     debug(output_file);
     string cand_output_file = flag_parser.GetFlag("o", false);
@@ -173,14 +176,17 @@ int main(int argc, char** argv) {
         }
       }
     }
-    if (bfs_order) {
+    if (bfs_order || sortdeg_order) {
       for (int ii = 0; ii < (int)que.size(); ii++) {
         int cur_v = que[ii];
         if (last_important[cur_v] == phase_ind) {
           blob.PB(cur_v);
         }
       }
-    } else {
+      if (sortdeg_order) {
+        sort(blob.begin(), blob.end(), [&](int u, int v) { return graph[u].size() > graph[v].size(); });
+      }
+    } else if (dfs_order) {
       assert(dfs_order);
       function<void(int)> Dfs = [&](int v) {
         blob.PB(v);
@@ -192,6 +198,7 @@ int main(int argc, char** argv) {
       };
       Dfs(root);
     }
+      
     //debug(blob);
 //     cerr<<"blob: ";
 //     for (auto v : blob) {

@@ -1,4 +1,4 @@
-//DEBUG = -g
+//DEBUG = -g -fsanitize=address
 DEBUG = -O3
 
 LFLAGS = -Wall $(DEBUG)

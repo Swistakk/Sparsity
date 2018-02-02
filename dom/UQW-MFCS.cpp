@@ -2,6 +2,7 @@
 #include "ReadTxt.hpp"
 #include "FilesOps.hpp"
 #include "ComputeWReach.hpp"
+#include "UQWReviver.hpp"
 
 int main(int argc, char** argv) {
   if (argc != 4) {
@@ -76,6 +77,7 @@ int main(int argc, char** argv) {
     }
   }
   debug(forb.size(), scat.size());
+  forb = ReviveRedundantForb(graph, R, forb, scat);
   debug(forb, scat);
   cout<<forb.size()<<endl;
   for (auto x : forb) {
