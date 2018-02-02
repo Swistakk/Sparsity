@@ -35,7 +35,7 @@ string GraphReader::GetOriginalFromMapped(int ind) {
 }
 
 int GraphReader::GetMappedFromOriginal(string ind) {
-  if (shrink_indices.count(ind) == 0) { assert(false); }
+  if (shrink_indices.count(ind) == 0) { debug(ind); assert(false); }
   return shrink_indices[ind];
 }
 
@@ -45,14 +45,15 @@ pair<vector<int>, vector<int>> GetOrderAndWhInOrder(string filename, GraphReader
   ifstream oin;
   InitIfstream(oin, filename);
   vector<int> where_in_order(n + 1);
-  for (int i = 0; i < n; i++) {
-    string v;
-    oin >> v;
+  string v;
+  int i = 0;
+  while (oin >> v) {
     //debug(i, v);
     int mapped = reader.GetMappedFromOriginal(v);
     assert(mapped != -1 && where_in_order[mapped] == 0);
     order.PB(mapped);
     where_in_order[mapped] = i;
+    i++;
   }
   oin.close();
   return {order, where_in_order};

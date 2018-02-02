@@ -49,7 +49,7 @@ for rad in range(max_rad + 1):
       sys.stdout.write(',')
   print ("")
 
-berlins_cnt = 18
+berlins_cnt = 19
 felix_cnt = 5
 
 for table_ind in range(0, 3):

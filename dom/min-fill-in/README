@@ -12,7 +12,7 @@ INSTALLATION
 
 You need boost's program options and disjoint sets to compile apprTW. Please, set an environment variable BOOST to the boost path, e.g.
 
-  export BOOST=/usr/local/boost_1_62_0/
+  export BOOST=/usr/local/boost_1_66_0/
 
 and then enter
 
