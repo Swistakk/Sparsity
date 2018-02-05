@@ -15,13 +15,16 @@ edges = []
 nodes = set()   
 with open(infile, 'r') as filebuf:
     for l in filebuf:
-        u,v = l[:-1].split()
-        u,v = int(u)+1, int(v)+1
-        #if u == v:
-            #continue 
-        edges.append((u,v))
-        nodes.add(u)
-        nodes.add(v)
+        if l[0] == '#':
+            continue
+        else:
+            u,v = l[:-1].split()
+            u,v = int(u)+1, int(v)+1
+            if u == v:
+                continue 
+            edges.append((u,v))
+            nodes.add(u)
+            nodes.add(v)
 apex = max(nodes) + 1
 for u in nodes:
     edges.append((apex,u))
@@ -37,7 +40,7 @@ with open('tmp.dimacs', 'w') as filebuf:
 
 sys.stderr.write("Running td heuristic\n")
 # Probably should use flag "-s" for large graphs.
-subprocess.run(["../../td/td-heuristic/td-bs", "-s", "-p", "-n", "tmp.dimacs"])
+subprocess.run(["/home/wojtek/Dokumenty/Mgr/td/td-heuristic/td-bs", "-s", "-p", "-n", "tmp.dimacs"])
 
 tchildren = defaultdict(list)
 with open('tmp.dimacs', 'r') as filebuf:
