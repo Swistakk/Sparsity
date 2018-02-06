@@ -33,6 +33,7 @@ int main(int argc, char** argv) {
       R = stoi(rad_str);
     } catch (...) {
       cerr<<"Error: Radius must be a positive integer\n";
+      Err();
     }
     
     string mode_flag = flag_parser.GetFlag("mode", true);
@@ -61,38 +62,24 @@ int main(int argc, char** argv) {
   int n = graph.size() - 1;
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
+  if (order.size() != n) {
+    cerr<<"Error: Order file should have "<<n<<" vertices, but has "<<order.size()<<endl;
+    exit(1);
+  }
   
   vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
   int wcol = ComputeWcolFromWReach(wreach);
   vector<int> wreach_szs(n + 1);
   for (int v = 1; v <= n; v++) {
     wreach_szs[v] = ((int)wreach[v].size());
-    //cout<<root<<" has col "<<my_col[root]<<endl;
-    //wcol = max(wcol, (int)wreach[root].size());
   }
-//   cerr<<"[";
-//   for (int i = 0; i < n; i++) {
-//     cerr<<wreach_szs[order[i]];
-//     if (i + 1 != n) {
-//       cerr<<", ";
-//     }
-//   }
-//   cerr<<"]\n";
-  //sort(wreach_szs.begin(), wreach_szs.end(), greater<int>());
-//   cerr<<"Biggest wreaches:\n";
-//   for (int i = 0; i < min((int)wreach_szs.size(), 20); i++) {
-//     cerr<<wreach_szs[i]<<", ";
-//   }
-//   cerr<<endl;
   if (wcol_mode) {
     cout<<wcol<<endl;
   } else if (sizes_mode) {
-    //cout<<"\n";
     for (int i = 0; i < n; i++) {
       cout<<reader.GetOriginalFromMapped(order[i])<<" "<<wreach_szs[order[i]]<<"\n";
     }
   } else if (full_mode) {
-    //cout<<"\n";
     for (int i = 0; i < n; i++) {
       cout<<reader.GetOriginalFromMapped(order[i])<<" "<<wreach_szs[order[i]]<<" [";
       for (int j = 0; j < (int)wreach[order[i]].size(); j++) {

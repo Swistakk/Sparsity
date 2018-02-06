@@ -34,10 +34,6 @@ UQW-MFCS
 UQW-TGV
 UQW-TGV2
 UQWPatcher
-networks/big/orders/cl-12-0.berlin.dna.ls4.txt
-networks/big/orders/cl-12-0.felix4.ls4.txt
-networks/big/orders/cl-12-0.sortdeg1.ls4.txt
-networks/big/orders/cl-12-0.sortdeg1.ls5.txt
 networks/huge_rep.csv
 networks/proba.sh
 networks/timereport-berlin.csv
@@ -49,7 +45,6 @@ dom/FixIsolatedInOrder
 dom/UQWMix
 dom/licz_stringi.cpp
 dom/licz_stringi
-networks
 dom/CheckConnectivity
 dom/CheckConnectivity.cpp
 dom/min-fill-in/bin/

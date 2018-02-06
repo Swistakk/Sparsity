@@ -7,7 +7,7 @@
 #include "FlagParser.hpp"
 
 void Err() {
-  cerr<<"Usage: ./LSWcolBoth --in_g=graph.txtg --in_o=order.txt --rad=radius [--o=output.txt]"<<endl;
+  cerr<<"Usage: ./LSWcolBoth --in_g=graph.txtg --in_o=order.txt --rad=radius --T=timeout_secs [--o=output.txt]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
@@ -15,15 +15,23 @@ void Err() {
 const int kMinOldTries = 400;
 const int kMinNewTries = 5000;
 
+double Timestamp() {
+  return 1. * clock() / CLOCKS_PER_SEC;
+}
+
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: ./LSWcolBoth --in_g=graph.txtg --in_o=order.txt --rad=radius [--o=output.txt]"<<endl;
+    cerr<<"Usage: ./LSWcolBoth --in_g=graph.txtg --in_o=order.txt --rad=radius --T=timeout_secs [--o=output.txt]"<<endl;
     cerr<<"in_o - file with order to initialize local search with\n";
+    cerr<<"T - time (in seconds) after which graceful termination is performed\n";
+    cerr<<"    if T=-1 then no such timeout is specified and algorithm works as long as it thinks\n";
+    cerr<<"    there is any chance for improvement\n";
     cerr<<"o - if you want to print order in not default output file\n"; 
     return 0;
   }
   string graph_file, order_file, output_file;
   int R;
+  int timeout_secs = -1;
   try {
     FlagParser flag_parser;
     flag_parser.ParseFlags(argc, argv);
@@ -43,8 +51,22 @@ int main(int argc, char** argv) {
     string rad_str = flag_parser.GetFlag("rad", true);
     try {
       R = stoi(rad_str);
+      if (R <= 0) { throw 1; }
     } catch (...) {
       cerr<<"Error: Radius must be a positive integer\n";
+      Err();
+    }
+    
+    string timeout_secs_str = flag_parser.GetFlag("T", true);
+    try {
+      timeout_secs = stoi(timeout_secs_str);
+      if (timeout_secs == -1) {
+        timeout_secs = 2e9;
+      }
+      if (timeout_secs <= 0) { throw 1; }
+    } catch (...) {
+      cerr<<"Error: Timeout must be a positive integer or -1\n";
+      Err();
     }
     
     order_file = flag_parser.GetFlag("in_o", true);
@@ -80,7 +102,8 @@ int main(int argc, char** argv) {
   srand(22);
   int phase = 0;
   int last_old_update = 0;
-  while (phase < max(kMinOldTries, 2 * last_old_update)) {
+  double old_timeout = 2. / 3 * timeout_secs;
+  while (phase < max(kMinOldTries, 2 * last_old_update) && Timestamp() < old_timeout) {
     int who_worst = 1;
     for (int v = 1; v <= n; v++) {
       if (cur_wreach[v].size() >= cur_wreach[who_worst].size()) {
@@ -123,7 +146,7 @@ int main(int argc, char** argv) {
   int cnt_calls = 0;
   int last_new_update = 0;
   srand(22);
-  while (phase < max(kMinNewTries, 2 * last_new_update)) {
+  while (phase < max(kMinNewTries, 2 * last_new_update) && Timestamp() < timeout_secs) {
     auto it = prev(que.end());
     int rs = rand() % (min(10, n));
     for (int i = 0; i < rs; i++) {
