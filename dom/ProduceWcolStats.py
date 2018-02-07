@@ -108,11 +108,11 @@ for table_ind in range(0, 3):
   
   print ("")
   if table_ind == 0:
-    sys.stdout.write('berlins_best_freq,')
+    sys.stdout.write('berlins_win_score,')
   elif table_ind == 1:
-    sys.stdout.write('felixs_best_freq,')
+    sys.stdout.write('felixs_win_score,')
   else:
-    sys.stdout.write('progs_best_freq,')
+    sys.stdout.write('progs_win_score,')
   
   for prog_id in range(len(progs_in_table)):
     sys.stdout.write(progs_in_table[prog_id])
