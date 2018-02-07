@@ -62,9 +62,15 @@ int main(int argc, char** argv) {
   int n = graph.size() - 1;
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
+  debug(order.size(), n);
   if (order.size() != n) {
     cerr<<"Error: Order file should have "<<n<<" vertices, but has "<<order.size()<<endl;
     exit(1);
+  }
+  
+  if (wcol_mode) {
+    cout<<ComputeWcol(graph, where_in_order, R)<<endl;
+    return 0;
   }
   
   vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
@@ -73,9 +79,7 @@ int main(int argc, char** argv) {
   for (int v = 1; v <= n; v++) {
     wreach_szs[v] = ((int)wreach[v].size());
   }
-  if (wcol_mode) {
-    cout<<wcol<<endl;
-  } else if (sizes_mode) {
+  if (sizes_mode) {
     for (int i = 0; i < n; i++) {
       cout<<reader.GetOriginalFromMapped(order[i])<<" "<<wreach_szs[order[i]]<<"\n";
     }

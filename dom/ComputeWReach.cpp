@@ -52,6 +52,27 @@ vector<vector<int>> ComputeAllWReach(vector<vector<int>>& graph,
   return res;
 }
 
+// this is needed for huge graphs to omit unnecessary O(n^2) memory
+// if wcol is all we need
+int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
+  int n = graph.size() - 1;
+  vector<int> last_vis(n + 1, -1);
+  vector<int> dis(n + 1);
+  vector<int> wreach_sz(n + 1);
+  vector<int> is_forb;
+  for (int root = 1; root <= n; root++) {
+    vector<int> cluster = ComputeSingleCluster(graph, where_in_order, R, is_forb, last_vis, dis, root, root);
+    for (auto v : cluster) {
+      wreach_sz[v]++;
+    }
+  }
+  int res = 0;
+  for (auto x : wreach_sz) {
+    res = max(x, res);
+  }
+  return res;
+}
+
 vector<int> ComputeSingleCluster(vector<vector<int>>& graph,
                                  vector<int>& where_in_order,
                                  int R,

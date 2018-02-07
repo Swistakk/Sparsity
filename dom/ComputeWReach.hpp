@@ -25,3 +25,5 @@ vector<int> ComputeSingleCluster(vector<vector<int>>& graph,
 vector<vector<int>> ComputeClustersFromWReach(vector<vector<int>>& wreach);
 
 int ComputeWcolFromWReach(vector<vector<int>>& wreach);
+
+int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int radius);
