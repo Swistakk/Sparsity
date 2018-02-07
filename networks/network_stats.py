@@ -28,6 +28,7 @@ files = glob.glob('small/*.txtg')
 files += glob.glob('medium/*.txtg')
 files += glob.glob('large/*.txtg')
 
+print("test;n;m;avg_deg;max_deg")
 for f in files:
     name, _ = os.path.splitext(os.path.basename(f))
     n, m, avg_deg, max_deg = compute_stats(f)
