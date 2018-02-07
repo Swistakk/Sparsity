@@ -12,7 +12,7 @@ all,1.131,1.147,1.159,1.117,1.135,1.156,1.039,1.054,1.072,1.277,1.309,1.363,1.29
 4,1.136,1.143,1.167,1.122,1.130,1.167,1.028,1.042,1.066,1.258,1.281,1.353,1.276,1.295,1.359,1.326,1.340,1.422,1.139
 5,1.134,1.149,1.179,1.123,1.142,1.177,1.026,1.043,1.053,1.266,1.309,1.342,1.294,1.332,1.353,1.328,1.368,1.398,1.120
 
-berlins_best_freq,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
+berlins_win_score,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
 all,0.000,0.000,1.694,0.000,0.000,1.694,30.500,23.994,22.744,0.910,0.244,0.610,0.910,0.244,0.610,0.077,1.277,0.244,2.250
 2,0.000,0.000,1.417,0.000,0.000,1.417,6.750,3.500,7.750,0.000,0.167,0.333,0.000,0.167,0.333,0.000,0.000,0.167,0.000
 3,0.000,0.000,0.277,0.000,0.000,0.277,7.083,7.660,5.160,0.077,0.077,0.277,0.077,0.077,0.277,0.077,0.277,0.077,0.250
@@ -26,7 +26,7 @@ all,1.282,1.069,1.173,nan,nan
 4,1.316,1.079,1.103,nan,nan
 5,1.311,1.101,1.089,nan,nan
 
-felixs_best_freq,felix1,felix2,felix3,felix4,felix5
+felixs_win_score,felix1,felix2,felix3,felix4,felix5
 all,16.500,41.833,24.833,1.000,3.833
 2,7.500,14.500,0.000,0.000,0.000
 3,3.000,12.000,7.000,0.000,0.000
@@ -40,7 +40,7 @@ all,49.503,1.597,9.904,15.455,30.901,38.439,1.104,2.378,1.591,2.407,2.090,nan,1.
 4,53.509,1.701,8.675,12.336,25.028,34.709,1.079,2.515,1.584,2.780,2.288,nan,1.434,1.519,1.250,1.273,nan,nan,1.561,1.578,1.609,1.543,1.563,1.609,1.414,1.439,1.474,1.734,1.777,1.881,1.760,1.794,1.887,1.834,1.861,1.974,1.566
 5,55.361,1.825,7.980,11.072,22.621,31.197,1.065,2.864,1.640,2.615,2.184,nan,1.189,1.604,1.346,1.327,nan,nan,1.562,1.603,1.622,1.548,1.593,1.623,1.415,1.453,1.459,1.742,1.826,1.875,1.781,1.859,1.891,1.838,1.918,1.953,1.547
 
-progs_best_freq,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,fill-in,felix1,felix2,felix3,felix4,felix5,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
+progs_win_score,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,fill-in,felix1,felix2,felix3,felix4,felix5,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
 all,0.000,1.944,0.000,0.000,0.000,0.000,30.400,4.267,1.000,0.000,1.000,0.000,14.811,0.511,17.333,5.000,0.000,0.000,0.000,0.000,0.178,0.000,0.000,0.178,3.233,2.100,3.711,0.767,0.067,0.178,0.767,0.067,0.178,0.067,0.067,0.178,0.000
 2,0.000,1.944,0.000,0.000,0.000,0.000,3.500,0.000,0.000,0.000,0.000,0.000,3.111,0.444,11.333,0.000,0.000,0.000,0.000,0.000,0.111,0.000,0.000,0.111,0.000,0.000,1.111,0.000,0.000,0.111,0.000,0.000,0.111,0.000,0.000,0.111,0.000
 3,0.000,0.000,0.000,0.000,0.000,0.000,7.200,1.067,0.000,0.000,0.000,0.000,2.700,0.067,3.000,5.000,0.000,0.000,0.000,0.000,0.067,0.000,0.000,0.067,0.700,0.267,1.267,0.067,0.067,0.067,0.067,0.067,0.067,0.067,0.067,0.067,0.000
