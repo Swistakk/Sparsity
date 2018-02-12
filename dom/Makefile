@@ -33,10 +33,10 @@ BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-UQW-TGV: UQW-TGV.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o
+UQW-TGV: UQW-TGV.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-UQW-TGV2: UQW-TGV2.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o
+UQW-TGV2: UQW-TGV2.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
 UQW-MFCS: UQW-MFCS.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o

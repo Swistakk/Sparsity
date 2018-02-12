@@ -3,14 +3,24 @@
 #include "FilesOps.hpp"
 #include "ComputeWReach.hpp"
 #include "UQWReviver.hpp"
+#include "CommonGraph.hpp"
 
 struct Solution {
   vector<int> forb, scat;
+  int score;
+  Solution(vector<vector<int>>& graph, int R, vector<int>& forb_, vector<int>& scat_) {
+    forb = ReviveRedundantForb(graph, R, forb_, scat_);
+    scat = scat_;
+    score = UQWScore(graph, R, forb, scat);
+  }
+  Solution() {
+    score = -1;
+  }
   bool operator<(const Solution& oth) const { // lol
-    return 1. * scat.size() / (3 + forb.size()) < 1. * oth.scat.size() / (3 + oth.forb.size()) - 1e-9; // hack to ensure halt
+    return score < oth.score;
   }
   bool operator==(const Solution& oth) const {
-    return scat.size() * (3 + oth.forb.size()) == oth.scat.size() * (3 + forb.size());
+    return score == oth.score;
   }
 };
 
@@ -125,37 +135,18 @@ int main(int argc, char** argv) {
     while (forb.size() != last_forb_sz) {
       forb.pop_back();
     }
-    return Solution{forb, scat};
+    debug(threshold, scat.size());
+    return Solution(graph, R, forb, scat);
   };
   
   Solution best;
-  long double kl = 0, kp = 1;
-  int cnt = 0;
-  while (1) {
-    cnt++;
-    long double L = (2 * kl + kp) / 3;
-    long double R = (kl + 2 * kp) / 3;
-    Solution sL = UQWFirst(L);
-    Solution sR = UQWFirst(R);
-    debug(sL.forb.size(), sL.scat.size(), sR.forb.size(), sR.scat.size());
-    if (sL < sR) {
-      kl = L;
-      if (best < sR) {
-        best = sR;
-      }
-    } else {
-      kp = R;
-      if (best < sL) {
-        best = sL;
-      }
-      if (sL == sR) {
-        if (cnt < 5) {
-          kp = R;
-        } else {
-          debug(L);
-          break;
-        }
-      }
+  int checks = 20;
+  for (int ind = 1; ind <= checks; ind++) {
+    long double threshold = 1. * ind / (checks + 1);
+    Solution sol = UQWFirst(threshold);
+    debug(threshold, sol.score);
+    if (best < sol) {
+      best = sol;
     }
   }
     
