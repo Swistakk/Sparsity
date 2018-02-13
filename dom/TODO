@@ -1,13 +1,14 @@
 High priority:
   Wcol:
-    Zapuscic TD, fill_in
-    Pogenerować tabelki
   UQW:
-    Dodac jeszcze jeden approach na UQW z most ratio popular in wreach
+    Napisac skrypt uruchom.py
+    Napisac TGVrelaxed
+    Dopisac procenty
 
 
 Medium priority:
   Wcol:
+    Zmusic sie do wygenerowania huge raz jeszcze
   UQW:
     Wybrac najmniej konfliktujacy w TGV
     
@@ -15,5 +16,3 @@ Medium priority:
 Low priority:
   UQW:
     Dodać flagi
-Zapuścić na huge
-Uporządkować folder dom na podfoldery (trzeba jakieś mądre Makefile zrobić :()

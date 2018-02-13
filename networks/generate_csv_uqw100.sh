@@ -1,5 +1,5 @@
-#(./execute.sh ./generate_csv_uqw.sh small) > small_uqw_rep.csv
-progs="TGV TGV2 MFCS mix_tree mix_ldit mix_ldpow";
+#(./execute.sh ./generate_csv_uqw100.sh small) > small_uqw100_rep.csv
+progs="TGV TGV2 MFCS mix_tree mix_tree_shrink mix_ldit mix_ldpow";
 last_prog="mix_ldpow"
 printf test,rad,;
 for prog in $progs; do
@@ -15,7 +15,7 @@ for rad in {1..5}; do
     name=${input:0:-5};
     printf $name,$rad,
     (for prog in $progs; do
-      ~/Dokumenty/Mgr/dom/VerifierUQW $input UQW/$name.$prog$rad.txt $rad;
+      ~/Dokumenty/Mgr/dom/VerifierUQW $input UQW/$name.$prog$rad.100.txt $rad;
       if [ $prog != $last_prog ]
       then
         printf ,

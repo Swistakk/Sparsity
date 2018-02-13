@@ -6,8 +6,10 @@
 #include "CommonGraph.hpp"
 
 int main(int argc, char** argv) {
-  if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius"<<endl;
+  if (argc != 5) {
+    cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius percentage"<<endl;
+    cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
+    cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
   string graph_file = string(argv[1]); 
@@ -17,7 +19,8 @@ int main(int argc, char** argv) {
   string order_file = string(argv[2]);
   string rad_str = string(argv[3]);
   int R = stoi(rad_str);
-  
+  string percentage_str = string(argv[4]);
+  int percentage = stoi(percentage_str);
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
@@ -27,7 +30,7 @@ int main(int argc, char** argv) {
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
-  int a_sz = n; // n / 10
+  int a_sz = n * percentage * .01; // n / 10
   vector<int> rand_order(n);
   iota(rand_order.begin(), rand_order.end(), 1);
   random_shuffle(rand_order.begin(), rand_order.end());
@@ -42,6 +45,7 @@ int main(int argc, char** argv) {
     vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
     vector<int> old_A = init_A;
     vector<int> is_forb(n + 1), forb, scat;
+    set<int> scat_set;
     int last_forb_sz = 0;
     while (!old_A.empty()) {
       sort(old_A.begin(), old_A.end(), [&](int a, int b) { return where_in_order[a] < where_in_order[b]; });
@@ -65,6 +69,7 @@ int main(int argc, char** argv) {
       if (conflicting.size() <= 1 + old_A.size() * threshold) { // change it
         //cerr<<fir<<" into scat\n";
         scat.PB(fir);
+        scat_set.insert(fir);
         vector<int> new_A;
         for (auto a : old_A) {
           if (conflicting.count(a) == 0) {
@@ -77,7 +82,7 @@ int main(int argc, char** argv) {
         vector<vector<int>> clusters = ComputeClustersFromWReach(wreach);
         int best_alive = -1, who_to_forb = -1;
         for (int v = 1; v <= n; v++) {
-          if (is_forb[v] /*|| Aset.count(v)*/) { continue; }
+          if (is_forb[v] || scat_set.count(v)) { continue; }
           int count_alive = 0;
           for (auto u : clusters[v]) {
             if (u != v && Aset.count(u)) {

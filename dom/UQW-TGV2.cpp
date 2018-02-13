@@ -6,8 +6,10 @@
 #include "CommonGraph.hpp"
 
 int main(int argc, char** argv) {
-  if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius"<<endl;
+  if (argc != 5) {
+    cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius percentage"<<endl;
+    cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
+    cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
   string graph_file = string(argv[1]); 
@@ -17,6 +19,8 @@ int main(int argc, char** argv) {
   string order_file = string(argv[2]);
   string rad_str = string(argv[3]);
   int R = stoi(rad_str);
+  string percentage_str = string(argv[4]);
+  int percentage = stoi(percentage_str);
   
   
   GraphReader reader;
@@ -27,7 +31,7 @@ int main(int argc, char** argv) {
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
-  int a_sz = n; // n / 10
+  int a_sz = n * percentage * .01; // n / 10
   vector<int> rand_order(n);
   iota(rand_order.begin(), rand_order.end(), 1);
   random_shuffle(rand_order.begin(), rand_order.end());

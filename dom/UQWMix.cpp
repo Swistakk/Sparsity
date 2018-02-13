@@ -7,13 +7,15 @@
 #include "ComputeDegeneracy.hpp"
 
 int main(int argc, char** argv) {
-  if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/tree_shrink/ld_it/ld_pow"<<endl;
+  if (argc != 5) {
+    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/tree_shrink/ld_it/ld_pow percentage"<<endl;
     cerr<<"tree/ld_it/ld_pow - method of finding 2-independent set\n";
     cerr<<"  tree - this iterative tree approach, slightly modified\n";
     cerr<<"  tree_shrink - as above but with shrinking as in original\n";
     cerr<<"  ld_it - iterative greedy least degree on G^2\n";
     cerr<<"  ld_pow - greedy least degree on G^r\n";
+    cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
+    cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
   string graph_file = string(argv[1]); 
@@ -24,15 +26,20 @@ int main(int argc, char** argv) {
   string rad_str = string(argv[2]);
   int R = stoi(rad_str);
   string mode = string(argv[3]);
-  bool tree_mode = false, ld_it_mode = false, ld_pow_mode = false;
+  bool tree_mode = false, tree_shrink_mode = false, ld_it_mode = false, ld_pow_mode = false;
   if (mode == "tree") {
     tree_mode = true;
+  } else if (mode == "tree_shrink") {
+    tree_shrink_mode = true;
   } else if (mode == "ld_it") {
     ld_it_mode = true;
   } else {
     assert(mode == "ld_pow");
     ld_pow_mode = true;
   }
+  
+  string percentage_str = string(argv[4]);
+  int percentage = stoi(percentage_str);
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
@@ -42,7 +49,7 @@ int main(int argc, char** argv) {
 //   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
-  int a_sz = n; // n / 10
+  int a_sz = n * percentage * .01; // n / 10
   vector<int> rand_order(n);
   iota(rand_order.begin(), rand_order.end(), 1);
   random_shuffle(rand_order.begin(), rand_order.end());
@@ -184,6 +191,8 @@ int main(int argc, char** argv) {
           vector<int> independent;
           if (tree_mode) {
             independent = Independent2Tree(bipartite_graph, forwA_init, curS);
+          } else if (tree_shrink_mode) {
+            independent = Independent2Tree(bipartite_graph, forwA, curS);
           } else {
             independent = IndependentRLeastDegreePow(bipartite_graph, forwA_init, 2, curS);
           }
