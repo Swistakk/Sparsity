@@ -5,25 +5,6 @@
 #include "UQWReviver.hpp"
 #include "CommonGraph.hpp"
 
-struct Solution {
-  vector<int> forb, scat;
-  int score;
-  Solution(vector<vector<int>>& graph, int R, vector<int>& forb_, vector<int>& scat_) {
-    forb = ReviveRedundantForb(graph, R, forb_, scat_);
-    scat = scat_;
-    score = UQWScore(graph, R, forb, scat);
-  }
-  Solution() {
-    score = -1;
-  }
-  bool operator<(const Solution& oth) const { // lol
-    return score < oth.score;
-  }
-  bool operator==(const Solution& oth) const {
-    return score == oth.score;
-  }
-};
-
 int main(int argc, char** argv) {
   if (argc != 4) {
     cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius"<<endl;

@@ -5,25 +5,6 @@
 #include "UQWReviver.hpp"
 #include "CommonGraph.hpp"
 
-struct Solution {
-  vector<int> forb, scat;
-  int score;
-  Solution(vector<vector<int>>& graph, int R, vector<int>& forb_, vector<int>& scat_) {
-    forb = ReviveRedundantForb(graph, R, forb_, scat_);
-    scat = scat_;
-    score = UQWScore(graph, R, forb, scat);
-  }
-  Solution() {
-    score = -1;
-  }
-  bool operator<(const Solution& oth) const { // lol
-    return score < oth.score;
-  }
-  bool operator==(const Solution& oth) const {
-    return score == oth.score;
-  }
-};
-
 int main(int argc, char** argv) {
   if (argc != 4) {
     cerr<<"Usage: ./UQWFirst graph.txtg order.txt radius"<<endl;
@@ -58,6 +39,7 @@ int main(int argc, char** argv) {
   
   
   function<Solution(long double)> UQWFirst = [&](long double threshold) {
+    //int db = 0.57142 < threshold && threshold < 0.57143;
     vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
     vector<int> old_A = init_A;
     vector<int> is_forb(n + 1), forb, scat;
@@ -82,12 +64,13 @@ int main(int argc, char** argv) {
         }
         if (dis[v] < R) {
           for (auto nei : graph[v]) {
-            if (dis[nei] != -1) { continue; }
+            if (dis[nei] != -1 || is_forb[nei]) { continue; }
             dis[nei] = dis[v] + 1;
             que.PB(nei);
           }
         }
       }
+      //if (db) { debug(old_A, conflicting); }
       if (conflicting.size() <= 1 + old_A.size() * threshold) { // change it
         //cerr<<fir<<" into scat\n";
         scat.PB(fir);
@@ -135,7 +118,7 @@ int main(int argc, char** argv) {
     while (forb.size() != last_forb_sz) {
       forb.pop_back();
     }
-    debug(threshold, scat.size());
+    debug(threshold, forb.size(), scat.size());
     return Solution(graph, R, forb, scat);
   };
   

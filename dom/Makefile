@@ -15,7 +15,7 @@ all: $(EXECS)
 WcolStats: WcolStats.o ReadTxt.o FilesOps.o ComputeWReach.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-VerifierUQW: VerifierUQW.o ReadTxt.o FilesOps.o CommonGraph.o ComputeWReach.o
+VerifierUQW: VerifierUQW.o ReadTxt.o FilesOps.o CommonGraph.o ComputeWReach.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@	
 
 VerifierUQWBrut: VerifierUQWBrut.o ReadTxt.o FilesOps.o
@@ -30,7 +30,7 @@ greedy: greedy.o ReadTxt.o FilesOps.o
 BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o
+Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 UQW-TGV: UQW-TGV.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
@@ -60,7 +60,7 @@ RandomWcol: RandomWcol.o ReadTxt.o FilesOps.o FlagParser.o
 ComputeWcolBrut: ComputeWcolBrut.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-CheckIndependent: CheckIndependent.o ReadTxt.o FilesOps.o FlagParser.o Independent.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o
+CheckIndependent: CheckIndependent.o ReadTxt.o FilesOps.o FlagParser.o Independent.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
 UQWMix: UQWMix.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o CommonGraph.o Independent.o ComputeDegeneracy.o UQWReviver.o

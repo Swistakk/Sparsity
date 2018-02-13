@@ -5,23 +5,13 @@
 #include "Independent.hpp"
 #include "CommonGraph.hpp"
 #include "ComputeDegeneracy.hpp"
-#include "UQWReviver.hpp"
-
-struct Solution {
-  vector<int> forb, scat;
-  bool operator<(const Solution& oth) const { // lol
-    return 1. * scat.size() / (3 + forb.size()) < 1. * oth.scat.size() / (3 + oth.forb.size()) - 1e-9; // hack to ensure halt
-  }
-  bool operator==(const Solution& oth) const {
-    return scat.size() * (3 + oth.forb.size()) == oth.scat.size() * (3 + forb.size());
-  }
-};
 
 int main(int argc, char** argv) {
   if (argc != 4) {
-    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/ld_it/ld_pow"<<endl;
+    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/tree_shrink/ld_it/ld_pow"<<endl;
     cerr<<"tree/ld_it/ld_pow - method of finding 2-independent set\n";
-    cerr<<"  tree - this iterative tree approach\n";
+    cerr<<"  tree - this iterative tree approach, slightly modified\n";
+    cerr<<"  tree_shrink - as above but with shrinking as in original\n";
     cerr<<"  ld_it - iterative greedy least degree on G^2\n";
     cerr<<"  ld_pow - greedy least degree on G^r\n";
     return 1;
@@ -43,7 +33,6 @@ int main(int argc, char** argv) {
     assert(mode == "ld_pow");
     ld_pow_mode = true;
   }
-  
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
@@ -68,12 +57,14 @@ int main(int argc, char** argv) {
     vector<int> candsAszs;
     vector<unordered_set<int>> candsS;
     vector<vector<int>> candsS_vec;
+    vector<Solution> solutions;
     for (int phase = 0; phase < min(10, n); phase++) {
       vector<int> independent = IndependentRLeastDegreePow(graph, oldA, R, S);
       candsA.PB(independent);
       candsAszs.PB(independent.size());
       candsS.PB(S);
       candsS_vec.PB(vector<int>(S.begin(), S.end()));
+      solutions.PB(Solution(graph, R, candsS_vec.back(), independent));
       int to_delete = 0;
       for (int v = 1; v <= n; v++) {
         if (S.count(v)) { continue; }
@@ -88,15 +79,14 @@ int main(int argc, char** argv) {
           break;
         }
       }
-      oldA.pop_back();
+      if (oldA.back() == to_delete) {
+        oldA.pop_back();
+      }
     }
-    int who_biggest = -1;
-    int biggest_score = -1;
-    for (int ii = 0; ii < (int)candsA.size(); ii++) {
-      int cand_score = UQWScore(graph, R, candsS_vec[ii], candsA[ii]);
-      if (cand_score > biggest_score) {
+    int who_biggest = 0;
+    for (int ii = 1; ii < (int)candsA.size(); ii++) {
+      if (solutions[who_biggest] < solutions[ii]) {
         who_biggest = ii;
-        biggest_score = cand_score;
       }
     }
     oldA = candsA[who_biggest];
@@ -225,6 +215,7 @@ int main(int argc, char** argv) {
           }
         }
         
+        vector<Solution> solutions;
         vector<vector<int>> backw_candsA;
         vector<vector<int>> backw_candsS;
         for (auto& candA : candsA) {
@@ -235,19 +226,19 @@ int main(int argc, char** argv) {
           backw_candsA.PB(backw_candA);
         }
         for (auto& candS : candsS) {
-          vector<int> backw_candS = vector<int>(S.begin(), S.end()); // we may try to initialize it as empty vector as well
+          vector<int> backw_candS = vector<int>(S.begin(), S.end());
           for (auto v : candS) {
             backw_candS.PB(backw_mapping[v]);
           }
           backw_candsS.PB(backw_candS);
         }
+        for (int ii = 0; ii < (int)candsA.size(); ii++) {
+          solutions.PB(Solution(graph, curR + 1, backw_candsS[ii], backw_candsA[ii]));
+        }
         
-        int who_biggest = -1;
-        int biggest_score = -1;
-        for (int ii = 0; ii < (int)backw_candsA.size(); ii++) {
-          int score = UQWScore(graph, R, backw_candsS[ii], backw_candsA[ii]); // R here could be curR + 1 as well
-          if (biggest_score < score) {
-            biggest_score = score;
+        int who_biggest = 0;
+        for (int ii = 1; ii < (int)backw_candsA.size(); ii++) {
+          if (solutions[who_biggest] < solutions[ii]) {
             who_biggest = ii;
           }
         }

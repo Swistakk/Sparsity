@@ -92,3 +92,22 @@ int UQWScore(vector<vector<int>>& graph, int R, vector<int>& forb, vector<int>& 
   }
   return biggest_class;
 }
+
+Solution::Solution(vector<vector<int>>& graph, int R, vector<int>& forb_, vector<int>& scat_) {
+  forb = ReviveRedundantForb(graph, R, forb_, scat_);
+  scat = scat_;
+  score = UQWScore(graph, R, forb, scat);
+}
+
+Solution::Solution() {
+  score = -1;
+}
+
+bool Solution::operator<(const Solution& oth) const {
+  return score < oth.score;
+}
+
+bool Solution::operator==(const Solution& oth) const {
+  return score == oth.score;
+}
+

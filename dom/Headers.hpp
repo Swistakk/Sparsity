@@ -22,3 +22,4 @@ template<typename TH, typename... TA> void _dbg(const char* sdbg, TH h, TA... t)
 #endif
 
 template<class T> ostream& operator<<(ostream& out, vector<T> vec) { out<<"("; for (auto& v: vec) out<<v<<", "; return out<<")"; }
+template<class T> ostream& operator<<(ostream& out, set<T> vec) { out<<"("; for (auto& v: vec) out<<v<<", "; return out<<")"; }
