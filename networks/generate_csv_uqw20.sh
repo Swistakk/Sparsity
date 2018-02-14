@@ -1,6 +1,6 @@
 #(./execute.sh ./generate_csv_uqw20.sh small) > small_uqw20_rep.csv
-progs="TGV TGV2 MFCS mix_tree mix_tree_shrink mix_ldit mix_ldpow";
-last_prog="mix_ldpow"
+progs="TGV TGV2 MFCS tree tree_shrink ldit ldpow";
+last_prog="ldpow"
 printf test,rad,;
 for prog in $progs; do
   printf $prog.forb,$prog.scat,$prog.score

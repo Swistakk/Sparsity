@@ -8,12 +8,12 @@
 
 int main(int argc, char** argv) {
   if (argc != 5) {
-    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/tree_shrink/ld_it/ld_pow percentage"<<endl;
+    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/tree_shrink/ldit/ldpow percentage"<<endl;
     cerr<<"tree/ld_it/ld_pow - method of finding 2-independent set\n";
     cerr<<"  tree - this iterative tree approach, slightly modified\n";
     cerr<<"  tree_shrink - as above but with shrinking as in original\n";
-    cerr<<"  ld_it - iterative greedy least degree on G^2\n";
-    cerr<<"  ld_pow - greedy least degree on G^r\n";
+    cerr<<"  ldit - iterative greedy least degree on G^2\n";
+    cerr<<"  ldpow - greedy least degree on G^r\n";
     cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
     cerr<<"  (in percents) initial set A should be \n";
     return 1;
@@ -31,10 +31,10 @@ int main(int argc, char** argv) {
     tree_mode = true;
   } else if (mode == "tree_shrink") {
     tree_shrink_mode = true;
-  } else if (mode == "ld_it") {
+  } else if (mode == "ldit") {
     ld_it_mode = true;
   } else {
-    assert(mode == "ld_pow");
+    assert(mode == "ldpow");
     ld_pow_mode = true;
   }
   
