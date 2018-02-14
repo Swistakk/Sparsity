@@ -1,4 +1,4 @@
-EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth CheckIndependent UQWMix FixIsolatedInOrder
+EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-TGV3 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth CheckIndependent UQWMix FixIsolatedInOrder
 
 OPTFLAGS=-O2 -std=c++11
 OPTLOCALFLAGS= -DLOCAL -std=c++11 -O2
@@ -38,6 +38,9 @@ UQW-TGV: UQW-TGV.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph
 	
 UQW-TGV2: UQW-TGV2.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
+	
+UQW-TGV3: UQW-TGV3.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o Independent.o ComputeDegeneracy.o
+	$(CXX) $(LDFLAGS) $^ -o $@	
 	
 UQW-MFCS: UQW-MFCS.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@

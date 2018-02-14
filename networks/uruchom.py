@@ -43,7 +43,7 @@ output_file = graph_dir + "/UQW/" + graph_name + "." + prog + rad + "." + percen
 command += " > " + output_file
 print (command)
 
-timeout = 10 #??
+timeout = 10 #???
 timetmp = "mktemp"
 
 command = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str(timeout) + " " + command

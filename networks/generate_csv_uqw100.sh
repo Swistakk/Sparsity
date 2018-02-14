@@ -1,5 +1,5 @@
 #(./execute.sh ./generate_csv_uqw100.sh small) > small_uqw100_rep.csv
-progs="TGV TGV2 MFCS tree tree_shrink ldit ldpow";
+progs="TGV TGV2 TGV3 MFCS tree tree_shrink ldit ldpow";
 last_prog="ldpow"
 printf test,rad,;
 for prog in $progs; do
