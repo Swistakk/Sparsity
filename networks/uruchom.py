@@ -22,12 +22,10 @@ order_file = graph_dir + "/orders/" + graph_name + ".sortdeg1.txt";
 print (order_file);
 
 root = ".." #change it?
-exe_name = "UQW-MFCS";
 is_mix = False
 
-
-
 if prog == "MFCS" or prog == "TGV" or prog == "TGV2" or prog == "TGV3":
+  exe_name = "UQW-" + prog
   out_suf = prog
   command = "{}/dom/{} {} {} {} {}".format(root, exe_name, graph_file, order_file, rad, percentage)
 else:
