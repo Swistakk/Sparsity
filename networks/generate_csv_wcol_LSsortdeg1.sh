@@ -8,7 +8,7 @@ for rad in {1..5}; do
     last_prog="sortdeg1.ls"$rad
     printf $name,$rad,
     (for prog in $progs; do
-      ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol;
+      ~/git/programs/wcol-practical/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol;
       if [ $prog != $last_prog ]
       then
         printf ,
