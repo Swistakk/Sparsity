@@ -53,4 +53,13 @@ print ("RETURN_CODE=%d" % int(res))
 t = tmpf.readline().strip()
 tmpf.close()
 print("TIME=%s" % t)
+
+# Recover forb and scat
+f = open(output_file, "r")
+forb = f.readline().strip()
+print("FORB=%d" % int(forb))
+f.readline()
+scat = f.readline().strip()
+print("SCAT=%d" % int(scat))
+f.close()
 print("------------------------")
