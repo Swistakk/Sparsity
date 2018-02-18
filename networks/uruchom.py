@@ -44,13 +44,13 @@ output_file = graph_dir + "/UQW/" + graph_name + "." + prog + rad + "." + percen
 command += " > " + output_file
 print ("COMMAND=%s" % command)
 
-timeout = 600 #???
+timeout = 10 #???
 tmpf = tempfile.NamedTemporaryFile()
 
 command = "/usr/bin/time -q --output=" + tmpf.name + " -f \"%E\" timeout " + str(timeout) + " " + command
 
-os.system(command)
-
+res = os.system(command)
+print ("RETURN_CODE=%d" % int(res))
 t = tmpf.readline().strip()
 tmpf.close()
 print("TIME=%s" % t)
