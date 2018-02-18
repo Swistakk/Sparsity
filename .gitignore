@@ -51,3 +51,9 @@ networks/connectivity.sh
 td/nic
 td/td-heuristic/td-bs
 td/tmp.order
+
+dom/GPATH
+
+dom/GRTAGS
+
+dom/GTAGS
