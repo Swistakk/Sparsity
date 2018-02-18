@@ -24,11 +24,10 @@ print ("PROG=%s\nGRAPH=%s\nR=%d\n%%=%d" % (prog, graph_file, int(rad), int(perce
 print ("ORDER=%s" % order_file)
 
 root = ".." #change it?
-exe_name = "UQW-MFCS";
 is_mix = False
 
-
 if prog == "MFCS" or prog == "TGV" or prog == "TGV2" or prog == "TGV3":
+  exe_name = "UQW-" + prog
   out_suf = prog
   command = "{}/dom/{} {} {} {} {}".format(root, exe_name, graph_file, order_file, rad, percentage)
 else:
