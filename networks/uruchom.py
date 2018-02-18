@@ -4,6 +4,7 @@
 
 import sys
 import os
+import tempfile
 
 prog = sys.argv[1]
 graph_file = sys.argv[2]
@@ -19,12 +20,12 @@ graph_dir = graph_file[:last_slash]
 graph_name = graph_file[last_slash + 1 : -len(g_format)]
 order_file = graph_dir + "/orders/" + graph_name + ".sortdeg1.txt";
 
-print (order_file);
+print ("PROG=%s\nGRAPH=%s\nR=%d\n%%=%d" % (prog, graph_file, int(rad), int(percentage)))
+print ("ORDER=%s" % order_file)
 
 root = ".." #change it?
 exe_name = "UQW-MFCS";
 is_mix = False
-
 
 
 if prog == "MFCS" or prog == "TGV" or prog == "TGV2" or prog == "TGV3":
@@ -41,13 +42,16 @@ else:
 output_file = graph_dir + "/UQW/" + graph_name + "." + prog + rad + "." + percentage + ".txt"
 
 command += " > " + output_file
-print (command)
+print ("COMMAND=%s" % command)
 
-timeout = 10 #???
-timetmp = "mktemp"
+timeout = 600 #???
+tmpf = tempfile.NamedTemporaryFile()
 
-command = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str(timeout) + " " + command
+command = "/usr/bin/time -q --output=" + tmpf.name + " -f \"%E\" timeout " + str(timeout) + " " + command
 
 os.system(command)
 
-
+t = tmpf.readline().strip()
+tmpf.close()
+print("TIME=%s" % t)
+print("------------------------")
