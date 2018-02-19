@@ -26,7 +26,7 @@ def compute_stats(filename):
 
 files = glob.glob('small/*.txtg')
 files += glob.glob('medium/*.txtg')
-files += glob.glob('large/*.txtg')
+files += glob.glob('big/*.txtg')
 files += glob.glob('huge/*.txtg')
 
 print("test;n;m;avg_deg;max_deg")
