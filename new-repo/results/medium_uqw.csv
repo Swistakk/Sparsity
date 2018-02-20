@@ -1,4 +1,4 @@
-test,rad,%,MFCS_forb,MFCS_scat,MFCS_score,MFCS_time,TGV_forb,TGV_scat,TGV_score,TGV_time,TGV2_forb,TGV2_scat,TGV2_score,TGV2_time,tree_forb,tree_scat,tree_score,tree_time,tree_shrink_forb,tree_shrink_scat,tree_shrink_score,tree_shrink_time,ldit_forb,ldit_scat,ldit_score,ldit_time,ldpow_forb,ldpow_scat,ldpow_score,ldpow_time,TGV3_forb,TGV3_scat,TGV3_score,TGV3_time
+test,rad,%,mfcs_forb,mfcs_scat,mfcs_score,mfcs_time,new1_forb,new1_scat,new1_score,new1_time,new2_forb,new2_scat,new2_score,new2_time,tree1_forb,tree1_scat,tree1_score,tree1_time,tree2_forb,tree2_scat,tree2_score,tree2_time,ld_it_forb,ld_it_scat,ld_it_score,ld_it_time,ld_forb,ld_scat,ld_score,ld_time,new_ld_forb,new_ld_scat,new_ld_score,new_ld_time
 medium/airlines.txtg,2,100,54,127,9,0:00.01,1,10,9,0:00.10,1,11,9,0:00.10,2,29,12,0:00.02,1,12,12,0:00.01,2,29,12,0:00.02,1,21,13,0:00.03,1,22,15,0:02.07
 medium/airlines.txtg,2,20,21,32,3,0:00.01,1,4,4,0:00.07,1,5,4,0:00.06,0,6,6,0:00.01,0,6,6,0:00.01,0,6,6,0:00.01,0,6,6,0:00.01,0,6,6,0:00.31
 medium/celegans.txtg,2,100,86,64,4,0:00.01,1,13,12,0:00.29,1,19,15,0:00.27,1,25,18,0:00.02,1,18,18,0:00.02,1,26,18,0:00.01,1,29,20,0:00.05,1,29,21,0:03.01
