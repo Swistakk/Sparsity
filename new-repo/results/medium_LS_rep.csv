@@ -1,4 +1,4 @@
-test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,fill-in_wcol,fill-in_LS,berlin.sna_wcol,berlin.sna_LS,felixR_wcol,felixR_LS
+test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,treewidth_wcol,treewidth_LS,flat.sna_wcol,flat.sna_LS,dtfR_wcol,dtfR_LS
 airlines,2,31,27,64,44,49,48,32,28,39,35
 celegans,2,55,46,127,57,76,56,71,54,61,50
 cl-10-0,2,46,36,127,36,96,37,78,36,41,36

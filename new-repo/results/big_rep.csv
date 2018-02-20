@@ -1,4 +1,4 @@
-test,rad,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,fill-in,felix1,felix2,felix3,felix4,felix5,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
+test,rad,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,treewidth,dtf1,dtf2,dtf3,dtf4,dtf5,flat.bna,flat.bno,flat.bni,flat.dna,flat.dno,flat.dni,flat.sna,flat.sno,flat.sni,flat.bya,flat.byo,flat.byi,flat.dya,flat.dyo,flat.dyi,flat.sya,flat.syo,flat.syi,christoph
 as20000102,1,977,13,1458,1458,1458,1458,17,27,23,21,24,83,47,13,17,40,54,72,15,15,13,15,15,13,14,14,14,21,21,23,21,21,23,21,21,23,16
 cl-12-0,1,39,7,10,9,13,14,10,9,9,10,9,34,22,7,9,10,22,20,14,15,12,14,15,13,14,15,13,26,24,29,26,24,29,26,24,29,15
 cl-12-1,1,37,7,10,9,13,13,11,9,9,9,10,38,24,7,9,12,28,18,16,15,13,16,15,13,16,15,13,23,25,34,23,25,34,23,25,34,15

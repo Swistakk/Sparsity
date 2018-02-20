@@ -1,4 +1,4 @@
-test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,fill-in_wcol,fill-in_LS,berlin.sna_wcol,berlin.sna_LS,felixR_wcol,felixR_LS
+test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,treewidth_wcol,treewidth_LS,flat.sna_wcol,flat.sna_LS,dtfR_wcol,dtfR_LS
 bergen,2,17,17,24,23,21,21,19,18,22,21
 dolphins,2,15,12,17,13,13,12,17,12,15,12
 football,2,40,28,47,28,33,28,48,28,36,27

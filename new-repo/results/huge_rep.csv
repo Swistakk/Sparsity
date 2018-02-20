@@ -1,4 +1,4 @@
-test,rad,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,fill-in,felix1,felix2,felix3,felix4,felix5,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
+test,rad,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,treewidth,dtf1,dtf2,dtf3,dtf4,dtf5,flat.bna,flat.bno,flat.bni,flat.dna,flat.dno,flat.dni,flat.sna,flat.sno,flat.sni,flat.bya,flat.byo,flat.byi,flat.dya,flat.dyo,flat.dyi,flat.sya,flat.syo,flat.syi,christoph
 ca-CondMat,1,181,26,70,132,163,163,32,27,27,28,27,,,26,36,50,,,34,34,35,34,34,35,33,33,36,43,43,41,43,43,41,43,43,41,38
 ca-HepPh,1,405,239,348,399,399,399,239,239,239,239,239,,,239,316,428,,,239,239,239,239,239,239,239,239,239,239,239,239,239,239,239,239,239,239,
 cit-HepPh,1,686,31,213,308,,,56,66,65,70,77,,,31,,,,,84,86,69,84,86,69,84,85,69,99,103,97,99,103,97,99,103,97,86

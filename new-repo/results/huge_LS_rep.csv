@@ -1,4 +1,4 @@
-test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,fill-in_wcol,fill-in_LS,berlin.sna_wcol,berlin.sna_LS,felixR_wcol,felixR_LS
+test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,treewidth_wcol,treewidth_LS,flat.sna_wcol,flat.sna_LS,dtfR_wcol,dtfR_LS
 ca-CondMat,2,126,85,,,,,161,94,111,83
 ca-HepPh,2,389,279,,,,,377,298,609,452
 cit-HepPh,2,545,438,,,,,759,618,,

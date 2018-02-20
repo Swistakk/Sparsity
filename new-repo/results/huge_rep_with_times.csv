@@ -1,4 +1,4 @@
-test,rad,sortdeg1_wcol,sortdeg1_time,td_wcol,td_time,fill-in_wcol,fill-in_time,berlin.sna_wcol,berlin.sna_time,felixR_wcol,felixR_time
+test,rad,sortdeg1_wcol,sortdeg1_time,td_wcol,td_time,treewidth_wcol,treewidth_time,flat.sna_wcol,flat.sna_time,dtfR_wcol,dtfR_time
 ca-CondMat,2,126,0:00.95 ,-1,RTE,-1,TIMEOUT,161,0:07.22 ,111,0:48.55 
 ca-HepPh,2,389,0:01.00 ,-1,RTE,-1,TIMEOUT,377,0:03.13 ,609,0:38.70 
 cit-HepPh,2,545,0:02.61 ,-1,TIMEOUT,-1,TIMEOUT,759,0:07.30 ,-1,TIMEOUT

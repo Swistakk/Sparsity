@@ -1,4 +1,4 @@
-test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,fill-in_wcol,fill-in_LS,berlin.sna_wcol,berlin.sna_LS,felixR_wcol,felixR_LS
+test,rad,sortdeg1_wcol,sortdeg1_LS,td_wcol,td_LS,treewidth_wcol,treewidth_LS,flat.sna_wcol,flat.sna_LS,dtfR_wcol,dtfR_LS
 as20000102,2,42,40,232,43,84,45,43,37,40,37
 cl-12-0,2,56,39,162,39,153,40,89,39,47,39
 cl-12-1,2,57,40,160,40,185,39,86,40,48,40

@@ -1,4 +1,4 @@
-test,rad,sortdeg1_wcol,sortdeg1_time,td_wcol,td_time,fill-in_wcol,fill-in_time,berlin.sna_wcol,berlin.sna_time,felixR_wcol,felixR_time
+test,rad,sortdeg1_wcol,sortdeg1_time,td_wcol,td_time,treewidth_wcol,treewidth_time,flat.sna_wcol,flat.sna_time,dtfR_wcol,dtfR_time
 airlines,2,31,0:00.00 ,64,0:00.37 ,49,0:00.06 ,32,0:00.00 ,39,0:00.36 
 celegans,2,55,0:00.01 ,127,0:00.59 ,76,0:00.11 ,71,0:00.02 ,61,0:00.50 
 cl-10-0,2,46,0:00.01 ,127,0:05.12 ,96,0:01.22 ,78,0:00.06 ,41,0:01.82 

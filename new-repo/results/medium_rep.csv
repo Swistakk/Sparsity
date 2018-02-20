@@ -1,4 +1,4 @@
-test,rad,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,fill-in,felix1,felix2,felix3,felix4,felix5,berlin.bna,berlin.bno,berlin.bni,berlin.dna,berlin.dno,berlin.dni,berlin.sna,berlin.sno,berlin.sni,berlin.bya,berlin.byo,berlin.byi,berlin.dya,berlin.dyo,berlin.dyi,berlin.sya,berlin.syo,berlin.syi,christoph
+test,rad,random,deg1,deg2,deg3,deg4,deg5,sortdeg1,sortdeg2,sortdeg3,sortdeg4,sortdeg5,td,treewidth,dtf1,dtf2,dtf3,dtf4,dtf5,flat.bna,flat.bno,flat.bni,flat.dna,flat.dno,flat.dni,flat.sna,flat.sno,flat.sni,flat.bya,flat.byo,flat.byi,flat.dya,flat.dyo,flat.dyi,flat.sya,flat.syo,flat.syi,christoph
 airlines,1,101,14,130,130,130,130,16,20,87,88,88,54,40,14,23,47,79,59,19,19,16,19,19,16,18,18,16,20,20,18,20,20,18,20,20,18,18
 celegans,1,79,11,36,66,72,72,16,25,27,114,114,46,25,11,18,33,49,67,20,18,21,20,18,21,20,18,21,23,22,23,23,22,23,23,22,23,20
 cl-10-0,1,26,7,9,14,34,35,10,9,9,9,16,32,17,7,8,17,19,11,13,13,12,13,13,12,13,13,11,18,18,21,18,18,21,18,18,21,15
