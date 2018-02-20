@@ -8,33 +8,29 @@
 
 int main(int argc, char** argv) {
   if (argc != 5) {
-    cerr<<"Usage: ./UQWFirst graph.txtg radius tree/tree_shrink/ldit/ldpow percentage"<<endl;
-    cerr<<"tree/ld_it/ld_pow - method of finding 2-independent set\n";
-    cerr<<"  tree - this iterative tree approach, slightly modified\n";
-    cerr<<"  tree_shrink - as above but with shrinking as in original\n";
-    cerr<<"  ldit - iterative greedy least degree on G^2\n";
-    cerr<<"  ldpow - greedy least degree on G^r\n";
+    cerr<<"Usage: ./UQWMix graph.txtg radius tree1/tree2/ld_it/ld percentage"<<endl;
+    cerr<<"tree1/tree2/ld_it/ld_pow - method of finding 2-independent set\n";
+    cerr<<"  tree1 - this iterative tree approach, slightly modified\n";
+    cerr<<"  tree2 - as above but with shrinking as in original\n";
+    cerr<<"  ld_it - iterative greedy least degree on G^2\n";
+    cerr<<"  ld - greedy least degree on G^r\n";
     cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
     cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
-  string graph_file = string(argv[1]); 
-//   string format = ".txtg";
-//   assert(graph_file.find(format) == graph_file.size() - format.size());
-//   string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
-  //string order_file = string(argv[2]);
+  string graph_file = string(argv[1]);
   string rad_str = string(argv[2]);
   int R = stoi(rad_str);
   string mode = string(argv[3]);
   bool tree_mode = false, tree_shrink_mode = false, ld_it_mode = false, ld_pow_mode = false;
-  if (mode == "tree") {
+  if (mode == "tree1") {
     tree_mode = true;
-  } else if (mode == "tree_shrink") {
+  } else if (mode == "tree2") {
     tree_shrink_mode = true;
-  } else if (mode == "ldit") {
+  } else if (mode == "ld_it") {
     ld_it_mode = true;
   } else {
-    assert(mode == "ldpow");
+    assert(mode == "ld");
     ld_pow_mode = true;
   }
   
@@ -43,13 +39,10 @@ int main(int argc, char** argv) {
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
-  //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
-//   vector<int> order, where_in_order;
-//   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
-  int a_sz = n * percentage * .01; // n / 10
+  int a_sz = n * percentage * .01;
   vector<int> rand_order(n);
   iota(rand_order.begin(), rand_order.end(), 1);
   random_shuffle(rand_order.begin(), rand_order.end());
@@ -254,7 +247,6 @@ int main(int argc, char** argv) {
         oldA = backw_candsA[who_biggest];
         S = unordered_set<int>(backw_candsS[who_biggest].begin(), backw_candsS[who_biggest].end());
       }
-      //cerr<<"after step "<<curR+1<<" SZ(A)="<<oldA.size()<<" "<<oldA<<endl;
     }
   }
   
@@ -264,7 +256,6 @@ int main(int argc, char** argv) {
   }
   vector<int> best_scat = oldA;
   best_forb = ReviveRedundantForb(graph, R, best_forb, best_scat);
-  //debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {
     cout<<reader.GetOriginalFromMapped(x)<<" ";

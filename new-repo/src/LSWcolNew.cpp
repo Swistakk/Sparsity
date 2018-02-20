@@ -1,4 +1,5 @@
 // Local Search for Wcol
+// Using just second (worse) rule
 
 #include "Headers.hpp"
 #include "ReadTxt.hpp"
@@ -138,7 +139,6 @@ int main(int argc, char** argv) {
   vector<vector<int>> final_wreach = ComputeAllWReach(graph, best_where_in_order, R, {});
   int final_wcol = ComputeWcolFromWReach(final_wreach);
   debug(final_wcol);
-  //assert(best_wcol == final_wcol);
   
   ofstream out;
   InitOfstream(out, output_file);

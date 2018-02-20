@@ -1,4 +1,4 @@
-EXECS=WcolStats greedy BerlinWcol Degeneracy UQW-TGV UQW-TGV2 UQW-TGV3 UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth CheckIndependent UQWMix FixIsolatedInOrder
+EXECS=WcolStats BerlinWcol Degeneracy UQW-new UQW-new2 UQW-new_ld UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth CheckIndependent UQWMix FixIsolatedInOrder
 
 OPTFLAGS=-O2 -std=c++11
 OPTLOCALFLAGS= -DLOCAL -std=c++11 -O2
@@ -23,9 +23,6 @@ VerifierUQWBrut: VerifierUQWBrut.o ReadTxt.o FilesOps.o
 	
 GenUQWTest: GenUQWTest.o ReadTxt.o FilesOps.o
 	$(CXX) $(LDFLAGS) $^ -o $@	
-	
-greedy: greedy.o ReadTxt.o FilesOps.o
-	$(CXX) $(LDFLAGS) $^ -o $@
 
 BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
@@ -33,13 +30,13 @@ BerlinWcol: BerlinWcol.o ReadTxt.o FilesOps.o FlagParser.o
 Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-UQW-TGV: UQW-TGV.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
+UQW-new: UQW-new.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-UQW-TGV2: UQW-TGV2.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
+UQW-new2: UQW-new2.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-UQW-TGV3: UQW-TGV3.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o Independent.o ComputeDegeneracy.o
+UQW-new_ld: UQW-new_ld.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o Independent.o ComputeDegeneracy.o
 	$(CXX) $(LDFLAGS) $^ -o $@	
 	
 UQW-MFCS: UQW-MFCS.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o

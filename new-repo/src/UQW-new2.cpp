@@ -7,39 +7,33 @@
 
 int main(int argc, char** argv) {
   if (argc != 5) {
-    cerr<<"Usage: ./UQW-TGV graph.txtg order.txt radius percentage"<<endl;
+    cerr<<"Usage: ./UQW-new2 graph.txtg order.txt radius percentage"<<endl;
     cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
     cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
-  string graph_file = string(argv[1]); 
-//   string format = ".txtg";
-//   assert(graph_file.find(format) == graph_file.size() - format.size());
-//   string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
+  string graph_file = string(argv[1]);
   string order_file = string(argv[2]);
   string rad_str = string(argv[3]);
   int R = stoi(rad_str);
   string percentage_str = string(argv[4]);
   int percentage = stoi(percentage_str);
   
+  
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
-  //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
-  int a_sz = n * percentage * .01; // n / 10
+  int a_sz = n * percentage * .01;
   vector<int> rand_order(n);
   iota(rand_order.begin(), rand_order.end(), 1);
   random_shuffle(rand_order.begin(), rand_order.end());
   for (int i = 0; i < a_sz; i++) {
     init_A.PB(rand_order[i]);
   }
-  
-   //int wcol = ComputeWcolFromWReach(wreach);
-  
   
   function<Solution(long double)> UQWFirst = [&](long double threshold) {
     vector<vector<int>> wreach = ComputeAllWReach(graph, where_in_order, R, {});
@@ -55,19 +49,24 @@ int main(int argc, char** argv) {
       for (auto v : wreach[fir]) {
         fir_set.insert(v);
       }
-      set<int> conflicting{fir}; // zmienic liczenie konfliktow na BFS
-      for (int ii = 1; ii < (int)old_A.size(); ii++) {
-        int a = old_A[ii];
-        for (auto v : wreach[a]) {
-          if (fir_set.count(v)) {
-            conflicting.insert(a);
-            break;
+      vector<int> dis(n + 1, -1);
+      vector<int> que{fir};
+      dis[fir] = 0;
+      set<int> conflicting;
+      for (int ii = 0; ii < (int)que.size(); ii++) {
+        int v = que[ii];
+        if (Aset.count(v)) {
+          conflicting.insert(v);
+        }
+        if (dis[v] < R) {
+          for (auto nei : graph[v]) {
+            if (dis[nei] != -1 || is_forb[nei]) { continue; }
+            dis[nei] = dis[v] + 1;
+            que.PB(nei);
           }
         }
       }
-      //debug(conflicting.size(), old_A.size());
-      if (conflicting.size() <= 1 + old_A.size() * threshold) { // change it
-        //cerr<<fir<<" into scat\n";
+      if (conflicting.size() <= 1 + old_A.size() * threshold) {
         scat.PB(fir);
         scat_set.insert(fir);
         vector<int> new_A;
@@ -97,7 +96,6 @@ int main(int argc, char** argv) {
         if (best_alive == 0) {
           break;
         }
-        //cerr<<who_to_forb<<" into forb, alive = "<<best_alive<<endl;
         is_forb[who_to_forb] = 1;
         forb.PB(who_to_forb);
         vector<int> new_A;
@@ -113,6 +111,7 @@ int main(int argc, char** argv) {
     while (forb.size() != last_forb_sz) {
       forb.pop_back();
     }
+    debug(threshold, forb.size(), scat.size());
     return Solution(graph, R, forb, scat);
   };
   

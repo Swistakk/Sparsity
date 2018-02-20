@@ -146,7 +146,6 @@ int main(int argc, char** argv) {
     }
       
     vector<int> que{root};
-//     debug(reader.GetOriginalFromMapped(root));
     last_vis_v[root] = phase_ind;
     last_important[root] = phase_ind;
     parent[root] = -1;
@@ -155,7 +154,6 @@ int main(int argc, char** argv) {
       for (auto nei : graph[cur_v]) {
         if (wh_cc[nei] != -1 && last_vis_cc[wh_cc[nei]] != phase_ind) {
           last_vis_cc[wh_cc[nei]] = phase_ind;
-          //last_important[nei] = phase_ind;
           last_important[cur_v] = phase_ind;
         }
         if (wh_cc[nei] == -1 && last_vis_v[nei] != phase_ind) {
@@ -199,12 +197,6 @@ int main(int argc, char** argv) {
       Dfs(root);
     }
       
-    //debug(blob);
-//     cerr<<"blob: ";
-//     for (auto v : blob) {
-//       cerr<<reader.GetOriginalFromMapped(v)<<", ";
-//     }
-//     cerr<<endl;;
     for (auto v : blob) {
       for (auto nei : graph[v]) {
         degrees_to_past[nei]++;
@@ -214,11 +206,7 @@ int main(int argc, char** argv) {
       reverse(blob.begin(), blob.end());
     }
     weak_order.insert(weak_order.end(), blob.begin(), blob.end());
-    //added_cnts.PB(weak_order.size() - cp_weak_order_sz);
   }
-  
-  //assert(added_cnts == vector<int>(n, 1));
-  //debug(added_cnts);
   
   ofstream out;
   InitOfstream(out, output_file);

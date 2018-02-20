@@ -48,7 +48,6 @@ pair<vector<int>, vector<int>> GetOrderAndWhInOrder(string filename, GraphReader
   string v;
   int i = 0;
   while (oin >> v) {
-    //debug(i, v);
     int mapped = reader.GetMappedFromOriginal(v);
     assert(mapped != -1 && where_in_order[mapped] == 0);
     order.PB(mapped);
