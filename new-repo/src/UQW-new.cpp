@@ -7,18 +7,17 @@
 
 int main(int argc, char** argv) {
   if (argc != 5) {
-    cerr<<"Usage: ./UQW-TGV2 graph.txtg order.txt radius percentage"<<endl;
+    cerr<<"Usage: ./UQW-new graph.txtg order.txt radius percentage"<<endl;
     cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
     cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
-  string graph_file = string(argv[1]);
+  string graph_file = string(argv[1]); 
   string order_file = string(argv[2]);
   string rad_str = string(argv[3]);
   int R = stoi(rad_str);
   string percentage_str = string(argv[4]);
   int percentage = stoi(percentage_str);
-  
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
@@ -49,20 +48,13 @@ int main(int argc, char** argv) {
       for (auto v : wreach[fir]) {
         fir_set.insert(v);
       }
-      vector<int> dis(n + 1, -1);
-      vector<int> que{fir};
-      dis[fir] = 0;
-      set<int> conflicting;
-      for (int ii = 0; ii < (int)que.size(); ii++) {
-        int v = que[ii];
-        if (Aset.count(v)) {
-          conflicting.insert(v);
-        }
-        if (dis[v] < R) {
-          for (auto nei : graph[v]) {
-            if (dis[nei] != -1 || is_forb[nei]) { continue; }
-            dis[nei] = dis[v] + 1;
-            que.PB(nei);
+      set<int> conflicting{fir};
+      for (int ii = 1; ii < (int)old_A.size(); ii++) {
+        int a = old_A[ii];
+        for (auto v : wreach[a]) {
+          if (fir_set.count(v)) {
+            conflicting.insert(a);
+            break;
           }
         }
       }
@@ -111,7 +103,6 @@ int main(int argc, char** argv) {
     while (forb.size() != last_forb_sz) {
       forb.pop_back();
     }
-    debug(threshold, forb.size(), scat.size());
     return Solution(graph, R, forb, scat);
   };
   
