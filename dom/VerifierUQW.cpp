@@ -47,7 +47,6 @@ int main(int argc, char** argv) {
     cout<<forb_sz<<","<<scattered_sz<<","<<scattered_sz<<endl;
     return 0;
   }
-  //debug(scattered);
   vector<int> que;
   vector<int> my_root(n + 1);
   for (auto v : scattered) {
@@ -82,15 +81,10 @@ int main(int argc, char** argv) {
     if (ii >= max_chk) { break; }
   }
   debug(forb_sz, scattered_sz);
-  //debug(scattered.size(), (int)que.size());
-  //debug(que);
-  //debug(closest_pair_dis, D);
   if (closest_pair_dis > D) {
     cout<<forb_sz<<","<<scattered_sz<<","<<UQWScore(graph, D, forb_vec, scattered)<<endl;
   } else {
     cout<<"###,###,###"<<endl;
   }
-  //cout << closest_pair_dis << endl;
-  //assert(closest_pair_dis > D);
   return 0;
 } 
