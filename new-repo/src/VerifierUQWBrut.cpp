@@ -46,7 +46,6 @@ int main(int argc, char** argv) {
     cout << kInf << endl;
     return 0;
   }
-  //debug(scattered);
   for (auto root : scattered) {
     vector<int> dis(n + 1);
     vector<int> que{root};
@@ -57,7 +56,6 @@ int main(int argc, char** argv) {
       int cur_v = que[ii];
       for (auto nei : graph[cur_v]) {
         if (is_scattered[nei] && nei != root) {
-          //debug(root, nei);
           closest_pair_dis = min(closest_pair_dis, dis[cur_v] + 1);
           found_pair = true;
           break;
@@ -72,7 +70,6 @@ int main(int argc, char** argv) {
     }
     if (!found_pair) { debug(root); }
   }
-  //debug(closest_pair_dis, D);
   cout << closest_pair_dis << endl;
   assert(closest_pair_dis > D);
   return 0;

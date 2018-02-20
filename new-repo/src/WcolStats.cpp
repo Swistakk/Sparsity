@@ -55,10 +55,8 @@ int main(int argc, char** argv) {
     Err();
   }
   
-  //cout<<"read params"<<endl;
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
-  //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);

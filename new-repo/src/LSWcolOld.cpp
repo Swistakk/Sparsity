@@ -1,4 +1,5 @@
 // Local Search for Wcol
+// Using only first (better) rule
 
 #include "Headers.hpp"
 #include "ReadTxt.hpp"

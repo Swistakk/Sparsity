@@ -14,7 +14,6 @@ int main(int argc, char** argv) {
   int R = 1000;
   int n = rand() % R + 5; 
   int m = rand() % R + 5;
-  //debug(n, m);
   m = min(1ll * m, 1ll * n * (n - 1) / 2);
   debug(n, m);
   set<pair<int, int>> es;
@@ -30,7 +29,6 @@ int main(int argc, char** argv) {
     ends.insert(u);
     ends.insert(v);
     gout<<u<<" "<<v<<"\n";
-    //debug(u, v);
   }
   gout.close();
   

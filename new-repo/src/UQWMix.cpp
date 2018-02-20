@@ -18,11 +18,7 @@ int main(int argc, char** argv) {
     cerr<<"  (in percents) initial set A should be \n";
     return 1;
   }
-  string graph_file = string(argv[1]); 
-//   string format = ".txtg";
-//   assert(graph_file.find(format) == graph_file.size() - format.size());
-//   string graph_name = graph_file.substr(0, (int)graph_file.size() - format.size());
-  //string order_file = string(argv[2]);
+  string graph_file = string(argv[1]);
   string rad_str = string(argv[2]);
   int R = stoi(rad_str);
   string mode = string(argv[3]);
@@ -43,13 +39,10 @@ int main(int argc, char** argv) {
   
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
-  //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
-//   vector<int> order, where_in_order;
-//   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
   vector<int> init_A;
-  int a_sz = n * percentage * .01; // n / 10
+  int a_sz = n * percentage * .01;
   vector<int> rand_order(n);
   iota(rand_order.begin(), rand_order.end(), 1);
   random_shuffle(rand_order.begin(), rand_order.end());
@@ -254,7 +247,6 @@ int main(int argc, char** argv) {
         oldA = backw_candsA[who_biggest];
         S = unordered_set<int>(backw_candsS[who_biggest].begin(), backw_candsS[who_biggest].end());
       }
-      //cerr<<"after step "<<curR+1<<" SZ(A)="<<oldA.size()<<" "<<oldA<<endl;
     }
   }
   
@@ -264,7 +256,6 @@ int main(int argc, char** argv) {
   }
   vector<int> best_scat = oldA;
   best_forb = ReviveRedundantForb(graph, R, best_forb, best_scat);
-  //debug(best_forb, best_scat);
   cout<<best_forb.size()<<endl;
   for (auto x : best_forb) {
     cout<<reader.GetOriginalFromMapped(x)<<" ";

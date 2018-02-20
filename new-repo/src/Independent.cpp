@@ -92,7 +92,6 @@ vector<int> Independent2Tree(vector<vector<int>>& graph, vector<int> A, unordere
       not_conflicting.PB(v);
     }
   }
-  //debug(conflicting, not_conflicting);
   vector<int> sol_with_a = Independent2Tree(graph, not_conflicting, forb);
   assert(a);
   sol_with_a.PB(a);

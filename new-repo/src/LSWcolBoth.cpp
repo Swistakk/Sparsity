@@ -1,4 +1,7 @@
 // Local Search for Wcol
+// Combines both rules in a way which is superior
+// to LSWcolOld and LSWcolNew, so these two files should
+// be ignored
 
 #include "Headers.hpp"
 #include "ReadTxt.hpp"
@@ -90,8 +93,6 @@ int main(int argc, char** argv) {
   int n = graph.size() - 1;
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
-  
-  //debug(order, where_in_order);
   
   vector<vector<int>> cur_wreach = ComputeAllWReach(graph, where_in_order, R, {});
   int best_wcol = ComputeWcolFromWReach(cur_wreach);
@@ -200,7 +201,6 @@ int main(int argc, char** argv) {
   
   int final_wcol = ComputeWcol(graph, best_where_in_order, R);
   debug(final_wcol);
-  //assert(best_wcol == final_wcol);
   
   ofstream out;
   InitOfstream(out, output_file);

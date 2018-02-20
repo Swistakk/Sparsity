@@ -58,7 +58,6 @@ vector<int> ReviveRedundantForb(vector<vector<int>>& graph, int R, vector<int> f
       filtered_forb.PB(v);
     }
   }
-  //debug(forb.size(), filtered_forb.size());
   return filtered_forb;
 }
   

@@ -2,7 +2,6 @@
 
 pair<int, vector<int>> Degeneracy(vector<vector<int>>& graph, int R) {
   int n = graph.size() - 1;
-  debug(n);
   
   unordered_set<int> dummy_forb;
   vector<vector<int>> pow_graph = PowerGraph(graph, R, dummy_forb);
@@ -17,14 +16,11 @@ pair<int, vector<int>> Degeneracy(vector<vector<int>>& graph, int R) {
     nonempty_buckets.insert(pow_graph[v].size());
     degree[v] = pow_graph[v].size();
   }
-  //int fir_nonempty = 1;
-  //int removed_cnt = 0;
   vector<int> removed_order;
   while (!nonempty_buckets.empty()) {
     int wh_bucket = *(nonempty_buckets.begin());
     degeneracy = max(degeneracy, wh_bucket);
     int v_to_remove = *(buckets[wh_bucket].begin());
-    //debug(v_to_remove);
     removed_order.PB(v_to_remove);
     already_removed[v_to_remove] = true;
     buckets[wh_bucket].erase(v_to_remove);
@@ -38,10 +34,6 @@ pair<int, vector<int>> Degeneracy(vector<vector<int>>& graph, int R) {
         nonempty_buckets.erase(degree[nei]);
       }
       degree[nei]--;
-//       if (degree[nei] < 0) {
-//         debug(nei);
-//         graph[nei].size();
-//       }
       assert(degree[nei] >= 0);
       if (buckets[degree[nei]].empty()) {
         nonempty_buckets.insert(degree[nei]);

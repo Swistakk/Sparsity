@@ -47,7 +47,6 @@ vector<vector<int>> PowerGraph(vector<vector<int>>& graph, int R, unordered_set<
 // why did I have to make it forb scat instead of scat forb :(?
 vector<vector<int>> RDistanceProfile(vector<vector<int>>& graph, int R, vector<int>& forb, vector<int>& scat) {
   int n = (int)graph.size() - 1;
-  //vector<int> scat_ind(n + 1, -1);
   vector<vector<int>> profiles((int)scat.size());
   vector<int> last_vis(n + 1);
   vector<int> dis(n + 1);
