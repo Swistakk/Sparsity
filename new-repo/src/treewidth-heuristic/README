@@ -1,3 +1,5 @@
+Based on the code by Christoph Dittmann.
+
 apprtTW implements the min-fill-in heuristic to compute an elimination order for treewidth. In this version,
 it first takes a vertex with maximum degree as trhe last one in the order and then orders vertices from the
 biggest to the least one. In an iteration, assume that positions >i already have vertices. Among all unsorted
