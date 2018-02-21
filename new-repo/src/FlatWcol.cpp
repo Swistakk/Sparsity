@@ -4,14 +4,14 @@
 #include "FlagParser.hpp"
 
 void Err() {
-  cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs/sortdeg --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
+  cerr<<"Usage: ./FlatWcol --in=graph.txtg --order=bfs/dfs/sortdeg --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
   cerr<<"--h for help\n";
   exit(1);
 }
 
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
-    cerr<<"Usage: ./BerlinWcol --in=graph.txtg --order=bfs/dfs/sortdeg --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
+    cerr<<"Usage: ./FlatWcol --in=graph.txtg --order=bfs/dfs/sortdeg --rev=no/yes --rule=all/neis_of_past/neis_in_past [--o=output.txt]"<<endl;
     cerr<<"order=\n";
     cerr<<"  bfs - considers ordering vertices from new blob in bfs order\n";
     cerr<<"  dfs - or in dfs order on subgraph induced by this blob\n";
