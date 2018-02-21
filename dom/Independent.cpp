@@ -78,9 +78,7 @@ vector<int> Independent1LeastDegree(vector<vector<int>>& graph) {
 // or even stronger, graph is bipartite and A is subset of one side
 vector<int> Independent2Tree(vector<vector<int>>& graph, vector<int> A, unordered_set<int>& forb) {
   if (A.empty()) { return {}; }
-  //debug(A);
   int a = A[0];
-  //assert(a);
   vector<int> nei2_vec = RNei(graph, a, 2, forb);
   unordered_set<int> nei2_set(nei2_vec.begin(), nei2_vec.end());
   vector<int> not_conflicting, conflicting;
@@ -92,7 +90,6 @@ vector<int> Independent2Tree(vector<vector<int>>& graph, vector<int> A, unordere
       not_conflicting.PB(v);
     }
   }
-  //debug(conflicting, not_conflicting);
   vector<int> sol_with_a = Independent2Tree(graph, not_conflicting, forb);
   assert(a);
   sol_with_a.PB(a);
