@@ -154,10 +154,6 @@ int main(int argc, char *argv[]){
     std::vector<std::set<Vertex> > direct(g.num_vertices());
     for(Vertex v=0; v<g.num_vertices(); ++v)
 	direct[v] = g.neighbors(v);
-	// for(Vertex w : g.neighbors(v))
-	//     direct[v].insert(w);
-  
-    //   std::vector<std::set<Vertex> > via(g.num_vertices());
 
 
     // tree components
@@ -250,15 +246,6 @@ int main(int argc, char *argv[]){
     };
 
     
-    //
-    // FOR DEBUGGING
-    //
-    // auto print_direct = [&](Vertex v){
-    // 	std::cout << "\t\t\t\tdirect[" << g.vertex_to_id(v) << "]: ";
-    // 	for (Vertex w : direct[v])
-    // 	    std::cout << g.vertex_to_id(w) << " ";
-    // 	std::cout << "\n";  
-    // };
   
     auto print_vertex_set = [&](const std::set<Vertex> s){
     	for (Vertex w : s)
@@ -266,22 +253,6 @@ int main(int argc, char *argv[]){
     	std::cout << "\n";
     };
 
-    // compute the difference of s1 and s2 and put the result to s1
-    // auto set_diff = [](std::set<Vertex>& s1,
-    // 		       std::set<Vertex>& s2){
-    // 	std::set<Vertex> tmp_set;
-    // 	std::set_difference(s1.begin(),
-    // 			    s1.end(),
-    // 			    s2.begin(),
-    // 			    s2.end(),
-    // 			    std::inserter(tmp_set,tmp_set.end())
-    // 	    );
-    // 	s1.clear();
-    // 	s1 = std::move(tmp_set);
-    // };
-    
-    // compute the union of s1 and s2 and put the result to s2
-    //// end local functions ////
 
     if (g.num_vertices() == 0){
 	std::cout << "The graph is empty.\n";
@@ -525,16 +496,7 @@ int main(int argc, char *argv[]){
     if (time){
 	std::cout << "Computation complete. Time: " << double(clock() - begin) / CLOCKS_PER_SEC << " seconds." << std::endl;
     }
-    // print the order
-    // if (print_order){
-    //   std::cout<< "\n\nThe order (in brackets the back degrees): \n";
-    //   for (size_t i=0; i<order.size(); ++i){
-    //       // back_degree + 1 because now the vertex itself counts to
-    //       // his back_degree
-    //       std::cout << g.vertex_to_id(order[i]) <<"(" << back_degree[i]+1 << ") "; 
-    //   }
-    // 	std::cout << "\n";
-    // }
+
 
     if (print_order){
 	if (print_details>1)
