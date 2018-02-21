@@ -9,11 +9,15 @@ We use .txtg extensions to denote such format.
 
 Orders we work with are in a format of space-separated identifiers of vertices
 printed in one line. We use .txt extension. In some cases, if order is dependent
-on provided value of R then it is reflected in its name
-
-################ WEAK COLORING NUMBERS ################
+on provided value of radius (denoted by R) then it is reflected in its filename.
+Note that in this readme we refer to such name as, for example, sortdegR,
+but this R is just a placeholder for its real value, so it means
+that if R=1 then this name is sortdeg1.
 
 Before using any programs executing "make" once in "src" directory is required.
+
+################################ WEAK COLORING NUMBERS ################################
+
 Usages of most programs (except treedepth, treewidth and dtf) are explained 
 when they are tried to be used. For program X, you can execute "./X --h"
 in order to get verbose explanation of how it should be used.
@@ -67,7 +71,6 @@ and call "make" once. This code is written in C, but we provided wrapper code
 in Python to execute it. It prints produced orer to stdout.
 Usage: python3.5 td.py G.txtg
 
-
 treewidth-heuristic - this heuristic has its own directory with its internal README,
 so please refer to this.
 
@@ -111,4 +114,52 @@ order and any further processing of such orders may lead to errors,
 so we sometimes need to use this external program to fix this.
 It doesn't matter where such vertices are put, so we append them at the end.
 It overwrites order file it is given.
+
+
+################################ UNIFORM QUASI-WIDENESS ################################
+
+Output of any uniform quasi-wideness algorithm consists
+of two sets B and S, where B is R-independent in G-S.
+For representing such output we used following format.
+In first line we print |S|. In second line we list |S| space-separated
+identifiers of vertices that are elements of S.
+In third and fourth line we print set B in same format.
+We use .txt extension to denote such format.
+
+All programs output their solution to stdout.
+Note that we use different style of handling execution arguments
+than in wcol programs. Programs tackling UQW do not require names of flags
+(like "--in_g"), but require specific order of arguments.
+In order to get to know their specific usage use them with no arguments passed.
+(So for program X execute "./X" and detailed explanation on usage will be shown).
+
+Unfortunately since these programs were used to test their performance
+on arbitrary sets, we do not currently handle passing set A as an input
+(where A is a subset of vertices so that we search for big B which is a subset of A).
+Instead, all programs require argument which is an integer number from range [0, 100]
+which denotes percentage of V(G) that is used to initialize A (in random way).
+
+####### Main approaches tackling uniform quasi-wideness #######
+
+UQW-MFCS, UQW-new1, UQW-new2, UQW-new_ld - programs implementing
+UQW algorithms with corresponding names (as in paper).
+They take graph, radius and order as an input.
+
+UQWMix - program implementing tree1, tree2, ld_it and ld approaches.
+They take graph, radius and name of approach to use as an input.
+
+####### Additional programs #######
+VerifierUQW - this program verifies whether output solution
+is in fact a correct solution of UQW. That means, whether
+B and S are disjoint and whether B is R-independent in G-S.
+If yes, then it will output three numbers separated by commas
+which denote |S|, |B| and size of biggest equivalence class
+of equal r-distance profiles on S within B, respectively.
+If no, then it will output "###,###,###"
+
+
+
+
+
+
 
