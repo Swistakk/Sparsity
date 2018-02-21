@@ -66,9 +66,6 @@ CheckIndependent: CheckIndependent.o ReadTxt.o FilesOps.o FlagParser.o Independe
 UQWMix: UQWMix.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o CommonGraph.o Independent.o ComputeDegeneracy.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
-# CheckConnectivity: CheckConnectivity.o ReadTxt.o FilesOps.o
-# 	$(CXX) $(LDFLAGS) $^ -o $@
-	
 FixIsolatedInOrder: FixIsolatedInOrder.o ReadTxt.o FilesOps.o FlagParser.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	

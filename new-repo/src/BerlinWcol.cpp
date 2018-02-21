@@ -73,7 +73,7 @@ int main(int argc, char** argv) {
       neis_in_past_rule = true;
     }
     
-    output_file = graph_dir + "orders/" + graph_name + ".berlin." + "bds"[dfs_order + 2 * (int)sortdeg_order]
+    output_file = graph_dir + "orders/" + graph_name + ".flat." + "bds"[dfs_order + 2 * (int)sortdeg_order]
         + "ny"[rev] + "aoi"[neis_of_past_rule ? 1 : (all_rule ? 0 : 2)] + ".txt";
     debug(output_file);
     string cand_output_file = flag_parser.GetFlag("o", false);
