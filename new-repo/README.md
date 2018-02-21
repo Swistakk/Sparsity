@@ -1,7 +1,7 @@
 Empirical evaluation of approximation algorithms for generalized coloring numbers and uniform quasi-wideness
 (c) 2018 Wojciech Nadara, Marcin Pilipczuk, Felix Reidl, Roman Rabinovich, Sebastian Siebertz
 Code on treewidth heuristic based on the code by Christoph Dittmann
-
+Code on treedepth heuristic by Tobias OelschlĂ¤ge.
 
 This file is to provide a short walkthrough on functionalities of provided
 algorithms and their usages.
