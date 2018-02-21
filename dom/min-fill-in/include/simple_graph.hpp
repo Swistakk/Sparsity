@@ -1,7 +1,11 @@
 #ifndef SIMPLE_GRAPH_INCLUDED
 #define SIMPLE_GRAPH_INCLUDED
 
+#include <istream>
+#include <vector>
 #include <unordered_map>
+#include <set>
+#include <string>
 // Vertex ids
 typedef unsigned int Vertex;
 
@@ -197,7 +201,7 @@ public:
 	}
     }
 private:
-  std::vector<NeighboursSet> g_;
+  std::vector< NeighboursSet > g_;
   std::unordered_map<Vertex, unsigned> vertex_to_id_map_;
     size_t num_edges_; // (a,b) and (b,a) are both counted
 };
