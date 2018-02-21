@@ -1,4 +1,4 @@
-EXECS=WcolStats FlatWcol Degeneracy UQW-new UQW-new2 UQW-new_ld UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth CheckIndependent UQWMix FixIsolatedInOrder
+EXECS=WcolStats FlatWcol Degeneracy UQW-new1 UQW-new2 UQW-new_ld UQW-MFCS VerifierUQW VerifierUQWBrut GenUQWTest SortDeg LSWcolOld LSWcolNew RandomWcol ComputeWcolBrut LSWcolBoth CheckIndependent UQWMix FixIsolatedInOrder
 
 OPTFLAGS=-O2 -std=c++11
 OPTLOCALFLAGS= -DLOCAL -std=c++11 -O2
@@ -30,7 +30,7 @@ FlatWcol: FlatWcol.o ReadTxt.o FilesOps.o FlagParser.o
 Degeneracy: Degeneracy.o ReadTxt.o FilesOps.o FlagParser.o ComputeWReach.o ComputeDegeneracy.o CommonGraph.o UQWReviver.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 
-UQW-new: UQW-new.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
+UQW-new1: UQW-new1.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o
 	$(CXX) $(LDFLAGS) $^ -o $@
 	
 UQW-new2: UQW-new2.o ReadTxt.o FilesOps.o ComputeWReach.o UQWReviver.o CommonGraph.o

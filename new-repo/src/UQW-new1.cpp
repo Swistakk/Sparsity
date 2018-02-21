@@ -7,7 +7,7 @@
 
 int main(int argc, char** argv) {
   if (argc != 5) {
-    cerr<<"Usage: ./UQW-new graph.txtg order.txt radius percentage"<<endl;
+    cerr<<"Usage: ./UQW-new1 graph.txtg order.txt radius percentage"<<endl;
     cerr<<"percentage - integer number from interval [0, 100] denoting how big\n";
     cerr<<"  (in percents) initial set A should be \n";
     return 1;
