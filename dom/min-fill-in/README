@@ -1,6 +1,6 @@
-apprtTW implements the min-fill-in heuristic to compute an elimination order for treewidth. In this version,
-it first takes a vertex with maximum degree as trhe last one in the order and then orders vertices from the
-biggest to the least one. In an iteration, assume that positions >i already have vertices. Among all unsorted
+apprtTW implements the minimum-degree heuristic to compute an elimination order for treewidth. In this version,
+it first takes a vertex with minimum degree as the last one in the order and then orders vertices from the
+biggest to the least one. In an iteration step, assume that positions >i already have vertices. Among all unsorted
 vertices, it takes one (with the least id, or randomly if parameter -r is given to the programme) with the least
 back degree. The back degree of a vertex is the number of yet unsorted vertices reachable by paths that use
 only sorted vertices (except the first and the last ones on the path).
@@ -14,7 +14,7 @@ You need boost's program options and disjoint sets to compile apprTW. Please, se
 
   export BOOST=/usr/local/boost_1_66_0/
 
-and then enter
+and then
 
   make
 
