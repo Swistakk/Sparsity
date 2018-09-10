@@ -20,4 +20,6 @@ vector<vector<int>> ComputeClustersFromWReach(vector<vector<int>>& wreach);
 
 int ComputeWcolFromWReach(vector<vector<int>>& wreach);
 
+vector<int> ComputeWreachSzs(vector<vector<int>>& graph, vector<int>& where_in_order, int R);
+
 int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int radius);

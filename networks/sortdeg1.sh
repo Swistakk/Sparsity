@@ -1,3 +1,3 @@
 for input in *.txtg; do
-  ~/git/programs/wcol-practical/dom/SortDeg --in=$input --rad=1;
+  ~/Dokumenty/Mgr/OldRepo/dom/SortDeg --in=$input --rad=1;
 done

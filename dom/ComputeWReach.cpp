@@ -20,9 +20,10 @@ vector<vector<int>> ComputeAllWReach(vector<vector<int>>& graph,
   return res;
 }
 
-// this is needed for huge graphs to omit unnecessary O(n^2) memory
-// if wcol is all we need
-int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
+// these two are needed for huge graphs to omit unnecessary O(n^2) memory
+// if wcol or wreach_sz is all we need
+
+vector<int> ComputeWreachSzs(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
   int n = graph.size() - 1;
   vector<int> last_vis(n + 1, -1);
   vector<int> dis(n + 1);
@@ -34,6 +35,11 @@ int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) 
       wreach_sz[v]++;
     }
   }
+  return wreach_sz;
+}
+
+int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
+  vector<int> wreach_sz = ComputeWreachSzs(graph, where_in_order, R);
   int res = 0;
   for (auto x : wreach_sz) {
     res = max(x, res);
