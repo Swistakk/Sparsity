@@ -34,6 +34,9 @@ UQW-MFCS
 UQW-TGV
 UQW-TGV2
 UQWPatcher
+TW
+ByWReachLeft
+BySReachRight
 networks/proba.sh
 networks/timereport-berlin.csv
 networks/tmp
@@ -78,4 +81,5 @@ new-repo/src/UQW-new
 new-repo/src/UQW-new2
 new-repo/src/UQW-new_ld
 new-repo/src/UQWMix
-
+new-repo/*
+networks/small_stats_old.csv
