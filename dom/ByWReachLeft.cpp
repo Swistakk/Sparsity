@@ -10,6 +10,15 @@ void Err() {
   exit(1);
 }
 
+struct Vert {
+  int wreach_sz, deg, id;
+  bool operator<(const Vert& oth) const {
+    if (wreach_sz != oth.wreach_sz) { return wreach_sz > oth.wreach_sz; }
+    if (deg != oth.deg) { return deg > oth.deg; }
+    return id < oth.id;
+  }
+};
+
 int main(int argc, char** argv) {
   if (argc == 2 && string(argv[1]) == "--h") {
     cerr<<"Usage: ./ByWReachLeft --in=graph.txtg --rad=radius [--o=output.txt]"<<endl;
@@ -68,23 +77,32 @@ int main(int argc, char** argv) {
   vector<int> last_vis(n + 1);
   vector<int> dis(n + 1);
   vector<int> is_forb_dummy;
+  set<Vert> verts;
   for (int i = 1; i <= n; i++) {
-    pair<int, int> best_val{-1, -1};
-    int where_best = -1;
-    for (int j = 1; j <= n; j++) {
-      if (put[j]) { continue; }
-      pair<int, int> cand = {wreach_szs[j], graph[j].size()};
-      if (cand > best_val) {
-        where_best = j;
-        best_val = cand;
-      }
-    }
+    verts.insert({0, (int)graph[i].size(), i});
+  }
+  for (int i = 1; i <= n; i++) {
+   // pair<int, int> best_val{-1, -1};
+    int where_best = verts.begin()->id;
+    verts.erase(verts.begin());
+//     for (int j = 1; j <= n; j++) {
+//       if (put[j]) { continue; }
+//       pair<int, int> cand = {wreach_szs[j], graph[j].size()};
+//       if (cand > best_val) {
+//         where_best = j;
+//         best_val = cand;
+//       }
+//     }
     where_in_order[where_best] = i;
     put[where_best] = 1;
     order.PB(where_best);
     vector<int> cluster = ComputeSingleCluster(graph, where_in_order, R, is_forb_dummy, last_vis, dis, where_best, i);
     for (auto x : cluster) {
+      if (x == where_best) { continue; }
+      auto it = verts.find({wreach_szs[x], (int)graph[x].size(), x});
+      verts.erase(it);
       wreach_szs[x]++;
+      verts.insert({wreach_szs[x], (int)graph[x].size(), x});
     }
   }
   
