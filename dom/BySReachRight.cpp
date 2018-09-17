@@ -63,45 +63,63 @@ int main(int argc, char** argv) {
   vector<int> where_in_order(n + 1); // hacky hack to set where_in_order to 0 for all not decided vertices
   vector<int> put(n + 1);
   vector<int> order;
+  //vector<int> cur_sreach_sz(n + 1);
+  vector<unordered_set<int>> cur_sreach(n + 1);
+  for (int i = 1; i <= n; i++) {
+    cur_sreach[i] = unordered_set<int>(graph[i].begin(), graph[i].end());
+    //assert(cur_sreach[i].count(i) == 0);
+    cur_sreach[i].insert(i);
+  
+  }
+  vector<int> last_vis(n + 1);
+  vector<int> dis(n + 1);
   for (int i = n; i >= 1; i--) {
     pair<int, int> best_val{n + 1, n + 1};
     int where_best = -1;
-    vector<int> last_vis(n + 1);
-    vector<int> dis(n + 1);
-    for (int j = 1; j <= n; j++) {
-      if (put[j]) { continue; }
-      vector<int> que{j};
-      last_vis[j] = j;
-      dis[j] = 0;
-      int my_sreach = 1;
-      for (int ii = 0; ii < que.size(); ii++) {
-        int v = que[ii];
-        for (auto nei : graph[v]) {
-          if (last_vis[nei] == j) { continue; }
-          last_vis[nei] = j;
-          dis[nei] = dis[v] + 1;
-          if (where_in_order[nei] == 0) {
-            my_sreach++;
-            if (my_sreach > best_val.st) {
-              goto EndBfs;
-            }
-          } else {
-            if (dis[nei] < R) {
-              que.PB(nei);
+    for (int cand = 1; cand <= n; cand++) {
+      if (put[cand]) { continue; }
+      pair<int, int> val = {cur_sreach[cand].size(), graph[cand].size()};
+      if (val < best_val) {
+        where_best = cand;
+        best_val = val;
+      }
+    }
+    //debug(where_best, reader.GetOriginalFromMapped(where_best), best_val.st, best_val.nd);
+    where_in_order[where_best] = i;
+    put[where_best] = 1;
+    order.PB(where_best);
+    vector<vector<int>> at_dist(R + 2);
+    vector<int> que{where_best};
+    last_vis[where_best] = where_best;
+    dis[where_best] = 0;
+    for (int ii = 0; ii < que.size(); ii++) {
+      int v = que[ii];
+      //at_dist[dis[v]].PB(v);
+      for (auto nei : graph[v]) {
+        if (last_vis[nei] == where_best) { continue; }
+        last_vis[nei] = where_best;
+        dis[nei] = dis[v] + 1;
+        if (where_in_order[nei] == 0) {
+          at_dist[dis[nei]].PB(nei);
+          cur_sreach[nei].erase(where_best);
+        } else {
+          if (dis[nei] < R) {
+            que.PB(nei);
+          }
+        }
+      }
+    }
+    for (int r1 = 1; r1 <= R - 1; r1++) {
+      for (int r2 = 1; r1 + r2 <= R; r2++) {
+        for (auto v1 : at_dist[r1]) {
+          for (auto v2 : at_dist[r2]) {
+            if (v1 != v2) {
+              cur_sreach[v1].insert(v2);
             }
           }
         }
       }
-      EndBfs: ;
-      pair<int, int> cand = {my_sreach, graph[j].size()};
-      if (cand < best_val) {
-        where_best = j;
-        best_val = cand;
-      }
     }
-    where_in_order[where_best] = i;
-    put[where_best] = 1;
-    order.PB(where_best);
   }
   reverse(order.begin(), order.end());
   
