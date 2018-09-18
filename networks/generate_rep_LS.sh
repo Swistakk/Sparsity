@@ -10,8 +10,8 @@ for rad in {2..5}; do
     progs="sortdeg1 td fill-in berlin.sna "$felix
     printf $name,$rad >> ../$1_LS_rep.csv;
     for prog in $progs; do
-      before=$( (~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol) | tr -d '\n')
-      after=$( (~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.ls$rad.txt --rad=$rad --mode=wcol) | tr -d '\n')
+      before=$( (~/Dokumenty/Mgr/OldRepo/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol) | tr -d '\n')
+      after=$( (~/Dokumenty/Mgr/OldRepo/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.ls$rad.txt --rad=$rad --mode=wcol) | tr -d '\n')
       printf ,$before,$after >> ../$1_LS_rep.csv;
     done
     printf '\n' >> ../$1_LS_rep.csv;
