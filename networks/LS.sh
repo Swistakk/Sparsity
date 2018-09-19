@@ -2,9 +2,9 @@ TIMEOUT=60
 for input in *.txtg; do
   for rad in {2..5}; do
     name=${input:0:-5};
-    wreach="bywreach"$rad
+    #wreach="bywreach"$rad
     sreach="bysreach"$rad
-    progs=$wreach" "$sreach
+    progs=$sreach
     #echo $progs
     #felix="felix"$rad
     #progs="sortdeg1 berlin.sna td fill-in "$felix

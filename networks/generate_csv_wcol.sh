@@ -7,7 +7,7 @@ for revv in n y; do
     done
   done
 done
-progs="random deg1 deg2 deg3 deg4 deg5 bysreach1 bysreach2 bysreach3 bysreach4 bysreach5 bywreach1 bywreach2 bywreach3 bywreach4 bywreach5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 td fill-in tw felix1 felix2 felix3 felix4 felix5 $berlins christoph";
+progs="random deg1 deg2 deg3 deg4 deg5 bywreach1 bywreach2 bywreach3 bywreach4 bywreach5 bysreach1 bysreach2 bysreach3 bysreach4 bysreach5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 td fill-in tw felix1 felix2 felix3 felix4 felix5 $berlins christoph";
 #progs="random deg1 deg2 deg3 deg4 deg5 bywreach1 bywreach2 bywreach3 bywreach4 bywreach5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 td fill-in felix1 felix2 felix3 felix4 felix5 $berlins christoph";
 
 last_prog="christoph"

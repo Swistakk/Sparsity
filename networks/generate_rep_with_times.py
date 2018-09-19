@@ -12,8 +12,8 @@ parser.add_argument('dir', type=str)
 args = parser.parse_args()
 
 single_timeout = 60
-timetmp = "mktemp4"
-outtmp = "tmp4"
+timetmp = "mktemp7"
+outtmp = "tmp7"
 inputs = os.popen("cd " + args.dir + " && ls *.txtg").read()
 inputs = inputs.split()
 print (inputs)
