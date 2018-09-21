@@ -40,7 +40,7 @@ with open('tmp.dimacs', 'w') as filebuf:
 
 sys.stderr.write("Running td heuristic\n")
 # Probably should use flag "-s" for large graphs.
-subprocess.run(["/home/wojtek/Dokumenty/Mgr/td/td-heuristic/td-bs", "-s", "-p", "-n", "tmp.dimacs"])
+subprocess.run(["/home/wojtek/Dokumenty/Mgr/OldRepo/td/td-heuristic/td-bs", "-s", "-p", "-n", "tmp.dimacs"])
 
 tchildren = defaultdict(list)
 with open('tmp.dimacs', 'r') as filebuf:

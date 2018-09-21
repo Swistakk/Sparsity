@@ -91,8 +91,6 @@ int main(int argc, char** argv) {
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   
-  //debug(order, where_in_order);
-  
   vector<vector<int>> cur_wreach = ComputeAllWReach(graph, where_in_order, R, {});
   int best_wcol = ComputeWcolFromWReach(cur_wreach);
   vector<int> best_order = order;
@@ -133,12 +131,12 @@ int main(int argc, char** argv) {
   order = best_order;
   where_in_order = best_where_in_order;
   
-  vector<vector<int>> cur_wreach_vec = ComputeAllWReach(graph, where_in_order, R, {});
-  vector<vector<int>> cur_clusters = ComputeClustersFromWReach(cur_wreach_vec);
+  cur_wreach = ComputeAllWReach(graph, where_in_order, R, {});
+  vector<vector<int>> cur_clusters = ComputeClustersFromWReach(cur_wreach);
   vector<int> cur_wreach_sz(n + 1);
   set<pair<int, int>> que;
   for (int i = 1; i <= n; i++) {
-    cur_wreach_sz[i] = cur_wreach_vec[i].size();
+    cur_wreach_sz[i] = cur_wreach[i].size();
     que.insert({cur_wreach_sz[i], i});
   }
  
@@ -198,10 +196,8 @@ int main(int argc, char** argv) {
   
   cerr<<"after new wcol: "<<best_wcol<<endl;
   
-  vector<vector<int>> final_wreach = ComputeAllWReach(graph, best_where_in_order, R, {});
-  int final_wcol = ComputeWcolFromWReach(final_wreach);
+  int final_wcol = ComputeWcol(graph, best_where_in_order, R);
   debug(final_wcol);
-  //assert(best_wcol == final_wcol);
   
   ofstream out;
   InitOfstream(out, output_file);

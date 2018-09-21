@@ -55,18 +55,16 @@ int main(int argc, char** argv) {
     Err();
   }
   
-  //cout<<"read params"<<endl;
   GraphReader reader;
   vector<vector<int>> graph = reader.ReadGraph(graph_file);
-  //cout<<"read graph"<<endl;
   int n = graph.size() - 1;
   vector<int> order, where_in_order;
   tie(order, where_in_order) = GetOrderAndWhInOrder(order_file, reader);
   debug(order.size(), n);
-  if (order.size() != n) {
-    cerr<<"Error: Order file should have "<<n<<" vertices, but has "<<order.size()<<endl;
-    exit(1);
-  }
+//   if (order.size() != n) {
+//     cerr<<"Error: Order file should have "<<n<<" vertices, but has "<<order.size()<<endl;
+//     exit(1);
+//   }
   
   if (wcol_mode) {
     cout<<ComputeWcol(graph, where_in_order, R)<<endl;

@@ -12,8 +12,8 @@ parser.add_argument('dir', type=str)
 args = parser.parse_args()
 
 single_timeout = 60
-timetmp = "mktemp2"
-outtmp = "tmp2"
+timetmp = "mktemp7"
+outtmp = "tmp7"
 inputs = os.popen("cd " + args.dir + " && ls *.txtg").read()
 inputs = inputs.split()
 print (inputs)
@@ -24,7 +24,7 @@ if os.path.isfile(outtmp):
 
 os.system("touch " + outtmp)
 
-progs = ["sortdeg1", "td", "fill-in", "berlin.sna", "felixR"]
+progs = ["sortdeg1", "td", "fill-in", "berlin.sna", "WReachR", "SReachR", "felixR"]
 
 max_rad = 5
 res = [[[0 for ind in range(len(progs))] for rad in range(max_rad + 1)] for input in inputs]
@@ -36,14 +36,15 @@ for prog_id in range(len(progs)):
     input = inputs[input_ind]
     input_with_dir = args.dir + "/" + input
     str_st = str(single_timeout)
+    magic_spell = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str_st 
     if prog_id == 0:
-      command = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str_st + " ../dom/SortDeg --in=" + input_with_dir + " --rad=1 --o=" + outtmp
+      command = magic_spell + " ../dom/SortDeg --in=" + input_with_dir + " --rad=1 --o=" + outtmp
     elif prog_id == 1:
-      command = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str_st + " python3.5 ../td/td.py " + input_with_dir + " > " + outtmp
+      command = magic_spell + " python3.5 ../td/td.py " + input_with_dir + " > " + outtmp
     elif prog_id == 2:
-      command = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str_st + " ../dom/min-fill-in/bin/apprTW -i " + input_with_dir + " -o > " + outtmp
+      command = magic_spell + " ../dom/min-fill-in/bin/apprTW -i " + input_with_dir + " -o > " + outtmp
     elif prog_id == 3:
-      command = "/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str_st + " ../dom/BerlinWcol --in=" + input_with_dir + " --order=sortdeg --rev=no --rule=all --o=" + outtmp
+      command = magic_spell + " ../dom/BerlinWcol --in=" + input_with_dir + " --order=sortdeg --rev=no --rule=all --o=" + outtmp
     
     if prog_id <= 3:
       ret = os.system(command) // 256
@@ -51,7 +52,11 @@ for prog_id in range(len(progs)):
     was_timeout_or_rte = False
     for rad in range(2, max_rad + 1):
       if prog_id == 4 and (not was_timeout_or_rte):
-        ret = os.system("/usr/bin/time -q --output=" + timetmp + " -f \"%E\" timeout " + str_st + " ../augmental/scripts/dtf_to_file.py " + input_with_dir + " " + str(rad) + " " + outtmp) // 256
+        ret = os.system(magic_spell + " ../dom/ByWReachLeft --in=" + input_with_dir + " --rad=" + str(rad) + " --o=" + outtmp) // 256
+      if prog_id == 5 and (not was_timeout_or_rte):
+        ret = os.system(magic_spell + " ../dom/BySReachRight --in=" + input_with_dir + " --rad=" + str(rad) + " --o=" + outtmp) // 256
+      if prog_id == 6 and (not was_timeout_or_rte):
+        ret = os.system(magic_spell + " ../augmental/scripts/dtf_to_file.py " + input_with_dir + " " + str(rad) + " " + outtmp) // 256
       if ret == 124:
         timestamp[input_ind][rad][prog_id] = "TIMEOUT"
         res[input_ind][rad][prog_id] = -1
@@ -66,7 +71,7 @@ for prog_id in range(len(progs)):
 
 output_name = args.dir + "_rep_with_times.csv"
 out = open(output_name, "w")
-out.write("test,rad,sortdeg1_wcol,sortdeg1_time,td_wcol,td_time,fill-in_wcol,fill-in_time,berlin.sna_wcol,berlin.sna_time,felixR_wcol,felixR_time\n")
+out.write("test,rad,sortdeg1_wcol,sortdeg1_time,td_wcol,td_time,fill-in_wcol,fill-in_time,berlin.sna_wcol,berlin.sna_time,WReachR_wcol,WReachR_time,SReach_wcol,SReachR_time,felixR_wcol,felixR_time\n")
 
 
 for rad in range(2, max_rad + 1):

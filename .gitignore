@@ -34,6 +34,9 @@ UQW-MFCS
 UQW-TGV
 UQW-TGV2
 UQWPatcher
+TW
+ByWReachLeft
+BySReachRight
 networks/proba.sh
 networks/timereport-berlin.csv
 networks/tmp
@@ -57,3 +60,26 @@ dom/GPATH
 dom/GRTAGS
 
 dom/GTAGS
+
+dom/UQW-TGV3
+dom/UQW-TGV4
+dom/UQW-TGV5
+dom/tablesTODO
+networks/_rep_sortdeg1.csv
+networks/huge_rep_cp.csv
+networks/mktemp
+networks/mktemp2
+networks/small_rep_sortdeg1.csv
+networks/small_uqw_rep_cp.csv
+networks/star.in
+networks/star.ord.txt
+networks/star.txtg
+networks/td_big_cerr.txt
+new-repo/src/FixIsolatedInOrder
+new-repo/src/UQW-TGV3
+new-repo/src/UQW-new
+new-repo/src/UQW-new2
+new-repo/src/UQW-new_ld
+new-repo/src/UQWMix
+new-repo/*
+networks/small_stats_old.csv

@@ -7,7 +7,9 @@ for revv in n y; do
     done
   done
 done
-progs="random deg1 deg2 deg3 deg4 deg5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 td fill-in felix1 felix2 felix3 felix4 felix5 $berlins christoph";
+progs="random deg1 deg2 deg3 deg4 deg5 bywreach1 bywreach2 bywreach3 bywreach4 bywreach5 bysreach1 bysreach2 bysreach3 bysreach4 bysreach5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 td fill-in tw felix1 felix2 felix3 felix4 felix5 $berlins christoph";
+#progs="random deg1 deg2 deg3 deg4 deg5 bywreach1 bywreach2 bywreach3 bywreach4 bywreach5 sortdeg1 sortdeg2 sortdeg3 sortdeg4 sortdeg5 td fill-in felix1 felix2 felix3 felix4 felix5 $berlins christoph";
+
 last_prog="christoph"
 printf test,rad,;
 for prog in $progs; do
@@ -23,7 +25,8 @@ for rad in {1..5}; do
     name=${input:0:-5};
     printf $name,$rad,
     (for prog in $progs; do
-      ~/Dokumenty/Mgr/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol;
+      >&2 echo $name.$prog.txt;
+      ~/Dokumenty/Mgr/OldRepo/dom/WcolStats --in_g=$input --in_o=orders/$name.$prog.txt --rad=$rad --mode=wcol;
       if [ $prog != $last_prog ]
       then
         printf ,

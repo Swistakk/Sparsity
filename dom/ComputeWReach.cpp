@@ -3,38 +3,6 @@
 #include "FilesOps.hpp"
 #include "ComputeWReach.hpp"
 
-
-// vector<int> ComputeSingleWReach(vector<vector<int>>& graph,
-//                                 vector<int>& where_in_order,
-//                                 int root,  
-//                                 int R,
-//                                 vector<int> is_forb) {
-//   int n = graph.size() - 1;
-//   if (is_forb.empty()) { // corresponding to nothing forbidden
-//     is_forb = vector<int>(n + 1);
-//   }
-//   vector<int> last_vis(n + 1, -1);
-//   vector<int> dis(n + 1);
-//   vector<vector<int>> res(n + 1);
-//   if (is_forb[root]) { continue; }
-//   last_vis[root] = root;
-//   dis[root] = 0;
-//   vector<int> que{root};
-//   for (int ii = 0; ii < (int)que.size(); ii++) {
-//     int cur_v = que[ii];
-//     res[cur_v].PB(root);
-//     if (dis[cur_v] == R) { continue; }
-//     for (auto nei : graph[cur_v]) {
-//       if (last_vis[nei] != root && where_in_order[nei] > where_in_order[root] && !is_forb[nei]) {
-//         last_vis[nei] = root;
-//         que.PB(nei);
-//         dis[nei] = dis[cur_v] + 1;
-//       }
-//     }
-//   }
-//   return res;
-// }
-
 vector<vector<int>> ComputeAllWReach(vector<vector<int>>& graph,
                                      vector<int>& where_in_order,
                                      int R,
@@ -52,9 +20,10 @@ vector<vector<int>> ComputeAllWReach(vector<vector<int>>& graph,
   return res;
 }
 
-// this is needed for huge graphs to omit unnecessary O(n^2) memory
-// if wcol is all we need
-int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
+// these two are needed for huge graphs to omit unnecessary O(n^2) memory
+// if wcol or wreach_sz is all we need
+
+vector<int> ComputeWreachSzs(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
   int n = graph.size() - 1;
   vector<int> last_vis(n + 1, -1);
   vector<int> dis(n + 1);
@@ -66,6 +35,11 @@ int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) 
       wreach_sz[v]++;
     }
   }
+  return wreach_sz;
+}
+
+int ComputeWcol(vector<vector<int>>& graph, vector<int>& where_in_order, int R) {
+  vector<int> wreach_sz = ComputeWreachSzs(graph, where_in_order, R);
   int res = 0;
   for (auto x : wreach_sz) {
     res = max(x, res);
