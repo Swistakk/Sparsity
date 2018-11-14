@@ -25,7 +25,7 @@ def compute_stats(filename):
             edges.add((s,t))
             degrees[s] += 1
             degrees[t] += 1
-    if numerrors > 1: # Some files have trailing edge-count
+    if numerrors > 1: # Some files have trailing edge-count 
         raise Exception("Too many errors")
     n = len(degrees)
     m = len(edges)
